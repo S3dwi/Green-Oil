@@ -4,6 +4,7 @@ import 'package:green_oil/home_screen/home_screen.dart';
 final theme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: const Color(0xFFF8F8F8),
+  
 );
 
 void main() {
