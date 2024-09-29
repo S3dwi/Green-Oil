@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:green_oil/home_screen/image_carousel.dart';
 import 'package:green_oil/home_screen/recycle_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -44,6 +45,21 @@ class HomeScreen extends StatelessWidget {
                     child: RecycleButton(),
                   ),
                 ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(25, 40, 25, 20),
+              child: ImageCarousel(),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'Rewards Center',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
             ),
           ],

@@ -11,7 +11,7 @@ class RecycleButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        backgroundColor: const Color.fromARGB(255, 71, 171, 85),
+        backgroundColor: Theme.of(context).primaryColor,
         padding: const EdgeInsets.symmetric(
           vertical: 15,
           horizontal: 10,
