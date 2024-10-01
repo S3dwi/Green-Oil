@@ -21,12 +21,12 @@ class HomeScreen extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.asset(
-                    'images/home_img.png',
+                    'assets/images/home_img.png',
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
                   Positioned(
-                    bottom: 0,
+                    bottom: -1,
                     left: 0,
                     right: 0,
                     child: Container(
@@ -94,12 +94,14 @@ class HomeScreen extends StatelessWidget {
 
             // // Reduced space between "Your Points" and the buttons
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
 
             // // Three buttons taking up full width
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+              ),
               child: Row(
                 children: [
                   ClickableCards(
@@ -125,6 +127,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),
