@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,8 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/splash_img.png'),
-                  fit: BoxFit
-                      .cover, // Ensures the image covers the entire screen
+                  // Ensures the image covers the entire screen
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
