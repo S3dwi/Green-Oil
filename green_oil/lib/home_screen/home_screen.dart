@@ -21,9 +21,37 @@ class HomeScreen extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.asset(
-                    'assets/images/home_img.png',
-                    width: double.infinity,
+                    'assets/images/home_img.png', // Placeholder for the background image
                     fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
+                  const Positioned(
+                    top: 60,
+                    left: 16,
+                    right: 16,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Be Recycled',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 48,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Help the planet & earn rewards!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
                   Positioned(
                     bottom: -1,
