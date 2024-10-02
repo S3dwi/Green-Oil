@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:green_oil/splash_screen/splash_screen.dart';
+import 'package:green_oil/tabs.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -27,7 +27,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       themeMode: ThemeMode.system,
-      home: const SplashScreen(),
+      home: const Tabs(),
     );
   }
 }
