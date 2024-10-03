@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
             // Recycle Button section
             SizedBox(
               width: double.infinity,
-              height: 280, // Same vertical size as before
+              height: 310, // Same vertical size as before
               child: Stack(
                 children: [
                   Image.asset(
@@ -39,16 +39,17 @@ class HomeScreen extends StatelessWidget {
                             fontSize: 48,
                             fontWeight: FontWeight.bold,
                           ),
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.left,
                         ),
-                        SizedBox(height: 8),
+                        SizedBox(height: 0),
                         Text(
-                          'Help the planet & earn rewards!',
+                          'Help the planet & earn \n rewards!',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
+                            fontWeight: FontWeight.w300,
                           ),
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.left,
                         ),
                       ],
                     ),
@@ -80,7 +81,7 @@ class HomeScreen extends StatelessWidget {
             ),
 
             const SizedBox(
-              height: 40,
+              height: 50,
             ),
 
             // Image Carousel
@@ -111,7 +112,7 @@ class HomeScreen extends StatelessWidget {
 
             // Reduced space between title and "Your Points"
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
 
             // "Your Points" button with full width and contents aligned to the left
@@ -122,7 +123,7 @@ class HomeScreen extends StatelessWidget {
 
             // // Reduced space between "Your Points" and the buttons
             const SizedBox(
-              height: 30,
+              height: 16,
             ),
 
             // // Three buttons taking up full width
@@ -135,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                   ClickableCards(
                     onPressed: () {},
                     icon: Icons.info,
-                    label: 'Learn more',
+                    label: 'Learn More',
                   ),
 
                   const SizedBox(width: 10), // Spacing between buttons
@@ -143,15 +144,15 @@ class HomeScreen extends StatelessWidget {
                   ClickableCards(
                     onPressed: () {},
                     icon: Icons.card_giftcard,
-                    label: 'Your rewards',
+                    label: 'Your Rewards',
                   ),
 
-                  const SizedBox(width: 10), // Spacing between buttons
+                  const SizedBox(width: 8), // Spacing between buttons
 
                   ClickableCards(
                     onPressed: () {},
                     icon: Icons.explore,
-                    label: 'Explore rewards',
+                    label: 'Explore Rewards',
                   ),
                 ],
               ),

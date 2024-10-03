@@ -5,17 +5,20 @@ class RecycleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
       onPressed: () {},
-      style: TextButton.styleFrom(
+      style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
         backgroundColor: Theme.of(context).primaryColor,
         padding: const EdgeInsets.symmetric(
-          vertical: 15,
+          vertical: 10,
           horizontal: 10,
         ),
+        //shadow looks only apply horizontally, need to improve
+        // elevation: 6, // This adds the shadow
+        // shadowColor: Colors.black.withOpacity(0.9), // Shadow color
       ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,7 +39,8 @@ class RecycleButton extends StatelessWidget {
                 "Schedule your used oil pickup in seconds",
                 style: TextStyle(
                   color: Color(0xFFF8F8F8),
-                  fontSize: 14,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
                 ),
               ),
             ],

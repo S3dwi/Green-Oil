@@ -5,7 +5,10 @@ import 'package:green_oil/tabs.dart';
 final theme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: const Color(0xFFF8F8F8),
-  primaryColor: const Color(0xFF47AB4D),
+  cardColor: const Color(0xFFFFFFFF),
+  primaryColor: const Color(
+      0xFF47AB4D), // Primary color used for elements like buttons and icon.
+  disabledColor: const Color(0xFFA9A9AC),
 );
 
 void main() {

@@ -43,7 +43,7 @@ class _TabsState extends State<Tabs> {
             BoxShadow(
               color: Colors.black38,
               spreadRadius: 0,
-              blurRadius: 10,
+              blurRadius: 2,
             ),
           ],
         ),

@@ -25,21 +25,22 @@ class ClickableCards extends StatelessWidget {
             borderRadius: BorderRadius.circular(16), // Rounded edges
           ),
           shadowColor: Colors.black, // Shadow color
-          elevation: 10, // Shadow elevation
+          elevation: 6, // Shadow elevation
         ),
         child: Column(
           children: [
             Icon(
               icon,
               color: Theme.of(context).primaryColor,
-              size: 28, // Same larger icon size
+              size: 36, // Same larger icon size
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 6),
             Text(
               label,
               style: const TextStyle(
                 fontSize: 13, // Slightly increased font size
                 color: Colors.black,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],

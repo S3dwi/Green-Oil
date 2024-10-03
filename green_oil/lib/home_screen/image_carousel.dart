@@ -57,7 +57,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
             scrollDirection: Axis.horizontal,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
         // Indicators
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
