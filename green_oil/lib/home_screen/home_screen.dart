@@ -3,9 +3,18 @@ import 'package:green_oil/home_screen/clickable_cards.dart';
 import 'package:green_oil/home_screen/image_carousel.dart';
 import 'package:green_oil/home_screen/point_button.dart';
 import 'package:green_oil/home_screen/recycle_button.dart';
+import 'package:green_oil/oil_type_screen/oil_type_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  void recycleOil(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const OilTypeScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +79,15 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Positioned(
+                  Positioned(
                     bottom: 10,
                     left: 15,
                     right: 15,
-                    child: RecycleButton(),
+                    child: RecycleButton(
+                      onRecycleOil: () {
+                        recycleOil(context);
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -135,7 +148,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   ClickableCards(
                     onPressed: () {},
-                    icon: Icons.info,
+                    icon: Icons.info_outline,
                     label: 'Learn More',
                   ),
 
@@ -151,7 +164,7 @@ class HomeScreen extends StatelessWidget {
 
                   ClickableCards(
                     onPressed: () {},
-                    icon: Icons.explore,
+                    icon: Icons.search,
                     label: 'Explore Rewards',
                   ),
                 ],
