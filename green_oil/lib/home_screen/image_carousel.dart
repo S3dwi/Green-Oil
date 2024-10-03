@@ -45,7 +45,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
             reverse: false,
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 3),
-            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            autoPlayAnimationDuration: const Duration(milliseconds: 1000),
             autoPlayCurve: Curves.fastOutSlowIn,
             enlargeCenterPage: true,
             enlargeFactor: 0.3,

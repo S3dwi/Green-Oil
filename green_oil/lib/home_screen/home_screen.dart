@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 0),
                         Text(
-                          'Help the planet & earn \n rewards!',
+                          'Help the planet & earn \nrewards!',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
             ),
 
             const SizedBox(
-              height: 50,
+              height: 40,
             ),
 
             // Image Carousel
