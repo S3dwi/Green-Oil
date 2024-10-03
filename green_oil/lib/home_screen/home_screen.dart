@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
             // Recycle Button section
             SizedBox(
               width: double.infinity,
-              height: 310, // Same vertical size as before
+              height: 320, // Same vertical size as before
               child: Stack(
                 children: [
                   Image.asset(
@@ -55,12 +55,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    bottom: -1,
+                    bottom: 0,
                     left: 0,
                     right: 0,
                     child: Container(
                       width: double.infinity,
-                      height: 50,
+                      height: 55,
                       decoration: const BoxDecoration(
                         color: Color(0xFFF8F8F8),
                         borderRadius: BorderRadius.only(
@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   const Positioned(
-                    bottom: 0,
+                    bottom: 10,
                     left: 15,
                     right: 15,
                     child: RecycleButton(),

@@ -17,8 +17,8 @@ class RecycleButton extends StatelessWidget {
           horizontal: 10,
         ),
         //shadow looks only apply horizontally, need to improve
-        // elevation: 6, // This adds the shadow
-        // shadowColor: Colors.black.withOpacity(0.9), // Shadow color
+        elevation: 6, // This adds the shadow
+        shadowColor: Colors.black.withOpacity(0.9), // Shadow color
       ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
