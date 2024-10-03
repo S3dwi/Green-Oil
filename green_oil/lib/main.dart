@@ -6,8 +6,12 @@ final theme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: const Color(0xFFF8F8F8),
   cardColor: const Color(0xFFFFFFFF),
+<<<<<<< Updated upstream
   // Primary color used for elements like buttons and icon.
   primaryColor: const Color(0xFF47AB4D),
+=======
+  primaryColor: const Color(0xFF47AB4D), // Primary color used for elements like buttons and icon.
+>>>>>>> Stashed changes
   disabledColor: const Color(0xFFA9A9AC),
 );
 

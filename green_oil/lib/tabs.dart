@@ -79,7 +79,7 @@ class _TabsState extends State<Tabs> {
                 icon: Icon(
                   Icons.person,
                 ),
-                label: 'Schedule',
+                label: 'Profile',
               ),
             ],
           ),

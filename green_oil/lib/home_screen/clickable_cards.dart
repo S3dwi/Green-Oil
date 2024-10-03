@@ -34,13 +34,13 @@ class ClickableCards extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               size: 36, // Same larger icon size
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
             Text(
               label,
               style: const TextStyle(
                 fontSize: 13, // Slightly increased font size
                 color: Colors.black,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w500, //w500 mean the font weight
               ),
             ),
           ],

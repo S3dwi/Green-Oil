@@ -60,6 +60,7 @@ flutter:
   assets:
     - assets/images/home_img.png
     - assets/images/ehsan.png
+    - assets/images/recycleOil.png
     - assets/images/aa.png
     - assets/images/splash_img.png
     - assets/icon/logo.png

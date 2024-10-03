@@ -14,7 +14,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
   int _currentIndex = 0; // Track the current index
 
   final List<String> imageList = [
-    'assets/images/home_img.png',
+    'assets/images/recycleOil.png',
     'assets/images/ehsan.png',
     'assets/images/aa.png',
   ];
