@@ -10,6 +10,7 @@ final theme = ThemeData(
   primaryColor: const Color(0xFF47AB4D),
   disabledColor: const Color(0xFFA9A9AC),
   fontFamily: 'Lato',
+  shadowColor: Colors.black.withOpacity(0.9),
 );
 
 void main() {

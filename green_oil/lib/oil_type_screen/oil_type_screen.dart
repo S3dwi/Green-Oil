@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:green_oil/primary_button.dart';
 
 class OilTypeScreen extends StatelessWidget {
   const OilTypeScreen({super.key});
@@ -24,16 +25,14 @@ class OilTypeScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
-              SizedBox(
-                height: 200,
-              ),
-              Text(
-                "schedulOilTypeScreene",
-                style: TextStyle(fontSize: 30),
+              PrimaryButton(
+                onPressed: () {},
+                backgroundColor: Theme.of(context).disabledColor,
+                label: "NEXT",
               ),
             ],
           ),
