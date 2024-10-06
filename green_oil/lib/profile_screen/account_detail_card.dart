@@ -14,15 +14,15 @@ class AccountDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 375,
-      height: 87,
+      height: 85,
       child: Card(
         elevation: 6,
         shadowColor: Theme.of(context).shadowColor,
         color: Theme.of(context).cardColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 14,
+            horizontal: 18,
+            vertical: 10,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

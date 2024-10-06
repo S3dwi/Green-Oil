@@ -16,7 +16,7 @@ class HelpCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 375,
-      height: 87,
+      height: 85,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
@@ -27,7 +27,7 @@ class HelpCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
-              vertical: 14,
+              vertical: 10,
             ),
             child: Row(
               children: [
