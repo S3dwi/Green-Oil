@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:green_oil/tabs.dart';
+import 'package:green_oil/nav_bar.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -32,7 +32,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       themeMode: ThemeMode.system,
-      home: const Tabs(),
+      home: const NavBar(),
     );
   }
 }

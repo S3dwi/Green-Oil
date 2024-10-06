@@ -14,6 +14,7 @@ class AccountDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 375,
+      height: 87,
       child: Card(
         elevation: 6,
         shadowColor: Theme.of(context).shadowColor,
