@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:green_oil/home_screen/clickable_cards.dart';
 import 'package:green_oil/home_screen/image_carousel.dart';
-import 'package:green_oil/home_screen/point_button.dart';
+import 'package:green_oil/home_screen/new_location.dart';
 import 'package:green_oil/home_screen/recycle_button.dart';
 import 'package:green_oil/oil_type_screen/oil_type_screen.dart';
 
@@ -13,6 +13,14 @@ class HomeScreen extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => const OilTypeScreen(),
       ),
+    );
+  }
+
+  // method to open the NewExpense page in Bottom sheet
+  void _openAddExpense(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => const NewLocation(),
     );
   }
 
@@ -70,26 +78,59 @@ class HomeScreen extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: 58,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF8F8F8),
-                        borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
                         ),
                       ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 15,
-                    right: 15,
-                    child: RecycleButton(
-                      onRecycleOil: () {
-                        recycleOil(context);
-                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              color: Theme.of(context).primaryColor,
+                              size: 30,
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              'Jeddah - Alrabwah 23553, Asbat Bin...',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                              onPressed: () {
+                                _openAddExpense(context);
+                              },
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Theme.of(context).shadowColor,
+                                size: 30,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],
+              ),
+            ),
+
+            const SizedBox(
+              height: 20,
+            ),
+
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15), // Same padding
+              child: RecycleButton(
+                onRecycleOil: () {
+                  recycleOil(context);
+                },
               ),
             ),
 
@@ -104,39 +145,7 @@ class HomeScreen extends StatelessWidget {
             ),
 
             const SizedBox(
-              height: 20,
-            ),
-
-            // Rewards Center Title aligned to the left and closer to "Your Points" button
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Rewards Center',
-                  style: TextStyle(
-                    fontSize: 20, // Same as before
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-
-            // Reduced space between title and "Your Points"
-            const SizedBox(
-              height: 10,
-            ),
-
-            // "Your Points" button with full width and contents aligned to the left
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: PointButton(),
-            ),
-
-            // // Reduced space between "Your Points" and the buttons
-            const SizedBox(
-              height: 16,
+              height: 30,
             ),
 
             // // Three buttons taking up full width

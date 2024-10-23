@@ -34,7 +34,6 @@ flutter:
     - assets/images/ehsan.png
     - assets/images/recycleOil.png
     - assets/images/aa.png
-    - assets/images/background.png
     - assets/icon/logo.png
 
   # To add custom fonts to your application, add a fonts section here,
@@ -49,12 +48,12 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
-  color: "#000000"
+
+  color: "#F8F8F8"
   color_dark: "#272727"
-  background_image: "assets/images/background.png"
-  background_image_dark: "assets/images/background.png"
   image: "assets/icon/logo.png"
   image_dark: "assets/icon/logo.png"
+
   android_12:
     color: "#F8F8F8"
     color_dark: "#272727"
