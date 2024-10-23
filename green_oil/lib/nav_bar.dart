@@ -3,15 +3,15 @@ import 'package:green_oil/home_screen/home_screen.dart';
 import 'package:green_oil/profile_screen/profile_screen.dart';
 import 'package:green_oil/schedule_screen/schedule_screen.dart';
 
-class Tabs extends StatefulWidget {
-  const Tabs({super.key});
+class NavBar extends StatefulWidget {
+  const NavBar({super.key});
   @override
-  State<Tabs> createState() {
-    return _TabsState();
+  State<NavBar> createState() {
+    return _NavBar();
   }
 }
 
-class _TabsState extends State<Tabs> {
+class _NavBar extends State<NavBar> {
   int _selectedPageIndex = 0;
 
   void _selectPage(int index) {

@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
 class RecycleButton extends StatelessWidget {
-  const RecycleButton({super.key});
+  const RecycleButton({
+    super.key,
+    required this.onRecycleOil,
+  });
+
+  final void Function() onRecycleOil;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        onRecycleOil();
+      },
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
