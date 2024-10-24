@@ -3,7 +3,7 @@ import 'package:green_oil/home_screen/clickable_cards.dart';
 import 'package:green_oil/home_screen/image_carousel.dart';
 import 'package:green_oil/home_screen/new_location.dart';
 import 'package:green_oil/home_screen/recycle_button.dart';
-import 'package:green_oil/oil_type_screen/oil_type_screen.dart';
+import 'package:green_oil/recycle_oil_screen/recycle_oil.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,7 +11,9 @@ class HomeScreen extends StatelessWidget {
   void recycleOil(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const OilTypeScreen(),
+        builder: (context) => const RecycleOil(
+          currentStep: 0,
+        ),
       ),
     );
   }
