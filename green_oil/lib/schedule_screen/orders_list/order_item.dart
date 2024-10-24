@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:green_oil/models/order.dart';
+import 'package:green_oil/schedule_screen/schedule_screen.dart';
 
 class OrderItem extends StatelessWidget {
   const OrderItem({super.key, required this.order});
@@ -12,11 +13,10 @@ class OrderItem extends StatelessWidget {
         '${order.arrivalDate.day}/${order.arrivalDate.month}/${order.arrivalDate.year}';
     return Column(
       children: [
-        getOrderStatus(order),
+        getOrderStatus(order, context),
         Card(
           elevation: 2,
-          color: const Color.fromARGB(
-              250, 255, 255, 255), // Shadow/elevation of the card
+          color: Theme.of(context).cardColor,
           margin: const EdgeInsets.symmetric(
               horizontal: 14, vertical: 5), // Space around the card
           child: Padding(
@@ -56,38 +56,6 @@ class OrderItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                //const SizedBox(height: 10),
-                // Arrival Date & Time Rows
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
-                      ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Arrival Date',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                      Text(
-                        formattedDate,
-                        style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-                //const SizedBox(height: 5),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
@@ -131,15 +99,44 @@ class OrderItem extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '${order.oilQuantity.toStringAsFixed(1)}L Oil',
-                        style: const TextStyle(
+                      const Text(
+                        'Estimated Quantity',
+                        style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: Colors.black),
                       ),
                       Text(
-                        '${order.oilQuantity.floor()} Points',
+                        '${order.oilQuantity.toStringAsFixed(1)}L',
+                        style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: [
+                        BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Pickup Date',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                      Text(
+                        formattedDate,
                         style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -155,13 +152,13 @@ class OrderItem extends StatelessWidget {
                   alignment: Alignment.center,
                   child: TextButton(
                     onPressed: () {
-                      // View Details action
+                      const ScheduleScreen().viewOrderDetails(context, order);
                     },
-                    child: const Text(
+                    child: Text(
                       'View Details',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.green,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -169,52 +166,54 @@ class OrderItem extends StatelessWidget {
                 ),
                 //const SizedBox(height: 5),
                 // Buttons: Invoice and Keep Track
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    OutlinedButton(
-                      onPressed: () {
-                        // Invoice action
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                            color: Colors.green), // Green border
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(8), // Rounded corners
-                        ),
-                        minimumSize: const Size(155, 45),
-                      ),
-                      child: const Text(
-                        'Invoice',
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Keep Track action
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green, // Green background
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(8), // Rounded corners
-                        ),
-                        minimumSize: const Size(155, 45),
-                      ),
-                      child: const Text(
-                        'Keep Track',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900),
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     OutlinedButton(
+                //       onPressed: () {
+                //         // Invoice action
+                //       },
+                //       style: OutlinedButton.styleFrom(
+                //         side: BorderSide(
+                //             color:
+                //                 Theme.of(context).primaryColor), // Green border
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius:
+                //               BorderRadius.circular(8), // Rounded corners
+                //         ),
+                //         minimumSize: const Size(155, 45),
+                //       ),
+                //       child: Text(
+                //         'Invoice',
+                //         style: TextStyle(
+                //             color: Theme.of(context).primaryColor,
+                //             fontSize: 18,
+                //             fontWeight: FontWeight.w900),
+                //       ),
+                //     ),
+                //     ElevatedButton(
+                //       onPressed: () {
+                //         // Keep Track action
+                //       },
+                //       style: ElevatedButton.styleFrom(
+                //         backgroundColor:
+                //             Theme.of(context).primaryColor, // Green background
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius:
+                //               BorderRadius.circular(8), // Rounded corners
+                //         ),
+                //         minimumSize: const Size(155, 45),
+                //       ),
+                //       child: const Text(
+                //         'Keep Track',
+                //         style: TextStyle(
+                //             color: Colors.white,
+                //             fontSize: 18,
+                //             fontWeight: FontWeight.w900),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),
@@ -227,40 +226,44 @@ class OrderItem extends StatelessWidget {
   }
 }
 
-Widget getOrderStatus(Order order) {
+Widget getOrderStatus(Order order, BuildContext context) {
   if (order.orderStatus == OrderStatus.processing) {
-    return const Row(
+    return Row(
       children: [
-        SizedBox(width: 14),
+        const SizedBox(width: 14),
         Icon(
           Icons.sync_rounded,
-          color: Colors.grey,
+          color: Theme.of(context).disabledColor,
         ),
-        SizedBox(
+        const SizedBox(
           width: 8,
         ),
         Text(
           "Processing",
           style: TextStyle(
-              fontSize: 25, fontWeight: FontWeight.w900, color: Colors.grey),
+              fontSize: 25,
+              fontWeight: FontWeight.w900,
+              color: Theme.of(context).disabledColor),
         ),
       ],
     );
   } else if (order.orderStatus == OrderStatus.completed) {
-    return const Row(
+    return Row(
       children: [
-        SizedBox(width: 14),
+        const SizedBox(width: 14),
         Icon(
           Icons.check_circle_outline_rounded,
-          color: Colors.green,
+          color: Theme.of(context).primaryColor,
         ),
-        SizedBox(
+        const SizedBox(
           width: 8,
         ),
         Text(
           "Completed",
           style: TextStyle(
-              fontSize: 25, fontWeight: FontWeight.w900, color: Colors.green),
+              fontSize: 25,
+              fontWeight: FontWeight.w900,
+              color: Theme.of(context).primaryColor),
         ),
       ],
     );

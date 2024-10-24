@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:green_oil/models/order.dart';
+import 'package:green_oil/schedule_screen/order_details.dart';
 import 'package:green_oil/schedule_screen/order_switcher.dart';
 
 class ScheduleScreen extends StatelessWidget {
   const ScheduleScreen({super.key});
+
+  void viewOrderDetails(BuildContext context, Order order) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => OrderDetails(
+          order: order,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +29,6 @@ class ScheduleScreen extends StatelessWidget {
             Text(
               "Schedule",
               style: TextStyle(
-                  //* TO BE CHANGED TO THEME LATER
                   color: Colors.black,
                   fontSize: 28,
                   fontWeight: FontWeight.w900),

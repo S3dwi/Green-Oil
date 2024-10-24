@@ -7,9 +7,6 @@ version: 1.0.0+1
 environment:
   sdk: ">=3.5.1 <4.0.0" # Properly defined version range
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
 dependencies:
   flutter:
     sdk: flutter
@@ -17,18 +14,16 @@ dependencies:
   carousel_slider: ^5.0.0
   flutter_native_splash: ^2.4.1
   uuid: ^4.5.1
+  url_launcher: ^6.1.9 # Updated to the latest version
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  # Encourages good coding practices
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0 # Encourages good coding practices
 
-# The following section is specific to Flutter packages.
 flutter:
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/home_img.png
     - assets/images/ehsan.png
@@ -36,14 +31,11 @@ flutter:
     - assets/images/aa.png
     - assets/icon/logo.png
 
-  # To add custom fonts to your application, add a fonts section here,
   fonts:
     - family: Lato
       fonts:
         - asset: assets/fonts/Lato_Regular.ttf
 
-# The following section is specific to Flutter Native Splash.
-# It is used to customize the launch screen and app icon for different platforms.
 flutter_native_splash:
   android: true
   ios: true
