@@ -24,12 +24,12 @@ class ProfileScreen extends StatelessWidget {
           children: [
             SizedBox(
               width: double.infinity,
-              height: 320,
+              height: 330,
               child: Stack(
                 children: [
                   Container(
                     width: double.infinity,
-                    height: 280,
+                    height: 290,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(30),
@@ -37,9 +37,9 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       gradient: LinearGradient(
                         colors: [
-                          Color(0xff5EAF63),
+                          Color.fromARGB(255, 82, 156, 87),
                           Color(0xff6db571),
-                          Color(0xff8dc491),
+                          Color.fromARGB(255, 161, 213, 164),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -49,9 +49,9 @@ class ProfileScreen extends StatelessWidget {
                       alignment: AlignmentDirectional.topCenter,
                       children: [
                         const Positioned(
-                          top: 55,
+                          top: 56,
                           child: CircleAvatar(
-                            radius: 55,
+                            radius: 64,
                             backgroundImage:
                                 AssetImage('assets/images/home_img.png'),
                           ),
@@ -59,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                         Positioned(
                           right: 10,
                           left: 10,
-                          top: 30,
+                          top: 36,
                           child: Row(
                             children: [
                               IconButton(
@@ -71,19 +71,19 @@ class ProfileScreen extends StatelessWidget {
                               const Spacer(),
                               IconButton(
                                 onPressed: () {},
-                                icon: const Icon(Icons.edit),
-                                iconSize: 40,
+                                icon: const Icon(Icons.edit_outlined),
+                                iconSize: 36,
                                 color: Colors.black,
                               ),
                             ],
                           ),
                         ),
                         Positioned(
-                          bottom: 65,
+                          bottom: 60,
                           child: Text(
                             'RAEF SHAH'.toUpperCase(),
                             style: const TextStyle(
-                              fontSize: 25,
+                              fontSize: 26,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -92,19 +92,19 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const Positioned(
-                    bottom: 5,
-                    right: 18.2,
-                    left: 18.2,
+                    bottom: 0,
+                    right: 18,
+                    left: 18,
                     child: AccountDetailCard(
                       label: "Name",
-                      value: "RAEF ATEF SHAH",
+                      value: "Raef Atef Shah",
                     ),
                   )
                 ],
               ),
             ),
             const SizedBox(
-              height: 5,
+              height: 6,
             ),
             const AccountDetailCard(
               label: "Email",
@@ -118,14 +118,14 @@ class ProfileScreen extends StatelessWidget {
             //   value: "***************",
             // ),
             const SizedBox(
-              height: 10,
+              height: 6,
             ),
             const AccountDetailCard(
               label: "Location",
               value: "Saudi Arabia, Jeddah",
             ),
             const SizedBox(
-              height: 25,
+              height: 32,
             ),
             HelpCenter(
               onTap: () {
@@ -133,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
               },
             ),
             const SizedBox(
-              height: 10,
+              height: 6,
             ),
             LogOut(
               onTap: () {},

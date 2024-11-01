@@ -14,15 +14,15 @@ class AccountDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 375,
-      height: 85,
+      height: 80,
       child: Card(
-        elevation: 6,
+        elevation: 4,
         shadowColor: Theme.of(context).shadowColor,
         color: Theme.of(context).cardColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 10,
+            horizontal: 16,
+            vertical: 12,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,11 +31,11 @@ class AccountDetailCard extends StatelessWidget {
                 label,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 16,
                 ),
               ),
               const SizedBox(
-                height: 5,
+                height: 2,
               ),
               Text(
                 value,
