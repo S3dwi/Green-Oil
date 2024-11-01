@@ -14,42 +14,52 @@ class OrderSwitcher extends StatefulWidget {
 class _OrderSwitcherState extends State<OrderSwitcher> {
   final List<Order> _ongoingOrders = [
     Order(
-        orderID: 'DS032402',
-        oilType: OilType.cookingOil,
-        oilQuantity: 10.5,
-        arrivalDate: DateTime.now(),
-        orderStatus: OrderStatus.processing,
-        reward: "Ehsan Donation"),
+      orderID: 'DS032402',
+      oilType: OilType.cookingOil,
+      oilQuantity: 10.5,
+      arrivalDate: DateTime.now(),
+      orderStatus: OrderStatus.processing,
+      location:
+          Location(city: 'Jeddah', latitude: 21.735611, longitude: 39.283458),
+    ),
     Order(
-        orderID: 'DS000032',
-        oilType: OilType.motorOil,
-        oilQuantity: 5.6,
-        arrivalDate: DateTime.now(),
-        orderStatus: OrderStatus.processing,
-        reward: "Ehsan Donation")
+      orderID: 'DS000032',
+      oilType: OilType.motorOil,
+      oilQuantity: 5.6,
+      arrivalDate: DateTime.now(),
+      orderStatus: OrderStatus.processing,
+      location:
+          Location(city: 'Makkah', latitude: 21.381705, longitude: 39.799716),
+    )
   ];
   final List<Order> _historyOrders = [
     Order(
-        orderID: 'DS000041',
-        oilType: OilType.motorOil,
-        oilQuantity: 20.1,
-        arrivalDate: DateTime.parse('2024-07-21 20:18'),
-        orderStatus: OrderStatus.completed,
-        reward: "Cash"),
+      orderID: 'DS000041',
+      oilType: OilType.motorOil,
+      oilQuantity: 20.1,
+      arrivalDate: DateTime.parse('2024-07-21 20:18'),
+      orderStatus: OrderStatus.completed,
+      location:
+          Location(city: 'Riyadh', latitude: 24.677880, longitude: 46.718974),
+    ),
     Order(
-        orderID: 'DS000031',
-        oilType: OilType.motorOil,
-        oilQuantity: 5.7,
-        arrivalDate: DateTime.parse('1969-04-10 20:18'),
-        orderStatus: OrderStatus.completed,
-        reward: "Ehsan Donation"),
+      orderID: 'DS000031',
+      oilType: OilType.motorOil,
+      oilQuantity: 5.7,
+      arrivalDate: DateTime.parse('1969-04-10 20:18'),
+      orderStatus: OrderStatus.completed,
+      location:
+          Location(city: 'Tabuk', latitude: 28.391721, longitude: 36.579294),
+    ),
     Order(
-        orderID: 'DS000049',
-        oilType: OilType.motorOil,
-        oilQuantity: 7.4,
-        arrivalDate: DateTime.parse('1969-02-29 20:18'),
-        orderStatus: OrderStatus.cancelled,
-        reward: "Ehsan Donation")
+      orderID: 'DS000049',
+      oilType: OilType.motorOil,
+      oilQuantity: 7.4,
+      arrivalDate: DateTime.parse('1999-02-29 20:18'),
+      orderStatus: OrderStatus.cancelled,
+      location:
+          Location(city: 'Jeddah', latitude: 22.735891, longitude: 39.283451),
+    )
   ];
 
   int selectedIndex = 0;
@@ -88,8 +98,7 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
-                          color:
-                              selectedIndex == 0 ? Colors.green : Colors.green,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -107,8 +116,7 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
-                          color:
-                              selectedIndex == 1 ? Colors.green : Colors.green,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -126,7 +134,7 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
                 width: 175,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Center(

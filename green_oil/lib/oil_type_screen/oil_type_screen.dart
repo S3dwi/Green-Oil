@@ -33,6 +33,8 @@ class OilTypeScreen extends StatelessWidget {
                 onPressed: () {},
                 backgroundColor: Theme.of(context).disabledColor,
                 label: "NEXT",
+                horizontal: 145,
+                vertical: 13,
               ),
             ],
           ),

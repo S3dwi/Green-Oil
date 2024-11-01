@@ -7,9 +7,6 @@ version: 1.0.0+1
 environment:
   sdk: ">=3.5.1 <4.0.0" # Properly defined version range
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
 dependencies:
   flutter:
     sdk: flutter
@@ -17,46 +14,42 @@ dependencies:
   carousel_slider: ^5.0.0
   flutter_native_splash: ^2.4.1
   uuid: ^4.5.1
+  url_launcher: ^6.1.9 # Updated to the latest version
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  # Encourages good coding practices
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0 # Encourages good coding practices
 
-# The following section is specific to Flutter packages.
 flutter:
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/home_img.png
     - assets/images/ehsan.png
     - assets/images/recycleOil.png
     - assets/images/aa.png
-    - assets/images/background.png
+    - assets/icon/logo_with_name.png
     - assets/icon/logo.png
 
-  # To add custom fonts to your application, add a fonts section here,
   fonts:
     - family: Lato
       fonts:
         - asset: assets/fonts/Lato_Regular.ttf
 
-# The following section is specific to Flutter Native Splash.
-# It is used to customize the launch screen and app icon for different platforms.
 flutter_native_splash:
   android: true
   ios: true
   web: false
-  color: "#000000"
+
+  color: "#F8F8F8"
   color_dark: "#272727"
-  background_image: "assets/images/background.png"
-  background_image_dark: "assets/images/background.png"
-  image: "assets/icon/logo.png"
-  image_dark: "assets/icon/logo.png"
+  image: "assets/icon/logo_with_name.png.png"
+  image_dark: "assets/icon/logo_with_name.png"
+
   android_12:
     color: "#F8F8F8"
     color_dark: "#272727"
-    image: "assets/icon/logo.png"
-    image_dark: "assets/icon/logo.png"
+    image: "assets/icon/logo_with_name.png"
+    image_dark: "assets/icon/logo_with_name.png"
