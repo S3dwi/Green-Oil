@@ -1,0 +1,138 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+class CustomDatePicker extends StatefulWidget {
+  const CustomDatePicker({super.key});
+
+  @override
+  CustomDatePickerState createState() => CustomDatePickerState();
+}
+
+class CustomDatePickerState extends State<CustomDatePicker> {
+  DateTime selectedDate = DateTime.now();
+  List<DateTime> dates = [];
+  late List<String> monthOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    _generateMonthOptions();
+    _generateDates(selectedDate.year, selectedDate.month);
+  }
+
+// Generate a fixed list of month options based on the initial month
+  void _generateMonthOptions() {
+    final now = DateTime.now();
+    monthOptions = List.generate(3, (index) {
+      final month = DateTime(now.year, now.month + index, 1);
+      return DateFormat('MMMM').format(month);
+    });
+  }
+
+  // Generate a list of dates for a specified month and year
+  void _generateDates(int year, int month) {
+    final daysInMonth = DateTime(year, month + 1, 0).day;
+    dates =
+        List.generate(daysInMonth, (index) => DateTime(year, month, index + 1));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // Month Dropdown
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            DropdownButton<String>(
+              value: DateFormat('MMMM').format(selectedDate),
+              items: monthOptions.map((month) {
+                return DropdownMenuItem<String>(
+                  value: month,
+                  child: Text(month),
+                );
+              }).toList(),
+              underline: SizedBox(),
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  int newMonth = DateFormat('MMMM').parse(newValue).month;
+                  setState(() {
+                    // Update selected date to the first day of the selected month
+                    selectedDate = DateTime(selectedDate.year, newMonth, 1);
+                    _generateDates(selectedDate.year, newMonth);
+                  });
+                }
+              },
+            ),
+          ],
+        ),
+        SizedBox(height: 8),
+        // Date Cards
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: dates.map((date) {
+              bool isSelected = date.day == selectedDate.day &&
+                  date.month == selectedDate.month;
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedDate = date;
+                  });
+                },
+                child: Container(
+                  width: 55, // Fixed width
+                  height: 100, // Fixed height
+                  margin: EdgeInsets.symmetric(horizontal: 8),
+                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                  decoration: BoxDecoration(
+                    color: isSelected ? Colors.green : Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(22, 0, 0, 0),
+                        blurRadius: 1,
+                        offset: Offset(0, 1),
+                      ),
+                    ],
+                    border: Border.all(
+                      color: isSelected ? Colors.green : Colors.grey.shade300,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        DateFormat('MMM').format(date).toUpperCase(),
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        date.day.toString(),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: isSelected ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        DateFormat('EEE').format(date).toUpperCase(),
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+}
