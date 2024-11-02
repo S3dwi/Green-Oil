@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class CustomDatePicker extends StatefulWidget {
-  const CustomDatePicker({super.key});
+class SelectPickupDate extends StatefulWidget {
+  const SelectPickupDate({super.key});
 
   @override
-  CustomDatePickerState createState() => CustomDatePickerState();
+  SelectPickupDateState createState() => SelectPickupDateState();
 }
 
-class CustomDatePickerState extends State<CustomDatePicker> {
+class SelectPickupDateState extends State<SelectPickupDate> {
   DateTime selectedDate = DateTime.now();
   List<DateTime> dates = [];
   late List<String> monthOptions;
@@ -20,7 +20,7 @@ class CustomDatePickerState extends State<CustomDatePicker> {
     _generateDates(selectedDate.year, selectedDate.month);
   }
 
-// Generate a fixed list of month options based on the initial month
+  // Generate a fixed list of month options based on the initial month
   void _generateMonthOptions() {
     final now = DateTime.now();
     monthOptions = List.generate(3, (index) {
@@ -29,11 +29,16 @@ class CustomDatePickerState extends State<CustomDatePicker> {
     });
   }
 
-  // Generate a list of dates for a specified month and year
+  // Generate a list of dates for the specified month and year, starting from today
   void _generateDates(int year, int month) {
+    final now = DateTime.now();
     final daysInMonth = DateTime(year, month + 1, 0).day;
-    dates =
-        List.generate(daysInMonth, (index) => DateTime(year, month, index + 1));
+    final startDay = (year == now.year && month == now.month) ? now.day : 1;
+
+    dates = List.generate(
+      daysInMonth - startDay + 1,
+      (index) => DateTime(year, month, startDay + index),
+    );
   }
 
   @override
