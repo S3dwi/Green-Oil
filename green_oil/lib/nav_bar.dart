@@ -4,7 +4,10 @@ import 'package:green_oil/profile_screen/profile_screen.dart';
 import 'package:green_oil/schedule_screen/schedule_screen.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+  const NavBar({super.key, required this.wantedPage});
+
+  final int wantedPage;
+
   @override
   State<NavBar> createState() {
     return _NavBar();
@@ -12,7 +15,14 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBar extends State<NavBar> {
-  int _selectedPageIndex = 0;
+  late int _selectedPageIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize _selectedPageIndex based on wantedPage
+    _selectedPageIndex = widget.wantedPage;
+  }
 
   void _selectPage(int index) {
     setState(() {
@@ -22,7 +32,7 @@ class _NavBar extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = const HomeScreen();
+    Widget activePage = HomeScreen();
 
     if (_selectedPageIndex == 1) {
       activePage = const ScheduleScreen();

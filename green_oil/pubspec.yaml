@@ -32,6 +32,11 @@ flutter:
     - assets/images/aa.png
     - assets/icon/logo_with_name.png
     - assets/icon/logo.png
+    - assets/images/screen_background.png
+    - assets/images/Vector.png
+    - assets/images/green_leaf.png
+    - assets/images/yellow_leaf.png
+    - assets/images/brown_leaf.png
 
   fonts:
     - family: Lato

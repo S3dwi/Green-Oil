@@ -126,7 +126,15 @@ class _SignInScreenState extends State<SignInScreen> {
 
             // Sign-in button
             PrimaryButton(
-              onPressed: _signIn,
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => NavBar(
+                      wantedPage: 0,
+                    ),
+                  ),
+                );
+              },
               backgroundColor: Theme.of(context).primaryColor,
               label: "Sign in",
               horizontal: 145,

@@ -5,29 +5,63 @@ import 'package:green_oil/recycle_oil_screen/oil_type_dropdown.dart';
 import 'package:green_oil/recycle_oil_screen/quantity_selector.dart';
 import 'package:green_oil/recycle_oil_screen/select_pickup_date.dart';
 import 'package:green_oil/recycle_oil_screen/step_progress_indicator.dart';
+import 'package:green_oil/models/order.dart';
+import 'package:green_oil/recycle_oil_screen/order_summary.dart';
 
 class RecycleOil extends StatefulWidget {
   const RecycleOil({super.key, required this.currentStep});
 
   final int currentStep;
 
+  static var totalSteps = 3;
+
+  static var stepTitles = ["Oil Type", "Quantity & Pickup", "Order Summary"];
+
   @override
   State<RecycleOil> createState() => _RecycleOilState();
 }
 
 class _RecycleOilState extends State<RecycleOil> {
-  final int totalSteps = 3;
+  final int totalSteps = RecycleOil.totalSteps;
   int currentStep = 0; // Set initial step
   double quantity = 50.0; // Initial quantity
 
   final TextEditingController _quantityController = TextEditingController();
-  String? _selectedOilType;
 
-  final List<String> stepTitles = [
-    "Oil Type",
-    "Quantity & Pickup",
-    "Order Summary"
-  ];
+  String? _selectedOilType;
+  DateTime? _arrivalDate;
+  Location?
+      _selectedLocation; //to be fixed when location functionality is implemented
+
+  final List<String> stepTitles = RecycleOil.stepTitles;
+
+  // Handle location selection from LocationCard
+  void _onLocationSelected(Location location) {
+    setState(() {
+      _selectedLocation = location;
+    });
+  }
+
+  // Callback to update the selected date
+  void _onDateSelected(DateTime date) {
+    setState(() {
+      _arrivalDate = date;
+    });
+  }
+
+  // Helper method to convert selectedOilType string to OilType enum
+  OilType? _mapStringToOilType(String? oilTypeString) {
+    switch (oilTypeString) {
+      case 'Cooking Oil':
+        return OilType.cookingOil;
+      case 'Motor Oil':
+        return OilType.motorOil;
+      case 'Lubricating Oil':
+        return OilType.lubricating;
+      default:
+        return null;
+    }
+  }
 
   @override
   void initState() {
@@ -101,12 +135,12 @@ class _RecycleOilState extends State<RecycleOil> {
     }
   }
 
-  void _showSelectOilTypeSnackBar() {
+  void _showSelectOilTypeSnackBar(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Center(
           child: Text(
-            "Please Select Oil Type!",
+            msg,
             style: TextStyle(color: Colors.black, fontSize: 15),
           ),
         ),
@@ -209,7 +243,7 @@ class _RecycleOilState extends State<RecycleOil> {
                           ),
 
                           //LOCATION CARD
-                          LocationCard(),
+                          LocationCard(onLocationSelected: _onLocationSelected),
                           SizedBox(height: 40),
 
                           // Select Pickup Date
@@ -227,7 +261,8 @@ class _RecycleOilState extends State<RecycleOil> {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: SelectPickupDate(),
+                            child: SelectPickupDate(
+                                onDateSelected: _onDateSelected),
                           ),
                           SizedBox(height: 50),
 
@@ -235,9 +270,47 @@ class _RecycleOilState extends State<RecycleOil> {
                           PrimaryButton(
                             onPressed: () {
                               if (_selectedOilType == null) {
-                                _showSelectOilTypeSnackBar();
+                                _showSelectOilTypeSnackBar(
+                                    "Please Select Oil Type!");
+                              } else if ( //_selectedLocation == null ||
+                                  _arrivalDate == null) {
+                                _showSelectOilTypeSnackBar(
+                                    "Please Select Location & Pickup Date!");
                               } else {
-                                // Handle the "Next" button logic when oil type is selected
+                                // Convert the selected oil type to enum
+                                final OilType? oilType =
+                                    _mapStringToOilType(_selectedOilType);
+
+                                if (oilType == null) {
+                                  _showSelectOilTypeSnackBar(
+                                      "Invalid Oil Type selected!");
+                                  return;
+                                }
+
+                                //Create the Order object
+                                final order = Order(
+                                  orderID: 'ToBeImplemented',
+                                  oilType: oilType,
+                                  oilQuantity: quantity,
+                                  arrivalDate: _arrivalDate!,
+                                  orderStatus:
+                                      OrderStatus.processing, // default status
+                                  location: Location(
+                                      city: 'Jeddah',
+                                      latitude: 21.735611,
+                                      longitude: 39.283458),
+                                );
+
+                                //Navigate to OrderSummary and pass the order object
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => OrderSummary(
+                                      order: order,
+                                      currentStep: 2,
+                                    ),
+                                  ),
+                                );
                               }
                             },
                             backgroundColor: Theme.of(context).primaryColor,
@@ -260,7 +333,9 @@ class _RecycleOilState extends State<RecycleOil> {
           Positioned.fill(
             top: 240, // Adjust this based on where the dropdown ends
             child: GestureDetector(
-              onTap: _showSelectOilTypeSnackBar,
+              onTap: () {
+                _showSelectOilTypeSnackBar("Please Select Oil Type!");
+              },
               child: Container(
                 color: const Color.fromARGB(0, 0, 0, 0), // Transparent overlay
               ),
