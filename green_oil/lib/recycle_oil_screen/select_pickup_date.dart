@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SelectPickupDate extends StatefulWidget {
-  const SelectPickupDate({super.key});
+  const SelectPickupDate({super.key, required this.onDateSelected});
+
+  final Function(DateTime) onDateSelected;
 
   @override
   SelectPickupDateState createState() => SelectPickupDateState();
 }
 
 class SelectPickupDateState extends State<SelectPickupDate> {
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate;
   List<DateTime> dates = [];
   late List<String> monthOptions;
 
@@ -17,7 +19,7 @@ class SelectPickupDateState extends State<SelectPickupDate> {
   void initState() {
     super.initState();
     _generateMonthOptions();
-    _generateDates(selectedDate.year, selectedDate.month);
+    _generateDates(DateTime.now().year, DateTime.now().month);
   }
 
   // Generate a fixed list of month options based on the initial month
@@ -50,7 +52,9 @@ class SelectPickupDateState extends State<SelectPickupDate> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             DropdownButton<String>(
-              value: DateFormat('MMMM').format(selectedDate),
+              value: selectedDate != null
+                  ? DateFormat('MMMM').format(selectedDate!)
+                  : monthOptions.first,
               items: monthOptions.map((month) {
                 return DropdownMenuItem<String>(
                   value: month,
@@ -62,9 +66,9 @@ class SelectPickupDateState extends State<SelectPickupDate> {
                 if (newValue != null) {
                   int newMonth = DateFormat('MMMM').parse(newValue).month;
                   setState(() {
-                    // Update selected date to the first day of the selected month
-                    selectedDate = DateTime(selectedDate.year, newMonth, 1);
-                    _generateDates(selectedDate.year, newMonth);
+                    // Clear selected date when the month changes
+                    selectedDate = null;
+                    _generateDates(DateTime.now().year, newMonth);
                   });
                 }
               },
@@ -77,12 +81,14 @@ class SelectPickupDateState extends State<SelectPickupDate> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: dates.map((date) {
-              bool isSelected = date.day == selectedDate.day &&
-                  date.month == selectedDate.month;
+              bool isSelected = selectedDate != null &&
+                  date.day == selectedDate!.day &&
+                  date.month == selectedDate!.month;
               return GestureDetector(
                 onTap: () {
                   setState(() {
                     selectedDate = date;
+                    widget.onDateSelected(selectedDate!);
                   });
                 },
                 child: Container(

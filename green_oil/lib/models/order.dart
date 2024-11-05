@@ -15,7 +15,7 @@ class Order {
       required this.orderID,
       required this.location});
 
-  final String orderID;
+  final orderID;
   final OilType oilType;
   final double oilQuantity;
   final DateTime arrivalDate;
