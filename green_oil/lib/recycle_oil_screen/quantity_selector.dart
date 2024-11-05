@@ -8,14 +8,14 @@ class QuantitySelector extends StatelessWidget {
   final TextEditingController controller;
   final Function(String) onSubmitted;
 
-  QuantitySelector({
-    Key? key,
+  const QuantitySelector({
+    super.key,
     required this.quantity,
     required this.onIncrement,
     required this.onDecrement,
     required this.controller,
     required this.onSubmitted,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

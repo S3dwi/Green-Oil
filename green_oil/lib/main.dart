@@ -32,7 +32,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       themeMode: ThemeMode.system,
-      home: SignInScreen(),
+      home: const SignInScreen(),
     );
   }
 }

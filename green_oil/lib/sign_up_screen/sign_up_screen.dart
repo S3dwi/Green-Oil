@@ -1,32 +1,60 @@
 import 'package:flutter/material.dart';
+
 import 'package:green_oil/primary_button.dart';
-import 'package:green_oil/sign_in_screen/sign_in_screen.dart';
-import 'package:green_oil/sign_in_screen/sign_textfield.dart';
+import 'package:green_oil/sign_in_screen/email_text_field.dart';
+import 'package:green_oil/sign_up_screen/name_text_field.dart';
+import 'package:green_oil/sign_in_screen/password_text_field.dart';
+import 'package:green_oil/sign_up_screen/phone_text_field.dart';
 
-class SignUpScreen extends StatelessWidget {
-  SignUpScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  @override
+  State<StatefulWidget> createState() {
+    return _SignUpScreenState();
+  }
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  // Global key to track and validate the form
+  final _form = GlobalKey<FormState>();
+
+  var _enteredName = '';
+
+  // Function to handle account creation
+  void _createAccount() {
+    final isValid = _form.currentState!.validate();
+
+    // If form is invalid, show error message and return
+    if (!isValid) {
+      // show error message ...
+      return;
+    }
+
+    // Save form state and update variables
+    _form.currentState!.save();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false, // Avoid bottom inset adjustments
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 40),
-            // logo
+            const SizedBox(height: 40), // Spacing at top
+
+            // Logo image at top center
             Image.asset(
               "assets/icon/logo.png",
               width: 60,
             ),
 
             const SizedBox(height: 8),
-            // title
+
+            // Screen title
             Text(
               "Create Account",
               style: TextStyle(
@@ -36,7 +64,8 @@ class SignUpScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 3),
-            // welcome back
+
+            // Subtitle
             Text(
               "Be Recycled by join us today!",
               style: TextStyle(
@@ -44,58 +73,54 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 50),
-            // Company Name textField
-            SignTextfield(
-              label: "Company Name (Required)",
-              controller: emailController,
-              obscureText: false,
-            ),
+            const SizedBox(height: 50), // Space before form
 
-            const SizedBox(height: 15),
-            // Contact Person textField
-            SignTextfield(
-              label: "Contact Person (Required)",
-              controller: passwordController,
-              obscureText: false,
-            ),
-
-            const SizedBox(height: 15),
-            // Email Address textField
-            SignTextfield(
-              label: "Email Address (Required)",
-              controller: emailController,
-              obscureText: false,
-            ),
-
-            const SizedBox(height: 15),
-            // Email Address textField
-            SignTextfield(
-              label: "Phone Number (Required)",
-              controller: emailController,
-              obscureText: false,
-            ),
-
-            const SizedBox(height: 15),
-            // Email Address textField
-            SignTextfield(
-              label: "Business Address (Opitonal)",
-              controller: emailController,
-              obscureText: false,
-            ),
-
-            Spacer(),
-            // sign in button
-
-            PrimaryButton(
-              onPressed: () {
-                // TODO: validate inputs and sign up user
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => SignInScreen(),
+            // Sign-Up form with input fields
+            Form(
+              key: _form,
+              child: Column(
+                children: [
+                  // Name input field
+                  NameTextField(
+                    onSaved: (newValue) {
+                      _enteredName = newValue!;
+                    },
                   ),
-                );
-              },
+                  const SizedBox(height: 15),
+
+                  // Phone number input field
+                  PhoneTextField(
+                    onSaved: (newValue) {
+                      _enteredName = newValue!;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+
+                  // Email input field with label
+                  EmailTextField(
+                    label: 'Email Address (Required)',
+                    onSaved: (newValue) {
+                      _enteredName = newValue!;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+
+                  // Password input field with label
+                  PasswordTextField(
+                    label: 'Password (Required)',
+                    onSaved: (newValue) {
+                      _enteredName = newValue!;
+                    },
+                  ),
+                ],
+              ),
+            ),
+
+            Spacer(), // Fills remaining space to push button to the bottom
+
+            // Sign-Up button
+            PrimaryButton(
+              onPressed: _createAccount,
               backgroundColor: Theme.of(context).primaryColor,
               label: "Sign Up",
               horizontal: 140,
@@ -103,7 +128,8 @@ class SignUpScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 20),
-            // sign up
+
+            // Sign-in option with navigation
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -116,7 +142,7 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(width: 5),
                 InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context); // Navigate back to Sign-in screen
                   },
                   child: Text(
                     "Sign in",
