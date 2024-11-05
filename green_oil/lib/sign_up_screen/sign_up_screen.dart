@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:green_oil/primary_button.dart';
 import 'package:green_oil/sign_in_screen/email_text_field.dart';
+import 'package:green_oil/sign_in_screen/sign_in_screen.dart';
 import 'package:green_oil/sign_up_screen/name_text_field.dart';
-import 'package:green_oil/sign_in_screen/password_text_field.dart';
+import 'package:green_oil/sign_up_screen/password_signup.dart';
 import 'package:green_oil/sign_up_screen/phone_text_field.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -20,6 +21,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _form = GlobalKey<FormState>();
 
   var _enteredName = '';
+  var _enteredPhone = '';
+  var _enteredEmail = '';
+  var _enteredPassword = '';
 
   // Function to handle account creation
   void _createAccount() {
@@ -91,7 +95,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // Phone number input field
                   PhoneTextField(
                     onSaved: (newValue) {
-                      _enteredName = newValue!;
+                      _enteredPhone = newValue!;
                     },
                   ),
                   const SizedBox(height: 15),
@@ -100,16 +104,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   EmailTextField(
                     label: 'Email Address (Required)',
                     onSaved: (newValue) {
-                      _enteredName = newValue!;
+                      _enteredEmail = newValue!;
                     },
                   ),
                   const SizedBox(height: 15),
 
                   // Password input field with label
-                  PasswordTextField(
-                    label: 'Password (Required)',
+                  PasswordSignup(
                     onSaved: (newValue) {
-                      _enteredName = newValue!;
+                      _enteredPassword = newValue!;
                     },
                   ),
                 ],
@@ -142,7 +145,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(width: 5),
                 InkWell(
                   onTap: () {
-                    Navigator.pop(context); // Navigate back to Sign-in screen
+                    // Navigate back to Sign-in screen
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SignInScreen(),
+                      ),
+                    );
                   },
                   child: Text(
                     "Sign in",

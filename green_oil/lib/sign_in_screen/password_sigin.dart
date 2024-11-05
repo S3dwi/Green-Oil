@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PasswordTextField extends StatelessWidget {
-  const PasswordTextField({
+class PasswordSigin extends StatelessWidget {
+  const PasswordSigin({
     super.key,
-    required this.label,
     required this.onSaved,
   });
 
-  final String label;
   final void Function(String?) onSaved;
 
   @override
@@ -18,7 +16,7 @@ class PasswordTextField extends StatelessWidget {
         style: const TextStyle(fontSize: 22),
         obscureText: true,
         decoration: InputDecoration(
-          labelText: label,
+          labelText: 'Password',
           floatingLabelStyle: TextStyle(
             color: Theme.of(context)
                 .primaryColor, // Color when label is floating (in focus)
@@ -57,18 +55,6 @@ class PasswordTextField extends StatelessWidget {
           // Check for password length
           if (value.length < 8) {
             return 'Password must be at least 8 characters long';
-          }
-          // Check for at least one number in the password
-          if (!RegExp(r'\d').hasMatch(value)) {
-            return 'Password must contain at least one number';
-          }
-          // Check for at least one letter in the password
-          if (!RegExp(r'[a-zA-Z]').hasMatch(value)) {
-            return 'Password must contain at least one letter';
-          }
-          // Optionally check for at least one special character
-          if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
-            return 'Password must contain at least one special character';
           }
           return null;
         },

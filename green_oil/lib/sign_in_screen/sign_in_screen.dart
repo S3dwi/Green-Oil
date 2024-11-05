@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:green_oil/nav_bar.dart';
 import 'package:green_oil/primary_button.dart';
 import 'package:green_oil/sign_in_screen/email_text_field.dart';
-import 'package:green_oil/sign_in_screen/password_text_field.dart';
+import 'package:green_oil/sign_in_screen/password_sigin.dart';
 import 'package:green_oil/sign_up_screen/sign_up_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -14,28 +14,36 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  @override
-  Widget build(BuildContext context) {
-    // Global key to track and validate the form
-    final _form = GlobalKey<FormState>();
+  // Global key to track and validate the form
+  final _form = GlobalKey<FormState>();
 
-    var _enteredEmail = '';
-    var _enteredPassword = '';
+  var _enteredEmail = '';
+  var _enteredPassword = '';
 
-    // Function to handle SignIn
-    void _signIn() {
-      final isValid = _form.currentState!.validate();
+  // Function to handle SignIn
+  void _signIn() {
+    final isValid = _form.currentState!.validate();
 
-      // If form is invalid, show error message and return
-      if (!isValid) {
-        // show error message ...
-        return;
-      }
-
-      // Save form state and update variables
-      _form.currentState!.save();
+    // If form is invalid, show error message and return
+    if (!isValid) {
+      // show error message ...
+      return;
     }
 
+    // Save form state and update variables
+    _form.currentState!.save();
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => NavBar(
+          wantedPage: 0,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, // Prevents resizing on keyboard open
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -89,8 +97,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   const SizedBox(height: 15),
 
                   // Password input field
-                  PasswordTextField(
-                    label: 'Password',
+                  PasswordSigin(
                     onSaved: (newValue) {
                       _enteredPassword = newValue!;
                     },
@@ -126,15 +133,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
             // Sign-in button
             PrimaryButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => NavBar(
-                      wantedPage: 0,
-                    ),
-                  ),
-                );
-              },
+              onPressed: _signIn,
               backgroundColor: Theme.of(context).primaryColor,
               label: "Sign in",
               horizontal: 145,
