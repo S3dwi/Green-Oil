@@ -110,22 +110,15 @@ class ProfileScreen extends StatelessWidget {
               label: "Email",
               value: "RaefAshah@gmail.com",
             ),
-            // const SizedBox(
-            //   height: 10,
-            // ),
-            // const AccountDetailCard(
-            //   label: "Password",
-            //   value: "***************",
-            // ),
             const SizedBox(
-              height: 6,
+              height: 10,
             ),
             const AccountDetailCard(
-              label: "Location",
-              value: "Saudi Arabia, Jeddah",
+              label: "Password",
+              value: "***************",
             ),
             const SizedBox(
-              height: 32,
+              height: 50,
             ),
             HelpCenter(
               onTap: () {

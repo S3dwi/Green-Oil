@@ -92,10 +92,15 @@ class SelectPickupDateState extends State<SelectPickupDate> {
                   });
                 },
                 child: Container(
-                  width: 55, // Fixed width
+                  width: 57, // Fixed width
                   height: 100, // Fixed height
-                  margin: EdgeInsets.symmetric(horizontal: 8),
-                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 5,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 0,
+                    horizontal: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: isSelected ? Colors.green : Colors.white,
                     borderRadius: BorderRadius.circular(10),

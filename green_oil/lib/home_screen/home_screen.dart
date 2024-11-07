@@ -91,6 +91,7 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
                               Icons.location_on,
@@ -98,11 +99,14 @@ class HomeScreen extends StatelessWidget {
                               size: 30,
                             ),
                             const SizedBox(width: 8),
-                            const Text(
-                              'Jeddah - Alrabwah 23553, Asbat Bin...',
-                              style: TextStyle(fontSize: 16),
+                            Expanded(
+                              child: const Text(
+                                'Jeddah - Alrabwah 23223, Bin Khalid Alansari, Near Albaik Almarwah branch 6977',
+                                style: TextStyle(fontSize: 16),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            const Spacer(),
                             IconButton(
                               onPressed: () {
                                 _openAddExpense(context);
@@ -112,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                                 color: Theme.of(context).shadowColor,
                                 size: 30,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

@@ -23,7 +23,7 @@ class LocationCard extends StatelessWidget {
       onTap: _selectLocation,
       child: Center(
         child: Container(
-          height: 75,
+          height: 80,
           margin: EdgeInsets.symmetric(vertical: 7, horizontal: 25),
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
           decoration: BoxDecoration(

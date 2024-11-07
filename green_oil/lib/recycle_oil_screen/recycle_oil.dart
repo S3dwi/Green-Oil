@@ -182,148 +182,166 @@ class _RecycleOilState extends State<RecycleOil> {
                 ),
               ),
             ),
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                size: 25,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
           ),
           body: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  SizedBox(height: 40),
-                  // Dropdown to choose oil type
-                  OilTypeDropdown(
-                    selectedOilType: _selectedOilType,
-                    onSelected: (String newValue) {
-                      setState(() {
-                        _selectedOilType = newValue;
-                        currentStep = 1;
-                      });
-                    },
-                  ),
-                  SizedBox(height: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 40),
+                // Dropdown to choose oil type
+                OilTypeDropdown(
+                  selectedOilType: _selectedOilType,
+                  onSelected: (String newValue) {
+                    setState(() {
+                      _selectedOilType = newValue;
+                      currentStep = 1;
+                    });
+                  },
+                ),
+                SizedBox(height: 40),
 
-                  // Editable quantity field with increment and decrement buttons
-                  Opacity(
-                    opacity: isDimmed ? 0.5 : 1.0,
-                    child: IgnorePointer(
-                      ignoring: isDimmed,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.symmetric(horizontal: 35),
-                            child: Text(
-                              "Add Your Estimated Oil Quantity (L)",
-                              style: TextStyle(
-                                fontSize: 21,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w900,
-                              ),
+                // Editable quantity field with increment and decrement buttons
+                Opacity(
+                  opacity: isDimmed ? 0.5 : 1.0,
+                  child: IgnorePointer(
+                    ignoring: isDimmed,
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.symmetric(horizontal: 35),
+                          child: Text(
+                            "Add Your Estimated Oil Quantity (L)",
+                            style: TextStyle(
+                              fontSize: 19,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
-                          QuantitySelector(
-                            quantity: quantity,
-                            onIncrement: _incrementQuantity,
-                            onDecrement: _decrementQuantity,
-                            controller: _quantityController,
-                            onSubmitted: _validateQuantityInput,
-                          ),
-                          SizedBox(height: 40),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        QuantitySelector(
+                          quantity: quantity,
+                          onIncrement: _incrementQuantity,
+                          onDecrement: _decrementQuantity,
+                          controller: _quantityController,
+                          onSubmitted: _validateQuantityInput,
+                        ),
+                        SizedBox(height: 40),
 
-                          // Company Location
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.symmetric(horizontal: 35),
-                            child: Text(
-                              "Company Location",
-                              style: TextStyle(
-                                fontSize: 21,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                              ),
+                        // Company Location
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.symmetric(horizontal: 35),
+                          child: Text(
+                            "Company Location",
+                            style: TextStyle(
+                              fontSize: 21,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
+                        ),
 
-                          //LOCATION CARD
-                          LocationCard(onLocationSelected: _onLocationSelected),
-                          SizedBox(height: 40),
+                        //LOCATION CARD
+                        LocationCard(onLocationSelected: _onLocationSelected),
+                        SizedBox(height: 40),
 
-                          // Select Pickup Date
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.symmetric(horizontal: 35),
-                            child: Text(
-                              "Select Pickup Date",
-                              style: TextStyle(
-                                fontSize: 21,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                              ),
+                        // Select Pickup Date
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.symmetric(horizontal: 35),
+                          child: Text(
+                            "Select Pickup Date",
+                            style: TextStyle(
+                              fontSize: 21,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: SelectPickupDate(
-                                onDateSelected: _onDateSelected),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 4,
+                            horizontal: 20,
                           ),
-                          SizedBox(height: 50),
+                          child: SelectPickupDate(
+                            onDateSelected: _onDateSelected,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        // Next Button
+                        PrimaryButton(
+                          onPressed: () {
+                            if (_selectedOilType == null) {
+                              _showSelectOilTypeSnackBar(
+                                  "Please Select Oil Type!");
+                            } else if ( //_selectedLocation == null ||
+                                _arrivalDate == null) {
+                              _showSelectOilTypeSnackBar(
+                                  "Please Select Location & Pickup Date!");
+                            } else {
+                              // Convert the selected oil type to enum
+                              final OilType? oilType =
+                                  _mapStringToOilType(_selectedOilType);
 
-                          // Next Button
-                          PrimaryButton(
-                            onPressed: () {
-                              if (_selectedOilType == null) {
+                              if (oilType == null) {
                                 _showSelectOilTypeSnackBar(
-                                    "Please Select Oil Type!");
-                              } else if ( //_selectedLocation == null ||
-                                  _arrivalDate == null) {
-                                _showSelectOilTypeSnackBar(
-                                    "Please Select Location & Pickup Date!");
-                              } else {
-                                // Convert the selected oil type to enum
-                                final OilType? oilType =
-                                    _mapStringToOilType(_selectedOilType);
-
-                                if (oilType == null) {
-                                  _showSelectOilTypeSnackBar(
-                                      "Invalid Oil Type selected!");
-                                  return;
-                                }
-
-                                //Create the Order object
-                                final order = Order(
-                                  orderID: 'ToBeImplemented',
-                                  oilType: oilType,
-                                  oilQuantity: quantity,
-                                  arrivalDate: _arrivalDate!,
-                                  orderStatus:
-                                      OrderStatus.processing, // default status
-                                  location: Location(
-                                      city: 'Jeddah',
-                                      latitude: 21.735611,
-                                      longitude: 39.283458),
-                                );
-
-                                //Navigate to OrderSummary and pass the order object
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => OrderSummary(
-                                      order: order,
-                                      currentStep: 2,
-                                    ),
-                                  ),
-                                );
+                                    "Invalid Oil Type selected!");
+                                return;
                               }
-                            },
-                            backgroundColor: Theme.of(context).primaryColor,
-                            label: "NEXT",
-                            vertical: 13,
-                            horizontal: 149,
-                          ),
-                        ],
-                      ),
+
+                              //Create the Order object
+                              final order = Order(
+                                orderID: 'ToBeImplemented',
+                                oilType: oilType,
+                                oilQuantity: quantity,
+                                arrivalDate: _arrivalDate!,
+                                orderStatus:
+                                    OrderStatus.processing, // default status
+                                location: Location(
+                                    city: 'Jeddah',
+                                    latitude: 21.735611,
+                                    longitude: 39.283458),
+                              );
+
+                              //Navigate to OrderSummary and pass the order object
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => OrderSummary(
+                                    order: order,
+                                    currentStep: 2,
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          backgroundColor: Theme.of(context).primaryColor,
+                          label: "NEXT",
+                          vertical: 13,
+                          horizontal: 149,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

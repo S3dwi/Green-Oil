@@ -82,7 +82,7 @@ class ConfirmationScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 150),
+                const Spacer(),
                 TextButton(
                   onPressed: () {
                     //Navigate to Home Screen
@@ -115,6 +115,7 @@ class ConfirmationScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 30),
               ],
             ),
           ),

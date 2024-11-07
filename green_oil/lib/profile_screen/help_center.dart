@@ -12,7 +12,7 @@ class HelpCenter extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 375,
-      height: 80,
+      height: 85,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
