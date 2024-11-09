@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:green_oil/nav_bar.dart';
-import 'package:green_oil/primary_button.dart';
+
 import 'package:green_oil/sign_in_screen/email_text_field.dart';
 import 'package:green_oil/sign_in_screen/password_sigin.dart';
+import 'package:green_oil/sign_in_screen/signin_signup.dart';
 import 'package:green_oil/sign_up_screen/sign_up_screen.dart';
+import 'package:green_oil/sign_up_screen/verify_email_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -19,27 +21,54 @@ class _SignInScreenState extends State<SignInScreen> {
 
   var _enteredEmail = '';
   var _enteredPassword = '';
+  bool _isLoading = false;
 
   // Function to handle SignIn
-  void _signIn() {
-    final isValid = _form.currentState!.validate();
+  void _signIn() async {
+    if (_form.currentState!.validate()) {
+      _form.currentState!.save();
 
-    // If form is invalid, show error message and return
-    if (!isValid) {
-      // show error message ...
-      return;
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _enteredEmail,
+          password: _enteredPassword,
+        );
+
+        // Force reload to update verification status
+        await userCredential.user?.reload();
+        final user = FirebaseAuth.instance.currentUser;
+
+        if (user != null && user.emailVerified) {
+          if (mounted) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const NavBar(wantedPage: 0),
+              ),
+            );
+          }
+        } else {
+          if (mounted) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const VerifyEmailScreen(),
+              ),
+            );
+          }
+        }
+      } on FirebaseAuthException catch (error) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error.message ?? 'Authentication failed.')),
+          );
+        }
+      }
     }
-
-    // Save form state and update variables
-    _form.currentState!.save();
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => NavBar(
-          wantedPage: 0,
-        ),
-      ),
-    );
   }
 
   @override
@@ -132,12 +161,24 @@ class _SignInScreenState extends State<SignInScreen> {
             Spacer(),
 
             // Sign-in button
-            PrimaryButton(
-              onPressed: _signIn,
-              backgroundColor: Theme.of(context).primaryColor,
-              label: "Sign in",
-              horizontal: 145,
-              vertical: 13,
+            SigninSignup(
+              onPressed: _isLoading ? () {} : _signIn,
+              vertical: _isLoading ? 15 : 13,
+              horizontal: _isLoading ? 165 : 145,
+              child: _isLoading
+                  ? const SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: CircularProgressIndicator(color: Colors.white),
+                    )
+                  : const Text(
+                      'Sign in',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
             ),
 
             const SizedBox(height: 20),

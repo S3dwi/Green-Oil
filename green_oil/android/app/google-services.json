@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "804851769849",
+    "project_id": "greenoil-11a50",
+    "storage_bucket": "greenoil-11a50.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804851769849:android:869f912a3d65fc3ef01d28",
+        "android_client_info": {
+          "package_name": "com.example.green_oil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1wWwOULMERrLFkoetA5cO0yxSQjtzrfw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
