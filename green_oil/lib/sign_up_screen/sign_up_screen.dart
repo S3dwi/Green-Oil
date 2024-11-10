@@ -72,6 +72,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           );
         }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false; // Stop loading
+          });
+        }
       }
     }
   }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oil/profile_screen/account_detail_card.dart';
@@ -35,6 +36,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
       MaterialPageRoute(builder: (context) => const SignInScreen()),
     );
   }
+
+  // void fetchInfo() async {
+  //   final firebaseUser = FirebaseAuth.instance.currentUser;
+
+  //   if (firebaseUser != null) {
+  //     await FirebaseFirestore.instance
+  //         .collection('provider')
+  //         .doc(firebaseUser.uid)
+  //         .get()
+  //         .then(
+  //       (value) {
+  //         email = value.data['email'];
+  //       },
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -135,8 +152,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 10,
             ),
             const AccountDetailCard(
-              label: "Password",
-              value: "***************",
+              label: "Phone Number",
+              value: "0505406458",
             ),
             const SizedBox(
               height: 50,

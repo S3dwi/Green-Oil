@@ -67,6 +67,12 @@ class _SignInScreenState extends State<SignInScreen> {
             SnackBar(content: Text(error.message ?? 'Authentication failed.')),
           );
         }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false; // Stop loading
+          });
+        }
       }
     }
   }

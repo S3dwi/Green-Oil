@@ -51,11 +51,6 @@ class App extends StatelessWidget {
               return FutureBuilder(
                 future: user.reload(),
                 builder: (context, futureSnapshot) {
-                  if (futureSnapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-
                   if (user.emailVerified) {
                     return const NavBar(wantedPage: 0);
                   } else {

@@ -163,24 +163,24 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   ClickableCards(
                     onPressed: () {},
-                    icon: Icons.info_outline,
-                    label: 'Learn More',
+                    icon: Icons.question_answer,
+                    label: 'FAQs',
                   ),
 
                   const SizedBox(width: 10), // Spacing between buttons
 
                   ClickableCards(
                     onPressed: () {},
-                    icon: Icons.card_giftcard,
-                    label: 'Your Rewards',
+                    icon: Icons.checklist_sharp,
+                    label: 'Order Process',
                   ),
 
                   const SizedBox(width: 8), // Spacing between buttons
 
                   ClickableCards(
                     onPressed: () {},
-                    icon: Icons.search,
-                    label: 'Explore Rewards',
+                    icon: Icons.article_outlined,
+                    label: 'Terms & Conditions',
                   ),
                 ],
               ),

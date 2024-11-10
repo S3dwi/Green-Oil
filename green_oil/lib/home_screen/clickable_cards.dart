@@ -18,8 +18,10 @@ class ClickableCards extends StatelessWidget {
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          padding:
-              const EdgeInsets.symmetric(vertical: 10), // Reduced vertical size
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 1,
+          ), // Reduced vertical size
           backgroundColor: Colors.white, // Same button color
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16), // Rounded edges
