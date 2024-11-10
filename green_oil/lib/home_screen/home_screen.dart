@@ -5,6 +5,8 @@ import 'package:green_oil/home_screen/new_location.dart';
 import 'package:green_oil/home_screen/recycle_button.dart';
 import 'package:green_oil/recycle_oil_screen/recycle_oil.dart';
 import 'package:green_oil/home_screen/faqs_screen.dart';
+import 'package:green_oil/home_screen/usage_policy_screen.dart';
+import 'package:green_oil/home_screen/order_process_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -177,7 +179,13 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(width: 10), // Spacing between buttons
 
                   ClickableCards(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => OrderProcessScreen(),
+                        ),
+                      );
+                    },
                     icon: Icons.checklist_sharp,
                     label: 'Order Process',
                   ),
@@ -185,9 +193,15 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(width: 8), // Spacing between buttons
 
                   ClickableCards(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => UsagePolicyScreen(),
+                        ),
+                      );
+                    },
                     icon: Icons.article_outlined,
-                    label: 'Terms & Conditions',
+                    label: 'Usage Policy',
                   ),
                 ],
               ),

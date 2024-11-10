@@ -32,6 +32,8 @@ class FAQScreen extends StatelessWidget {
           const SizedBox(height: 24),
           Image.asset(
             'assets/icon/logo.png',
+            height: 60,
+            width: 60,
           ),
           const SizedBox(height: 16), // Space between logo and FAQ items
 
