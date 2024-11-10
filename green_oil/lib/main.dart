@@ -12,11 +12,16 @@ final theme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: const Color(0xFFF8F8F8),
   cardColor: const Color(0xFFFFFFFF),
-  // Primary color used for elements like buttons and icon.
   primaryColor: const Color(0xFF47AB4D),
   disabledColor: const Color(0xFFA9A9AC),
   fontFamily: 'Lato',
-  shadowColor: Colors.black.withOpacity(0.9),
+  shadowColor: Colors.black.withOpacity(0.24),
+  buttonTheme: ButtonThemeData(
+    buttonColor: const Color(0xFF47AB4D),
+  ),
+  iconTheme: IconThemeData(
+    color: const Color(0xFF47AB4D), 
+  ),
 );
 
 void main() async {
