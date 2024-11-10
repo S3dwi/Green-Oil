@@ -27,11 +27,11 @@ class LocationCard extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 7, horizontal: 25),
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
-                color: Colors.black26,
+                color: Theme.of(context).shadowColor,
                 blurRadius: 4,
                 offset: Offset(0, 1),
               ),
@@ -42,7 +42,7 @@ class LocationCard extends StatelessWidget {
             children: [
               Icon(
                 Icons.location_on,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
                 size: 30,
               ),
               const SizedBox(width: 8),
@@ -55,9 +55,12 @@ class LocationCard extends StatelessWidget {
                       'Company Address',
                       style: TextStyle(fontWeight: FontWeight.w900),
                     ),
-                    const Text(
+                    Text(
                       'Jeddah - Alrabwah 23223, Bin Khalid Alansari, Near Albaik Almarwah branch 6977',
-                      style: TextStyle(fontSize: 12, color: Colors.black),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -71,7 +74,7 @@ class LocationCard extends StatelessWidget {
                 child: Text(
                   'CHANGE',
                   style: TextStyle(
-                    color: const Color.fromARGB(255, 58, 141, 60),
+                    color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

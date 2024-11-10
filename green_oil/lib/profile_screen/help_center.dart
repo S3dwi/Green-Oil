@@ -19,7 +19,7 @@ class HelpCenter extends StatelessWidget {
         child: Card(
           elevation: 4,
           shadowColor: Theme.of(context).shadowColor,
-          color: Theme.of(context).cardColor,
+          color: Theme.of(context).colorScheme.onPrimary,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 16,

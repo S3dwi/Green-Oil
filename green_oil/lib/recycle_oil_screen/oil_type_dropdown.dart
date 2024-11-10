@@ -24,11 +24,11 @@ class OilTypeDropdown extends StatelessWidget {
       height: 50,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black26,
+            color: Theme.of(context).shadowColor,
             blurRadius: 10,
             offset: Offset(0, 4),
           ),
@@ -46,7 +46,9 @@ class OilTypeDropdown extends StatelessWidget {
                 oilType['name'],
                 style: TextStyle(
                   fontSize: 20,
-                  color: isDisabled ? Colors.grey : Colors.black,
+                  color: isDisabled
+                      ? Theme.of(context).disabledColor
+                      : Theme.of(context).colorScheme.secondary,
                 ),
               ),
             );
@@ -55,7 +57,7 @@ class OilTypeDropdown extends StatelessWidget {
         constraints: BoxConstraints(minWidth: 350),
         offset: Offset(-20, 50),
         elevation: 8,
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.onPrimary,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

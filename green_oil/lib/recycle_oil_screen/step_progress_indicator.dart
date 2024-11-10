@@ -27,7 +27,9 @@ class StepProgressIndicator extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: index <= currentStep ? Colors.green : Colors.grey,
+                      color: index <= currentStep
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).disabledColor,
                       width: 2,
                     ),
                   ),
@@ -37,7 +39,9 @@ class StepProgressIndicator extends StatelessWidget {
                   height: 7,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: index <= currentStep ? Colors.green : Colors.grey,
+                    color: index <= currentStep
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).disabledColor,
                   ),
                 ),
               ],
@@ -46,7 +50,9 @@ class StepProgressIndicator extends StatelessWidget {
               Container(
                 width: 70,
                 height: 2,
-                color: index < currentStep ? Colors.green : Colors.grey[300],
+                color: index < currentStep
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).disabledColor,
               ),
           ],
         );

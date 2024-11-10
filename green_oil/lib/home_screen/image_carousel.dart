@@ -77,8 +77,11 @@ class _ImageCarouselState extends State<ImageCarousel> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: _currentIndex == entry.key
-                      ? Theme.of(context).primaryColor // Active indicator color
-                      : Colors.grey, // Inactive indicator color
+                      ? Theme.of(context)
+                          .colorScheme
+                          .primary // Active indicator color
+                      : Theme.of(context)
+                          .disabledColor, // Inactive indicator color
                 ),
               ),
             );

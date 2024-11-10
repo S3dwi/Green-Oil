@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),
-                  const Positioned(
+                  Positioned(
                     top: 60,
                     left: 16,
                     right: 16,
@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           'Be Recycled',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onSecondary,
                             fontSize: 48,
                             fontWeight: FontWeight.bold,
                           ),
@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           'Help the planet & earn \nrewards!',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onSecondary,
                             fontSize: 24,
                             fontWeight: FontWeight.w300,
                           ),
@@ -96,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.location_on,
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                               size: 30,
                             ),
                             const SizedBox(width: 8),

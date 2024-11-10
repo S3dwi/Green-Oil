@@ -30,12 +30,12 @@ class DeleteAccount extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Delete My Account",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Colors.red,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     ),
                     const SizedBox(
@@ -50,10 +50,10 @@ class DeleteAccount extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                const Icon(
+                Icon(
                   Icons.close,
                   size: 15,
-                  color: Colors.red,
+                  color: Theme.of(context).colorScheme.error,
                 ),
               ],
             ),

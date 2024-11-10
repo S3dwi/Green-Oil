@@ -19,9 +19,9 @@ class LogOut extends StatelessWidget {
         child: Card(
           elevation: 4,
           shadowColor: Theme.of(context).shadowColor,
-          color: Theme.of(context).cardColor,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(
+          color: Theme.of(context).colorScheme.onPrimary,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 12,
             ),
@@ -32,12 +32,14 @@ class LogOut extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
+                    color: Theme.of(context).colorScheme.error,
                   ),
                 ),
                 Spacer(),
                 Icon(
                   Icons.logout,
                   size: 27,
+                  color: Theme.of(context).colorScheme.error,
                 ),
               ],
             ),

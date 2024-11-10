@@ -53,7 +53,7 @@ class OrderSummary extends StatelessWidget {
           SizedBox(height: 40),
           Card(
             elevation: 2,
-            color: Theme.of(context).cardColor,
+            color: Theme.of(context).colorScheme.onPrimary,
             margin: const EdgeInsets.symmetric(
                 horizontal: 14, vertical: 5), // Space around the card
             child: Padding(
@@ -62,30 +62,38 @@ class OrderSummary extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 6,
+                    ),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        boxShadow: [
-                          BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
-                        ]),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade100,
+                          blurRadius: 2,
+                        )
+                      ],
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Oil Type',
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                         Text(
                           getOrderType(order),
-                          style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                       ],
                     ),
@@ -93,52 +101,67 @@ class OrderSummary extends StatelessWidget {
                   //const SizedBox(height: 10),
                   // Oil Quantity and Points
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 6,
+                    ),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        boxShadow: [
-                          BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
-                        ]),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade100,
+                          blurRadius: 2,
+                        )
+                      ],
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Estimated Quantity',
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                         Text(
                           '${order.oilQuantity.toStringAsFixed(1)}L',
-                          style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 6,
+                    ),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        boxShadow: [
-                          BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
-                        ]),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade100,
+                          blurRadius: 2,
+                        )
+                      ],
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Company Location',
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                         TextButton(
                           onPressed: () async {
@@ -146,16 +169,19 @@ class OrderSummary extends StatelessWidget {
                             final Uri uri =
                                 Uri.parse(order.location.googleMapsLink);
                             if (await canLaunchUrl(uri)) {
-                              await launchUrl(uri,
-                                  mode: LaunchMode
-                                      .inAppWebView); // Opens the URL inside the app
+                              await launchUrl(
+                                uri,
+                                mode: LaunchMode.inAppWebView,
+                              ); // Opens the URL inside the app
                             } else {
                               // Show error message to the user using SnackBar
                               // ignore: use_build_context_synchronously
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('Could not launch url'),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.error,
                                 ),
                               );
                             }
@@ -172,41 +198,50 @@ class OrderSummary extends StatelessWidget {
                           ),
                           child: Text(
                             order.location.city,
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black,
-                                decoration: TextDecoration.underline),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Theme.of(context).colorScheme.secondary,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 6,
+                    ),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        boxShadow: [
-                          BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
-                        ]),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade100,
+                          blurRadius: 2,
+                        )
+                      ],
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
                           'Pickup Date',
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
                         ),
                         Text(
                           formattedDate,
                           style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),
@@ -227,7 +262,7 @@ class OrderSummary extends StatelessWidget {
                 ),
               );
             },
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             label: "SUBMIT ORDER",
             vertical: 13,
             horizontal: 91,

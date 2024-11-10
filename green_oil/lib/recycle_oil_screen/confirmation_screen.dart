@@ -9,7 +9,7 @@ class ConfirmationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           Positioned.fill(
@@ -28,21 +28,21 @@ class ConfirmationScreen extends StatelessWidget {
                   height: 225,
                 ),
                 const SizedBox(height: 0),
-                const Text(
+                Text(
                   "Order has been placed \nsuccessfully!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.green,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 26,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   "Your support helps the environment\nthrough recycling!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
@@ -63,7 +63,7 @@ class ConfirmationScreen extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -72,10 +72,10 @@ class ConfirmationScreen extends StatelessWidget {
                         horizontal: 75,
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       "VIEW ORDERS",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onSecondary,
                         fontSize: 20,
                         fontWeight: FontWeight.w900,
                       ),
@@ -95,18 +95,19 @@ class ConfirmationScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: const Text(
+                  child: Text(
                     "BACK TO HOME",
                     style: TextStyle(
                       color: Color.fromARGB(0, 255, 255, 255),
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                       decoration: TextDecoration.underline,
-                      decorationColor: Colors.green,
+                      decorationColor: Theme.of(context).colorScheme.primary,
                       shadows: [
                         Shadow(
-                          color: Colors
-                              .green, // Match background color to create "gap"
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary, // Match background color to create "gap"
                           offset: Offset(
                               0, -5), // Adjust vertical offset to control space
                         ),

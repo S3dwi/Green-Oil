@@ -102,17 +102,21 @@ class SelectPickupDateState extends State<SelectPickupDate> {
                     horizontal: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: isSelected ? Colors.green : Colors.white,
+                    color: isSelected
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.onPrimary,
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color.fromARGB(22, 0, 0, 0),
+                        color: Theme.of(context).shadowColor,
                         blurRadius: 1,
                         offset: Offset(0, 1),
                       ),
                     ],
                     border: Border.all(
-                      color: isSelected ? Colors.green : Colors.grey.shade300,
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.onPrimary,
                     ),
                   ),
                   child: Column(
@@ -121,7 +125,9 @@ class SelectPickupDateState extends State<SelectPickupDate> {
                       Text(
                         DateFormat('MMM').format(date).toUpperCase(),
                         style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black,
+                          color: isSelected
+                              ? Theme.of(context).colorScheme.onSecondary
+                              : Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -130,7 +136,9 @@ class SelectPickupDateState extends State<SelectPickupDate> {
                         date.day.toString(),
                         style: TextStyle(
                           fontSize: 18,
-                          color: isSelected ? Colors.white : Colors.black,
+                          color: isSelected
+                              ? Theme.of(context).colorScheme.onSecondary
+                              : Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -138,7 +146,9 @@ class SelectPickupDateState extends State<SelectPickupDate> {
                       Text(
                         DateFormat('EEE').format(date).toUpperCase(),
                         style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black,
+                          color: isSelected
+                              ? Theme.of(context).colorScheme.onSecondary
+                              : Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ],
