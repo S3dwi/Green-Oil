@@ -1,17 +1,38 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oil/profile_screen/account_detail_card.dart';
 import 'package:green_oil/profile_screen/help_center.dart';
 import 'package:green_oil/profile_screen/log_out.dart';
+import 'package:green_oil/sign_in_screen/sign_in_screen.dart';
 import 'package:green_oil/support_screen/support_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   void helpCenter(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const SupportScreen(),
       ),
+    );
+  }
+
+  void _signOut() async {
+    await FirebaseAuth.instance.signOut();
+
+    if (!mounted) return;
+
+    // Navigate to the initial route without async gaps
+    if (Navigator.of(context).canPop()) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    }
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const SignInScreen()),
     );
   }
 
@@ -129,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
               height: 6,
             ),
             LogOut(
-              onTap: () {},
+              onTap: _signOut,
             ),
           ],
         ),

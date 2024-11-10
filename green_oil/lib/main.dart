@@ -1,5 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:green_oil/nav_bar.dart';
+import 'package:green_oil/sign_up_screen/verify_email_screen.dart';
+import 'firebase_options.dart';
+
 import 'package:green_oil/sign_in_screen/sign_in_screen.dart';
 
 final theme = ThemeData(
@@ -18,23 +24,11 @@ final theme = ThemeData(
   ),
 );
 
-final colorScheme = ColorScheme(
-  primary: Color(0xFF47AB4D), // Main color used for primary interactive elements
-  primaryContainer: Color(0xFF388E3C), // Variant of primary (lighter or darker), used for contrast on surfaces
-  secondary: Color(0xFF000000), // Accent color for secondary UI components
-  surface: Color(0xFFFFFFFF), // Color for surfaces like cards and sheets
-  error: Colors.red, // Error color for showing validation issues
-  
-  onPrimary: Colors.white, // Text/icon color on primary-colored backgrounds
-  onSecondary: Colors.white, // Text/icon color on secondary-colored backgrounds
-  onSurface: Colors.black, // Text/icon color on surface backgrounds
-  onError: Colors.white, // Text/icon color on error backgrounds
-  brightness: Brightness.light, // Theme brightness: light or dark
-);
-
-
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then(
@@ -52,7 +46,34 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       themeMode: ThemeMode.system,
-      home: const SignInScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final user = FirebaseAuth.instance.currentUser;
+
+            if (user != null) {
+              return FutureBuilder(
+                future: user.reload(),
+                builder: (context, futureSnapshot) {
+                  if (futureSnapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (user.emailVerified) {
+                    return const NavBar(wantedPage: 0);
+                  } else {
+                    return const VerifyEmailScreen();
+                  }
+                },
+              );
+            }
+          }
+
+          return const SignInScreen();
+        },
+      ),
     );
   }
 }

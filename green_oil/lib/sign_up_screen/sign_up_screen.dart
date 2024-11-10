@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:green_oil/primary_button.dart';
 import 'package:green_oil/sign_in_screen/email_text_field.dart';
 import 'package:green_oil/sign_in_screen/sign_in_screen.dart';
+import 'package:green_oil/sign_in_screen/signin_signup.dart';
 import 'package:green_oil/sign_up_screen/name_text_field.dart';
 import 'package:green_oil/sign_up_screen/password_signup.dart';
 import 'package:green_oil/sign_up_screen/phone_text_field.dart';
+import 'package:green_oil/sign_up_screen/verify_email_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -24,19 +27,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var _enteredPhone = '';
   var _enteredEmail = '';
   var _enteredPassword = '';
+  bool _isLoading = false;
 
   // Function to handle account creation
-  void _createAccount() {
-    final isValid = _form.currentState!.validate();
+  void _createAccount() async {
+    if (_form.currentState!.validate()) {
+      _form.currentState!.save();
 
-    // If form is invalid, show error message and return
-    if (!isValid) {
-      // show error message ...
-      return;
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _enteredEmail,
+          password: _enteredPassword,
+        );
+
+        await userCredential.user!.sendEmailVerification();
+
+        await FirebaseFirestore.instance
+            .collection('provider')
+            .doc(userCredential.user!.uid)
+            .set({
+          'Name': _enteredName,
+          'Phone': _enteredPhone,
+          'Email': _enteredEmail,
+        });
+
+        if (mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => VerifyEmailScreen(),
+            ),
+          );
+        }
+      } on FirebaseAuthException catch (error) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(error.message ?? 'Authentication failed.'),
+            ),
+          );
+        }
+      }
     }
-
-    // Save form state and update variables
-    _form.currentState!.save();
   }
 
   @override
@@ -122,12 +159,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Spacer(), // Fills remaining space to push button to the bottom
 
             // Sign-Up button
-            PrimaryButton(
-              onPressed: _createAccount,
-              backgroundColor: Theme.of(context).primaryColor,
-              label: "Sign Up",
-              horizontal: 140,
-              vertical: 13,
+            SigninSignup(
+              onPressed: _isLoading ? () {} : _createAccount,
+              vertical: _isLoading ? 15 : 13,
+              horizontal: _isLoading ? 165 : 141.8,
+              child: _isLoading
+                  ? const SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: CircularProgressIndicator(color: Colors.white),
+                    )
+                  : const Text(
+                      'Sign up',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
             ),
 
             const SizedBox(height: 20),
