@@ -14,61 +14,120 @@ class FAQScreen extends StatelessWidget {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        elevation: 0,
         backgroundColor: Colors.transparent,
-        title: const Text(
-          "FAQs",
-          style: TextStyle(
-            fontWeight: FontWeight.w900,
-            fontSize: 28,
-          ),
-        ),
-        centerTitle: true, // Center the title text, if needed
       ),
       body: Column(
         children: [
-          const SizedBox(
-            height: 24,
+          // Title for the FAQ section
+          const Text(
+            "FAQs",
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 28,
+            ),
           ),
+
+          // Logo section
+          const SizedBox(height: 24),
           Image.asset(
-            'assets/icon/logoWithTitle.png',
+            'assets/icon/logo.png',
           ),
-          // Add a Center widget containing the Green Oil logo here, if needed.
+          const SizedBox(height: 16), // Space between logo and FAQ items
 
           Expanded(
             child: ListView(
-              children: [
-                // FAQ Item 1
-                // Add an expansion panel or list tile for "How does GreenOil work?"
-
-                Divider(),
-
-                // FAQ Item 2
-                // Add an expansion panel or list tile for "What types of used oil can I sell?"
-
-                Divider(),
-
-                // FAQ Item 3
-                // Add an expansion panel or list tile for "How much can I earn?"
-
-                Divider(),
-
-                // FAQ Item 4
-                // Add an expansion panel or list tile for "Is there a minimum quantity?"
-
-                Divider(),
-
-                // FAQ Item 5
-                // Add an expansion panel or list tile for "Is my information safe?"
-
-                Divider(),
-
-                // FAQ Item 6
-                // Add an expansion panel or list tile for "How do I get paid?"
+              children: const [
+                FAQItem(
+                  title: "How does GreenOil work?",
+                  description:
+                      "Simple! List your used oil, wait for a buyer, and schedule a pickup.",
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Divider(),
+                ),
+                FAQItem(
+                  title: "What types of used oil can I sell?",
+                  description:
+                      "Currently, we primarily support used cooking oil. We plan to expand our services to include other types of used oil soon.",
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Divider(),
+                ),
+                FAQItem(
+                  title: "How much can I earn?",
+                  description:
+                      "The price depends on market demand and the buyer's offer.",
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Divider(),
+                ),
+                FAQItem(
+                  title: "Is there a minimum quantity?",
+                  description:
+                      "Yes, there is a minimum quantity of 10 liters required for pickup. Please ensure you meet this requirement to proceed with your listing.",
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Divider(),
+                ),
+                FAQItem(
+                  title: "Is my information safe?",
+                  description:
+                      "Yes, we prioritize your privacy and protect your information.",
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Divider(),
+                ),
+                FAQItem(
+                  title: "How do I get paid?",
+                  description:
+                      "You will receive payment directly from the buyer through a method agreed upon by both parties. GreenOil may facilitate the payment process, but the final transaction is between you and the buyer.",
+                ),
               ],
             ),
           ),
+          const SizedBox(height: 32),
         ],
       ),
+    );
+  }
+}
+
+// Inner class for Accordion component
+class FAQItem extends StatelessWidget {
+  final String title;
+  final String description;
+
+  const FAQItem({
+    super.key,
+    required this.title,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      collapsedShape: const RoundedRectangleBorder(),
+      shape: const RoundedRectangleBorder(),
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(description),
+        ),
+        const SizedBox(
+            height: 8), // Add extra space between description and divider
+      ],
     );
   }
 }
