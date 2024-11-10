@@ -22,7 +22,7 @@ class SigninSignup extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         padding: EdgeInsets.symmetric(
           vertical: vertical,
           horizontal: horizontal,

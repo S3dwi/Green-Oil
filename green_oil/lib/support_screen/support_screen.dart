@@ -44,7 +44,7 @@ class SupportScreen extends StatelessWidget {
                           onPressed: () => Navigator.of(context).pop(),
                           icon: const Icon(Icons.arrow_back_ios_new),
                           iconSize: 30,
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                       const Positioned(

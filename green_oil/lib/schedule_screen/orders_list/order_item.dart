@@ -18,133 +18,43 @@ class OrderItem extends StatelessWidget {
           elevation: 2,
           color: Theme.of(context).cardColor,
           margin: const EdgeInsets.symmetric(
-              horizontal: 14, vertical: 5), // Space around the card
+            horizontal: 14,
+            vertical: 5,
+          ), // Space around the card
           child: Padding(
-            padding: const EdgeInsets.all(12.0), // Padding inside the card
+            padding: const EdgeInsets.all(12.0),
+            // Padding inside the card
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Order ID Row
+                // Order ID
+                buildDetailItem(
+                  'Order ID',
+                  order.orderID,
+                  context,
+                ),
 
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
-                      ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Order ID',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.black),
-                      ),
-                      Text(
-                        order.orderID,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
+                // Order Type
+                buildDetailItem(
+                  'Oil Type',
+                  getOrderType(order),
+                  context,
                 ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
-                      ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Oil Type',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                      Text(
-                        getOrderType(order),
-                        style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-                //const SizedBox(height: 10),
+
                 // Oil Quantity and Points
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
-                      ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Estimated Quantity',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                      Text(
-                        '${order.oilQuantity.toStringAsFixed(1)}L',
-                        style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                    ],
-                  ),
+                buildDetailItem(
+                  'Estimated Quantity',
+                  '${order.oilQuantity.toStringAsFixed(1)}L',
+                  context,
                 ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey.shade100, blurRadius: 2)
-                      ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Pickup Date',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                      Text(
-                        formattedDate,
-                        style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                      ),
-                    ],
-                  ),
+
+                // Pickup Date
+                buildDetailItem(
+                  'Pickup Date',
+                  formattedDate,
+                  context,
                 ),
+
                 const SizedBox(height: 5),
                 // View Details Link
                 Container(
@@ -164,56 +74,6 @@ class OrderItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                //const SizedBox(height: 5),
-                // Buttons: Invoice and Keep Track
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                //     OutlinedButton(
-                //       onPressed: () {
-                //         // Invoice action
-                //       },
-                //       style: OutlinedButton.styleFrom(
-                //         side: BorderSide(
-                //             color:
-                //                 Theme.of(context).primaryColor), // Green border
-                //         shape: RoundedRectangleBorder(
-                //           borderRadius:
-                //               BorderRadius.circular(8), // Rounded corners
-                //         ),
-                //         minimumSize: const Size(155, 45),
-                //       ),
-                //       child: Text(
-                //         'Invoice',
-                //         style: TextStyle(
-                //             color: Theme.of(context).primaryColor,
-                //             fontSize: 18,
-                //             fontWeight: FontWeight.w900),
-                //       ),
-                //     ),
-                //     ElevatedButton(
-                //       onPressed: () {
-                //         // Keep Track action
-                //       },
-                //       style: ElevatedButton.styleFrom(
-                //         backgroundColor:
-                //             Theme.of(context).primaryColor, // Green background
-                //         shape: RoundedRectangleBorder(
-                //           borderRadius:
-                //               BorderRadius.circular(8), // Rounded corners
-                //         ),
-                //         minimumSize: const Size(155, 45),
-                //       ),
-                //       child: const Text(
-                //         'Keep Track',
-                //         style: TextStyle(
-                //             color: Colors.white,
-                //             fontSize: 18,
-                //             fontWeight: FontWeight.w900),
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
@@ -224,6 +84,46 @@ class OrderItem extends StatelessWidget {
       ],
     );
   }
+}
+
+Widget buildDetailItem(String label, String value, BuildContext context) {
+  return Container(
+    padding: const EdgeInsets.symmetric(
+      vertical: 6,
+      horizontal: 2,
+    ),
+    decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.onPrimary,
+      borderRadius: BorderRadius.circular(6),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.shade100,
+          blurRadius: 2,
+        ),
+      ],
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w900,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w900,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        ),
+      ],
+    ),
+  );
 }
 
 Widget getOrderStatus(Order order, BuildContext context) {

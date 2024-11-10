@@ -41,7 +41,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   ),
                 );
               },
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).colorScheme.primary,
               label: 'Resend Email',
               vertical: 10,
               horizontal: 90,
@@ -64,13 +64,13 @@ class VerifyEmailScreen extends StatelessWidget {
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
                   decoration: TextDecoration.underline,
-                  decorationColor: Theme.of(context).primaryColor,
+                  decorationColor: Theme.of(context).colorScheme.primary,
                   shadows: [
                     Shadow(
-                      color: Theme.of(context)
-                          .primaryColor, // Match background color to create "gap"
-                      offset: Offset(
-                          0, -5), // Adjust vertical offset to control space
+                      color: Theme.of(context).colorScheme.primary,
+                      // Match background color to create "gap"
+                      offset: Offset(0, -5),
+                      // Adjust vertical offset to control space
                     ),
                   ],
                   decorationThickness: 1.5,

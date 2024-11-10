@@ -20,7 +20,7 @@ class ScheduleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: const Center(
+      body: Center(
         child: Column(
           children: [
             SizedBox(
@@ -29,9 +29,10 @@ class ScheduleScreen extends StatelessWidget {
             Text(
               "Schedule",
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w900),
+                color: Theme.of(context).colorScheme.secondary,
+                fontSize: 28,
+                fontWeight: FontWeight.w900,
+              ),
               textAlign: TextAlign.center,
             ),
             SizedBox(

@@ -18,8 +18,8 @@ class PasswordSigin extends StatelessWidget {
         decoration: InputDecoration(
           labelText: 'Password',
           floatingLabelStyle: TextStyle(
-            color: Theme.of(context)
-                .primaryColor, // Color when label is floating (in focus)
+            color: Theme.of(context).colorScheme.primary,
+            // Color when label is floating (in focus)
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
@@ -45,7 +45,7 @@ class PasswordSigin extends StatelessWidget {
               color: Theme.of(context).disabledColor,
             ),
           ),
-          fillColor: Theme.of(context).cardColor,
+          fillColor: Theme.of(context).colorScheme.onPrimary,
           filled: true,
         ),
         validator: (value) {

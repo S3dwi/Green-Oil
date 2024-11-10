@@ -170,17 +170,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
               vertical: _isLoading ? 15 : 13,
               horizontal: _isLoading ? 165 : 141.8,
               child: _isLoading
-                  ? const SizedBox(
+                  ? SizedBox(
                       height: 30,
                       width: 30,
-                      child: CircularProgressIndicator(color: Colors.white),
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     )
-                  : const Text(
+                  : Text(
                       'Sign up',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onSecondary,
                       ),
                     ),
             ),
@@ -210,7 +212,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Text(
                     "Sign in",
                     style: TextStyle(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                       fontSize: 17,
                     ),
                   ),

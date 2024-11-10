@@ -44,14 +44,14 @@ class _NavBar extends State<NavBar> {
       body: activePage,
       bottomNavigationBar: Container(
         height: 70,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(30),
             topLeft: Radius.circular(30),
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black38,
+              color: Theme.of(context).shadowColor,
               spreadRadius: 0,
               blurRadius: 2,
             ),
@@ -65,13 +65,13 @@ class _NavBar extends State<NavBar> {
           child: BottomNavigationBar(
             onTap: _selectPage,
             currentIndex: _selectedPageIndex,
-            selectedItemColor: Theme.of(context).primaryColor,
-            unselectedItemColor: Colors.grey,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
+            unselectedItemColor: Theme.of(context).disabledColor,
             iconSize: 30,
             selectedFontSize: 16,
             unselectedFontSize: 14,
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.onPrimary,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(
