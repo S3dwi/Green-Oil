@@ -4,6 +4,7 @@ import 'package:green_oil/home_screen/image_carousel.dart';
 import 'package:green_oil/home_screen/new_location.dart';
 import 'package:green_oil/home_screen/recycle_button.dart';
 import 'package:green_oil/recycle_oil_screen/recycle_oil.dart';
+import 'package:green_oil/home_screen/faqs_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -125,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-
+            Divider(), //create line to separate between the components
             const SizedBox(
               height: 20,
             ),
@@ -162,7 +163,13 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   ClickableCards(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => FAQScreen(),
+                        ),
+                      );
+                    },
                     icon: Icons.question_answer,
                     label: 'FAQs',
                   ),

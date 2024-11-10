@@ -35,6 +35,7 @@ flutter:
     - assets/images/aa.png
     - assets/icon/logo_with_name.png
     - assets/icon/logo.png
+    - assets/icon/logoWithTitle.png
     - assets/images/screen_background.png
     - assets/images/Vector.png
     - assets/images/green_leaf.png
