@@ -31,7 +31,7 @@ flutter:
   assets:
     - assets/images/home_img.png
     - assets/images/ehsan.png
-    - assets/images/recycleOil.png
+    - assets/images/recycle-Oil.png
     - assets/images/aa.png
     - assets/icon/logo_with_name.png
     - assets/icon/logo.png
@@ -42,6 +42,8 @@ flutter:
     - assets/images/yellow_leaf.png
     - assets/images/brown_leaf.png
     - assets/images/email.png
+    - assets/images/recycled-products.png
+    - assets/images/2030-vision.png
 
   fonts:
     - family: Lato

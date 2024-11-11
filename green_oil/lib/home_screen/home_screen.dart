@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 0),
                         Text(
-                          'Help the planet & earn \nrewards!',
+                          'Help the planet & enjoy \nvaluable benefits!',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSecondary,
                             fontSize: 24,
@@ -144,7 +144,7 @@ class HomeScreen extends StatelessWidget {
             ),
 
             const SizedBox(
-              height: 40,
+              height: 32,
             ),
 
             // Image Carousel
@@ -154,7 +154,24 @@ class HomeScreen extends StatelessWidget {
             ),
 
             const SizedBox(
-              height: 30,
+              height: 16,
+            ),
+
+            // Title for the clickable cards section
+            const Padding(
+              padding: EdgeInsets.fromLTRB(
+                  24.0, 0.0, 0.0, 10.0), // Add spacing below the title
+              child: Align(
+                alignment:
+                    Alignment.centerLeft, // Explicitly align title to the left
+                child: Text(
+                  'Discover Green Oil',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
 
             // // Three buttons taking up full width
