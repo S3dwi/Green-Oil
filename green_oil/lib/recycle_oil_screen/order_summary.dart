@@ -71,12 +71,6 @@ class OrderSummary extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.onPrimary,
                       borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          blurRadius: 2,
-                        )
-                      ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,12 +104,6 @@ class OrderSummary extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.onPrimary,
                       borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          blurRadius: 2,
-                        )
-                      ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,12 +135,6 @@ class OrderSummary extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.onPrimary,
                       borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          blurRadius: 2,
-                        )
-                      ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -217,12 +199,6 @@ class OrderSummary extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.onPrimary,
                       borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          blurRadius: 2,
-                        )
-                      ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
