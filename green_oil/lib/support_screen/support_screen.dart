@@ -47,13 +47,14 @@ class SupportScreen extends StatelessWidget {
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
-                      const Positioned(
+                      Positioned(
                         top: 42,
                         child: Text(
                           "Help Center",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 27,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ),

@@ -13,8 +13,6 @@ final theme = ThemeData(
   colorScheme: colorScheme,
   scaffoldBackgroundColor: const Color(0xFFF8F8F8),
   disabledColor: const Color(0xFFA9A9AC),
-  cardColor: const Color(0xFFFFFFFF),
-  primaryColor: const Color(0xFF47AB4D),
   fontFamily: 'Lato',
   shadowColor: Colors.black.withOpacity(0.24),
   iconTheme: IconThemeData(
@@ -34,6 +32,9 @@ final colorScheme = ColorScheme.fromSeed(
   onSecondary: Colors.white, // Text/icon color on secondary-colored backgrounds
 
   error: Colors.red, // Error color for showing validation issues
+
+  surface: Color.fromARGB(0, 255, 255, 255),
+  onSurface: Colors.grey.shade100,
 );
 
 void main() async {

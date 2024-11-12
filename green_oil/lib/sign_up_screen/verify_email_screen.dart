@@ -22,11 +22,12 @@ class VerifyEmailScreen extends StatelessWidget {
               height: 200,
             ),
             const SizedBox(height: 40),
-            const Text(
+            Text(
               'Please check your email for the verification link.',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -60,7 +61,7 @@ class VerifyEmailScreen extends StatelessWidget {
               child: Text(
                 "BACK TO SIGN IN",
                 style: TextStyle(
-                  color: Color.fromARGB(0, 110, 48, 48),
+                  color: Theme.of(context).colorScheme.surface,
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
                   decoration: TextDecoration.underline,

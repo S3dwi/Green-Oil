@@ -13,7 +13,10 @@ class PasswordSigin extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextFormField(
-        style: const TextStyle(fontSize: 22),
+        style: TextStyle(
+          fontSize: 22,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
         obscureText: true,
         decoration: InputDecoration(
           labelText: 'Password',

@@ -52,6 +52,10 @@ class SelectPickupDateState extends State<SelectPickupDate> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             DropdownButton<String>(
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              dropdownColor: Theme.of(context).colorScheme.onPrimary,
               value: selectedDate != null
                   ? DateFormat('MMMM').format(selectedDate!)
                   : monthOptions.first,
@@ -75,7 +79,7 @@ class SelectPickupDateState extends State<SelectPickupDate> {
             ),
           ],
         ),
-        SizedBox(height: 8),
+
         // Date Cards
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -96,6 +100,7 @@ class SelectPickupDateState extends State<SelectPickupDate> {
                   height: 100, // Fixed height
                   margin: EdgeInsets.symmetric(
                     horizontal: 5,
+                    vertical: 5,
                   ),
                   padding: EdgeInsets.symmetric(
                     vertical: 0,
@@ -116,7 +121,7 @@ class SelectPickupDateState extends State<SelectPickupDate> {
                     border: Border.all(
                       color: isSelected
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.onPrimary,
+                          : Theme.of(context).disabledColor,
                     ),
                   ),
                   child: Column(

@@ -103,9 +103,13 @@ class HomeScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 8),
                             Expanded(
-                              child: const Text(
+                              child: Text(
                                 'Jeddah - Alrabwah 23223, Bin Khalid Alansari, Near Albaik Almarwah branch 6977',
-                                style: TextStyle(fontSize: 16),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -125,10 +129,17 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Positioned(
+                    bottom: 0,
+                    left: 20,
+                    right: 20,
+                    child: Divider(),
+                    //create line to separate between the components,
+                  )
                 ],
               ),
             ),
-            Divider(), //create line to separate between the components
+
             const SizedBox(
               height: 20,
             ),

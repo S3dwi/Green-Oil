@@ -51,9 +51,12 @@ class LocationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
+                    Text(
                       'Company Address',
-                      style: TextStyle(fontWeight: FontWeight.w900),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
                     ),
                     Text(
                       'Jeddah - Alrabwah 23223, Bin Khalid Alansari, Near Albaik Almarwah branch 6977',

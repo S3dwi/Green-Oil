@@ -98,9 +98,11 @@ class _RecycleOilState extends State<RecycleOil> {
         SnackBar(
           content: Text(
             "Please enter a valid quantity",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSecondary,
+            ),
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: Theme.of(context).colorScheme.error,
           duration: Duration(seconds: 2),
         ),
       );
@@ -113,7 +115,7 @@ class _RecycleOilState extends State<RecycleOil> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Minimum quantity is 10"),
-              backgroundColor: Colors.red,
+              backgroundColor: Theme.of(context).colorScheme.error,
               duration: Duration(seconds: 2),
             ),
           );
@@ -123,7 +125,7 @@ class _RecycleOilState extends State<RecycleOil> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Maximum quantity is 500"),
-              backgroundColor: Colors.red,
+              backgroundColor: Theme.of(context).colorScheme.error,
               duration: Duration(seconds: 2),
             ),
           );
@@ -141,11 +143,14 @@ class _RecycleOilState extends State<RecycleOil> {
         content: Center(
           child: Text(
             msg,
-            style: TextStyle(color: Colors.black, fontSize: 15),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSecondary,
+              fontSize: 15,
+            ),
           ),
         ),
         duration: Duration(seconds: 2),
-        backgroundColor: Colors.green.shade300,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
         ),
@@ -170,6 +175,7 @@ class _RecycleOilState extends State<RecycleOil> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 27,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
             bottom: PreferredSize(
@@ -183,9 +189,10 @@ class _RecycleOilState extends State<RecycleOil> {
               ),
             ),
             leading: IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.arrow_back_ios_new,
                 size: 25,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               onPressed: () => Navigator.of(context).pop(),
             ),
@@ -222,7 +229,7 @@ class _RecycleOilState extends State<RecycleOil> {
                             "Add Your Estimated Oil Quantity (L)",
                             style: TextStyle(
                               fontSize: 19,
-                              color: Colors.black,
+                              color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
@@ -247,7 +254,7 @@ class _RecycleOilState extends State<RecycleOil> {
                             "Company Location",
                             style: TextStyle(
                               fontSize: 21,
-                              color: Colors.black,
+                              color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -265,7 +272,7 @@ class _RecycleOilState extends State<RecycleOil> {
                             "Select Pickup Date",
                             style: TextStyle(
                               fontSize: 21,
-                              color: Colors.black,
+                              color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -329,7 +336,8 @@ class _RecycleOilState extends State<RecycleOil> {
                               );
                             }
                           },
-                          backgroundColor: Theme.of(context).primaryColor,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
                           label: "NEXT",
                           vertical: 13,
                           horizontal: 149,
@@ -355,7 +363,9 @@ class _RecycleOilState extends State<RecycleOil> {
                 _showSelectOilTypeSnackBar("Please Select Oil Type!");
               },
               child: Container(
-                color: const Color.fromARGB(0, 0, 0, 0), // Transparent overlay
+                color: Theme.of(context)
+                    .colorScheme
+                    .surface, // Transparent overlay
               ),
             ),
           ),

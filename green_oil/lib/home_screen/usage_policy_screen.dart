@@ -8,9 +8,10 @@ class UsagePolicyScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
             size: 25,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -26,20 +27,21 @@ class UsagePolicyScreen extends StatelessWidget {
             Center(
               child: Column(
                 children: [
-                  const Text(
+                  Text(
                     "Usage Policy",
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 28,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 20),
                   Image.asset(
                     'assets/icon/logo.png',
                     height: 60,
                     width: 60,
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
@@ -101,17 +103,19 @@ class PolicyItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             textAlign: TextAlign.left,
           ),
           const SizedBox(height: 8),
           Text(
             description,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             textAlign: TextAlign.left,
           ),

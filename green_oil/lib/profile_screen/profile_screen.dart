@@ -144,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 },
                                 icon: const Icon(Icons.edit_outlined),
                                 iconSize: 36,
-                                color:Theme.of(context).colorScheme.secondary,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ],
                           ),
@@ -153,9 +153,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           bottom: 60,
                           child: Text(
                             userName.toUpperCase(),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
                         ),

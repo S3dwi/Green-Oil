@@ -98,7 +98,7 @@ class ConfirmationScreen extends StatelessWidget {
                   child: Text(
                     "BACK TO HOME",
                     style: TextStyle(
-                      color: Color.fromARGB(0, 255, 255, 255),
+                      color: Theme.of(context).colorScheme.surface,
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                       decoration: TextDecoration.underline,

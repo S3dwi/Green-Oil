@@ -16,7 +16,7 @@ class OrderItem extends StatelessWidget {
         getOrderStatus(order, context),
         Card(
           elevation: 2,
-          color: Theme.of(context).cardColor,
+          color: Theme.of(context).colorScheme.onPrimary,
           margin: const EdgeInsets.symmetric(
             horizontal: 14,
             vertical: 5,
@@ -33,7 +33,6 @@ class OrderItem extends StatelessWidget {
                   order.orderID,
                   context,
                 ),
-
                 // Order Type
                 buildDetailItem(
                   'Oil Type',
@@ -68,7 +67,7 @@ class OrderItem extends StatelessWidget {
                       'View Details',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -95,12 +94,6 @@ Widget buildDetailItem(String label, String value, BuildContext context) {
     decoration: BoxDecoration(
       color: Theme.of(context).colorScheme.onPrimary,
       borderRadius: BorderRadius.circular(6),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade100,
-          blurRadius: 2,
-        ),
-      ],
     ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,9 +134,10 @@ Widget getOrderStatus(Order order, BuildContext context) {
         Text(
           "Processing",
           style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w900,
-              color: Theme.of(context).disabledColor),
+            fontSize: 25,
+            fontWeight: FontWeight.w900,
+            color: Theme.of(context).disabledColor,
+          ),
         ),
       ],
     );
@@ -153,7 +147,7 @@ Widget getOrderStatus(Order order, BuildContext context) {
         const SizedBox(width: 14),
         Icon(
           Icons.check_circle_outline_rounded,
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).colorScheme.primary,
         ),
         const SizedBox(
           width: 8,
@@ -161,19 +155,20 @@ Widget getOrderStatus(Order order, BuildContext context) {
         Text(
           "Completed",
           style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w900,
-              color: Theme.of(context).primaryColor),
+            fontSize: 25,
+            fontWeight: FontWeight.w900,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
       ],
     );
   } else {
-    return const Row(
+    return Row(
       children: [
         SizedBox(width: 14),
         Icon(
           Icons.cancel_outlined,
-          color: Colors.red,
+          color: Theme.of(context).colorScheme.error,
         ),
         SizedBox(
           width: 8,
@@ -181,7 +176,10 @@ Widget getOrderStatus(Order order, BuildContext context) {
         Text(
           "Cancelled",
           style: TextStyle(
-              fontSize: 25, fontWeight: FontWeight.w900, color: Colors.red),
+            fontSize: 25,
+            fontWeight: FontWeight.w900,
+            color: Theme.of(context).colorScheme.error,
+          ),
         ),
       ],
     );

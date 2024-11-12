@@ -27,11 +27,11 @@ class QuantitySelector extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 7, horizontal: 45),
         padding: EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.onPrimary,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Colors.black26,
+              color: Theme.of(context).shadowColor,
               blurRadius: 4,
               offset: Offset(0, 1),
             ),
@@ -44,7 +44,7 @@ class QuantitySelector extends StatelessWidget {
             IconButton(
               onPressed: onDecrement,
               icon: Icon(Icons.remove_circle),
-              color: const Color.fromARGB(117, 158, 158, 158),
+              color: Theme.of(context).disabledColor,
               iconSize: 58,
               padding: EdgeInsets.all(0),
             ),
@@ -59,6 +59,7 @@ class QuantitySelector extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 34,
                   fontWeight: FontWeight.w500,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 onSubmitted: onSubmitted, // Call validation on submit
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -74,7 +75,7 @@ class QuantitySelector extends StatelessWidget {
             IconButton(
               onPressed: onIncrement,
               icon: Icon(Icons.add_circle),
-              color: Colors.green,
+              color: Theme.of(context).colorScheme.primary,
               iconSize: 58,
               padding: EdgeInsets.all(0),
             ),

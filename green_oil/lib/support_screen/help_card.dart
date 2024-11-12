@@ -36,9 +36,10 @@ class HelpCard extends StatelessWidget {
                   children: [
                     Text(
                       titel,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                     const SizedBox(

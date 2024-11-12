@@ -13,7 +13,10 @@ class NameTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextFormField(
-        style: const TextStyle(fontSize: 22),
+        style: TextStyle(
+          fontSize: 22,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
         decoration: InputDecoration(
           labelText: 'Contact Person Name (Required)',
           floatingLabelStyle: TextStyle(

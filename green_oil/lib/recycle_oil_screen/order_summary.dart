@@ -26,6 +26,7 @@ class OrderSummary extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 27,
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
         bottom: PreferredSize(
@@ -39,9 +40,10 @@ class OrderSummary extends StatelessWidget {
           ),
         ),
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
             size: 25,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -71,7 +73,7 @@ class OrderSummary extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.shade100,
+                          color: Theme.of(context).colorScheme.onSurface,
                           blurRadius: 2,
                         )
                       ],
@@ -110,7 +112,7 @@ class OrderSummary extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.shade100,
+                          color: Theme.of(context).colorScheme.onSurface,
                           blurRadius: 2,
                         )
                       ],
@@ -147,7 +149,7 @@ class OrderSummary extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.shade100,
+                          color: Theme.of(context).colorScheme.onSurface,
                           blurRadius: 2,
                         )
                       ],
@@ -175,8 +177,6 @@ class OrderSummary extends StatelessWidget {
                               ); // Opens the URL inside the app
                             } else {
                               // Show error message to the user using SnackBar
-                              // ignore: use_build_context_synchronously
-
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('Could not launch url'),
@@ -219,7 +219,7 @@ class OrderSummary extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.shade100,
+                          color: Theme.of(context).colorScheme.onSurface,
                           blurRadius: 2,
                         )
                       ],
@@ -227,20 +227,20 @@ class OrderSummary extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Pickup Date',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         Text(
                           formattedDate,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ],

@@ -30,11 +30,12 @@ class HelpCenter extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Help Center",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                     const SizedBox(

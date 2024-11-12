@@ -8,9 +8,10 @@ class FAQScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
             size: 25,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -20,11 +21,12 @@ class FAQScreen extends StatelessWidget {
       body: Column(
         children: [
           // Title for the FAQ section
-          const Text(
+          Text(
             "FAQs",
             style: TextStyle(
               fontWeight: FontWeight.w900,
               fontSize: 28,
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
 
@@ -116,8 +118,9 @@ class FAQItem extends StatelessWidget {
     return ExpansionTile(
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       collapsedShape: const RoundedRectangleBorder(),
@@ -125,10 +128,16 @@ class FAQItem extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(description),
+          child: Text(
+            description,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
         ),
         const SizedBox(
-            height: 8), // Add extra space between description and divider
+          height: 8,
+        ), // Add extra space between description and divider
       ],
     );
   }

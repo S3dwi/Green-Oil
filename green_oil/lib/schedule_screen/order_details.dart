@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oil/models/order.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({
@@ -20,12 +19,6 @@ class OrderDetails extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade100,
-            blurRadius: 2,
-          )
-        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +52,7 @@ class OrderDetails extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true, // Ensures title is centered
-        title: const Column(
+        title: Column(
           children: [
             SizedBox(
               height: 38,
@@ -69,6 +62,7 @@ class OrderDetails extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 28,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
             SizedBox(
@@ -77,9 +71,10 @@ class OrderDetails extends StatelessWidget {
           ],
         ),
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
             size: 30,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -97,19 +92,19 @@ class OrderDetails extends StatelessWidget {
               ),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: const Text(
+                child: Text(
                   'Order Information',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w900,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ),
             ),
             Card(
               elevation: 2,
-              color: Theme.of(context).cardColor,
+              color: Theme.of(context).colorScheme.onPrimary,
               margin: const EdgeInsets.symmetric(
                 horizontal: 14,
                 vertical: 5,
@@ -173,7 +168,7 @@ class OrderDetails extends StatelessWidget {
                           },
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                             ), // Green border
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -184,9 +179,10 @@ class OrderDetails extends StatelessWidget {
                           child: Text(
                             'Invoice',
                             style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w900),
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                            ),
                           ),
                         ),
                         // ElevatedButton(

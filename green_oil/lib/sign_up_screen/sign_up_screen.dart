@@ -107,6 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
 
@@ -117,6 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               "Be Recycled by join us today!",
               style: TextStyle(
                 fontSize: 18,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
 
@@ -197,6 +199,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   "Already have an account?",
                   style: TextStyle(
                     fontSize: 17,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 const SizedBox(width: 5),

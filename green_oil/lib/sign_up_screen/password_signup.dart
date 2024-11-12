@@ -13,8 +13,11 @@ class PasswordSignup extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextFormField(
-        style: const TextStyle(fontSize: 22),
         obscureText: true,
+        style: TextStyle(
+          fontSize: 22,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
         decoration: InputDecoration(
           labelText: 'Password (Required)',
           floatingLabelStyle: TextStyle(

@@ -63,9 +63,15 @@ class OilTypeDropdown extends StatelessWidget {
           children: [
             Text(
               selectedOilType ?? 'Choose Your Oil Type',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(
+                fontSize: 20,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
-            Icon(Icons.arrow_drop_down),
+            Icon(
+              Icons.keyboard_arrow_down_outlined,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ],
         ),
       ),
