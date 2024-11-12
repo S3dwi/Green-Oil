@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oil/profile_screen/account_detail_card.dart';
-import 'package:green_oil/profile_screen/edit_info_screen.dart';
+import 'package:green_oil/profile_screen/edit_profile_screen.dart';
 import 'package:green_oil/profile_screen/help_center.dart';
 import 'package:green_oil/profile_screen/log_out.dart';
 import 'package:green_oil/sign_in_screen/sign_in_screen.dart';
@@ -84,127 +84,113 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: 330,
-              child: Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 290,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(30),
-                        bottomLeft: Radius.circular(30),
-                      ),
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(255, 82, 156, 87),
-                          Color(0xff6db571),
-                          Color.fromARGB(255, 161, 213, 164),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
+      body: Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: 350,
+            child: Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 310,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
                     ),
-                    child: Stack(
-                      alignment: AlignmentDirectional.topCenter,
-                      children: [
-                        const Positioned(
-                          top: 56,
-                          child: CircleAvatar(
-                            radius: 64,
-                            backgroundImage:
-                                AssetImage('assets/images/home_img.png'),
-                          ),
-                        ),
-                        Positioned(
-                          right: 10,
-                          left: 10,
-                          top: 36,
-                          child: Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.language),
-                                iconSize: 40,
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => EditInfoScreen(),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.edit_outlined),
-                                iconSize: 36,
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 60,
-                          child: Text(
-                            userName.toUpperCase(),
-                            style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          ),
-                        ),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 82, 156, 87),
+                        Color(0xff6db571),
+                        Color.fromARGB(255, 161, 213, 164),
                       ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
                     ),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 18,
-                    left: 18,
-                    child: AccountDetailCard(
-                      label: "Name",
-                      value: userName,
-                    ),
-                  )
-                ],
-              ),
+                  child: Stack(
+                    alignment: AlignmentDirectional.topCenter,
+                    children: [
+                      const Positioned(
+                        top: 65,
+                        child: CircleAvatar(
+                          radius: 64,
+                          backgroundImage:
+                              AssetImage('assets/images/profile_picture.png'),
+                        ),
+                      ),
+                      Positioned(
+                        right: 15,
+                        top: 35,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => EditProfileScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.edit_outlined),
+                          iconSize: 36,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 65,
+                        child: Text(
+                          userName.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 18,
+                  left: 18,
+                  child: AccountDetailCard(
+                    label: "Name",
+                    value: userName,
+                  ),
+                )
+              ],
             ),
-            const SizedBox(
-              height: 6,
-            ),
-            AccountDetailCard(
-              label: "Email",
-              value: userEmail,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            AccountDetailCard(
-              label: "Phone Number",
-              value: userPhone,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            HelpCenter(
-              onTap: () {
-                helpCenter(context);
-              },
-            ),
-            const SizedBox(
-              height: 6,
-            ),
-            LogOut(
-              onTap: _signOut,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 6,
+          ),
+          AccountDetailCard(
+            label: "Email",
+            value: userEmail,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          AccountDetailCard(
+            label: "Phone Number",
+            value: userPhone,
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          HelpCenter(
+            onTap: () {
+              helpCenter(context);
+            },
+          ),
+          const SizedBox(
+            height: 6,
+          ),
+          LogOut(
+            onTap: _signOut,
+          ),
+        ],
       ),
     );
   }

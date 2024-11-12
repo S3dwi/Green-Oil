@@ -14,11 +14,13 @@ dependencies:
   carousel_slider: ^5.0.0
   flutter_native_splash: ^2.4.1
   uuid: ^4.5.1
-  url_launcher: ^6.1.9 # Updated to the latest version
+  image_picker: ^1.1.2
+  url_launcher: ^6.3.1
   intl: ^0.18.1
   firebase_core: ^3.7.0
   firebase_auth: ^5.3.2
   cloud_firestore: ^5.4.5
+  firebase_storage: ^12.3.5
 
 dev_dependencies:
   flutter_test:
@@ -30,7 +32,6 @@ flutter:
 
   assets:
     - assets/images/home_img.png
-    - assets/images/ehsan.png
     - assets/images/recycle-Oil.png
     - assets/icon/logo_with_name.png
     - assets/icon/logo.png
@@ -43,6 +44,7 @@ flutter:
     - assets/images/email.png
     - assets/images/recycled-products.png
     - assets/images/2030-vision.png
+    - assets/images/profile_picture.png
 
   fonts:
     - family: Lato
