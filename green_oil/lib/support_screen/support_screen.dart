@@ -19,16 +19,16 @@ class SupportScreen extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   height: 300,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(30),
                       bottomLeft: Radius.circular(30),
                     ),
                     gradient: LinearGradient(
                       colors: [
-                        Color(0xff5EAF63),
-                        Color(0xff6db571),
-                        Color(0xff8dc491),
+                        Theme.of(context).colorScheme.surfaceContainer,
+                        Theme.of(context).colorScheme.surfaceContainerHigh,
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -80,25 +80,19 @@ class SupportScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           HelpCard(
             onTap: () {},
             titel: "Contact Live Chat",
             description: "Live chat support",
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           HelpCard(
             onTap: () {},
             titel: "FAQs",
-            description: "Look for the answers of your questions",
+            description: "Look for the answers to your questions",
           ),
-          const SizedBox(
-            height: 50,
-          ),
+          const SizedBox(height: 50),
           DeleteAccount(
             onTap: () {},
           ),

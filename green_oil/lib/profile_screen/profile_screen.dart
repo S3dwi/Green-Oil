@@ -39,7 +39,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (snapshot.exists) {
           Map<String, dynamic> userData =
               snapshot.data() as Map<String, dynamic>;
-          // Safely access the email, phone, and address fields
           setState(() {
             userName = userData['Name'] ?? "No Name provided";
             userEmail = userData['Email'] ?? "No email provided";
@@ -71,7 +70,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await FirebaseAuth.instance.signOut();
 
     if (!mounted) return;
-    // Navigate to the initial route without async gaps
     if (Navigator.of(context).canPop()) {
       Navigator.of(context).popUntil((route) => route.isFirst);
     }
@@ -94,16 +92,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   width: double.infinity,
                   height: 310,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(30),
                       bottomLeft: Radius.circular(30),
                     ),
                     gradient: LinearGradient(
                       colors: [
-                        Color.fromARGB(255, 82, 156, 87),
-                        Color(0xff6db571),
-                        Color.fromARGB(255, 161, 213, 164),
+                        Theme.of(context).colorScheme.surfaceContainer,
+                        Theme.of(context).colorScheme.surfaceContainerHigh,
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,

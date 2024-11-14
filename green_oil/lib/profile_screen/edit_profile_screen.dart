@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:green_oil/profile_screen/edit_account_card.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:green_oil/primary_button.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -13,6 +12,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  File? _pickedImageFile;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,16 +29,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Container(
                   width: double.infinity,
                   height: 330,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(30),
                       bottomLeft: Radius.circular(30),
                     ),
                     gradient: LinearGradient(
                       colors: [
-                        Color.fromARGB(255, 82, 156, 87),
-                        Color(0xff6db571),
-                        Color.fromARGB(255, 161, 213, 164),
+                        Theme.of(context).colorScheme.surfaceContainer,
+                        Theme.of(context).colorScheme.surfaceContainerHigh,
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -75,7 +76,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ? FileImage(_pickedImageFile!)
                               : const AssetImage(
                                   'assets/images/profile_picture.png',
-                                ),
+                                ) as ImageProvider,
                           child: Align(
                             alignment: Alignment.bottomRight,
                             child: CircleAvatar(
@@ -105,21 +106,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     label: "Name",
                     value: "Enter Name",
                   ),
-                )
+                ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           EditAccountCard(
             label: "Phone Number",
             value: "Enter Phone Number",
           ),
-          const SizedBox(
-            height: 50,
-          ),
-          Spacer(),
+          const SizedBox(height: 50),
+          const Spacer(),
           PrimaryButton(
             onPressed: () {},
             backgroundColor: Theme.of(context).colorScheme.primary,
@@ -127,15 +124,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             vertical: 13,
             horizontal: 145,
           ),
-          const SizedBox(
-            height: 70,
-          ),
+          const SizedBox(height: 70),
         ],
       ),
     );
   }
-
-  File? _pickedImageFile;
 
   void _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -154,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () {
-                  Navigator.of(context).pop(); // This will close the dialog
+                  Navigator.of(context).pop(); // Close the dialog
                 },
               ),
             ],
@@ -177,11 +170,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.image,
                         size: 70,
                       ),
-                      Text("Gallery")
+                      const Text("Gallery")
                     ],
                   ),
                 ),
@@ -202,11 +195,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.camera_alt,
                         size: 70,
                       ),
-                      Text("Camera")
+                      const Text("Camera")
                     ],
                   ),
                 ),

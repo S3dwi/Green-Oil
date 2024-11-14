@@ -31,20 +31,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/home_img.png
-    - assets/images/recycle-Oil.png
-    - assets/icon/logo_with_name.png
-    - assets/icon/logo.png
-    - assets/icon/logoWithTitle.png
-    - assets/images/screen_background.png
-    - assets/images/Vector.png
-    - assets/images/green_leaf.png
-    - assets/images/yellow_leaf.png
-    - assets/images/brown_leaf.png
-    - assets/images/email.png
-    - assets/images/recycled-products.png
-    - assets/images/2030-vision.png
-    - assets/images/profile_picture.png
+  - assets/images/
+  - assets/icon/
 
   fonts:
     - family: Lato

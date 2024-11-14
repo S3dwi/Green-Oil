@@ -54,7 +54,7 @@ class RecycleButton extends StatelessWidget {
           ),
           Icon(
             Icons.arrow_forward_ios,
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: Theme.of(context).colorScheme.onSecondary,
             size: 16,
           ),
         ],

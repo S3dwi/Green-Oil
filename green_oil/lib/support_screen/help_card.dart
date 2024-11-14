@@ -54,9 +54,10 @@ class HelpCard extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                const Icon(
+                Icon(
                   Icons.arrow_forward_ios,
                   size: 15,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ],
             ),
