@@ -86,12 +86,6 @@ class SupportScreen extends StatelessWidget {
             titel: "Contact Live Chat",
             description: "Live chat support",
           ),
-          const SizedBox(height: 10),
-          HelpCard(
-            onTap: () {},
-            titel: "FAQs",
-            description: "Look for the answers to your questions",
-          ),
           const SizedBox(height: 50),
           DeleteAccount(
             onTap: () {},

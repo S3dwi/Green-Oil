@@ -5,16 +5,22 @@ class EditAccountCard extends StatelessWidget {
     super.key,
     required this.label,
     required this.value,
+    required this.maxLength,
+    required this.keyboardType,
+    required this.controller,
   });
 
   final String label;
   final String value;
+  final int maxLength;
+  final TextInputType keyboardType;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 375,
-      height: 120,
+      height: 140,
       child: Card(
         elevation: 4,
         shadowColor: Theme.of(context).shadowColor,
@@ -38,14 +44,15 @@ class EditAccountCard extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              TextFormField(
+              TextField(
+                controller: controller,
                 style: TextStyle(
                   fontSize: 18,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
-                keyboardType: TextInputType.emailAddress,
+                maxLength: maxLength,
+                keyboardType: keyboardType,
                 decoration: InputDecoration(
-                  // labelText: label,
                   hintText: value,
                   floatingLabelStyle: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
@@ -77,20 +84,7 @@ class EditAccountCard extends StatelessWidget {
                   fillColor: Theme.of(context).colorScheme.onPrimary,
                   filled: true,
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email address';
-                  }
-                  // Regex pattern for validating an email address
-                  const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-                  final regExp = RegExp(pattern);
-
-                  if (!regExp.hasMatch(value)) {
-                    return 'Enter a valid email address';
-                  }
-                  return null;
-                },
-              )
+              ),
             ],
           ),
         ),

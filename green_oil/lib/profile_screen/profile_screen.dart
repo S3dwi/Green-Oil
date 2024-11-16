@@ -19,6 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String userName = "";
   String userEmail = "";
   String userPhone = "";
+  String userImageUrl = "";
 
   @override
   void initState() {
@@ -43,6 +44,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             userName = userData['Name'] ?? "No Name provided";
             userEmail = userData['Email'] ?? "No email provided";
             userPhone = userData['Phone'] ?? "No phone number provided";
+            userImageUrl =
+                userData['image_url'] ?? 'assets/images/profile_picture.png';
           });
         }
       } catch (e) {
@@ -110,12 +113,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Stack(
                     alignment: AlignmentDirectional.topCenter,
                     children: [
-                      const Positioned(
+                      Positioned(
                         top: 65,
                         child: CircleAvatar(
                           radius: 64,
-                          backgroundImage:
-                              AssetImage('assets/images/profile_picture.png'),
+                          backgroundImage: NetworkImage(
+                              userImageUrl), // Using NetworkImage for network URLs
                         ),
                       ),
                       Positioned(

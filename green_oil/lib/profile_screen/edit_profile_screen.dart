@@ -1,18 +1,104 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:green_oil/profile_screen/edit_account_card.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:green_oil/nav_bar.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:green_oil/primary_button.dart';
+import 'package:green_oil/profile_screen/edit_account_card.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  State<StatefulWidget> createState() {
+    return _EditProfileScreenState();
+  }
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   File? _pickedImageFile;
+  final _name = TextEditingController();
+  final _phoneNumber = TextEditingController();
+
+  void _updateProfile() async {
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+
+    if (firebaseUser != null) {
+      Map<String, dynamic> updateData = {}; // Map to hold the updates
+
+      // Check if the image file was picked and upload it
+      if (_pickedImageFile != null) {
+        try {
+          final storageRef = FirebaseStorage.instance
+              .ref()
+              .child('user_images')
+              .child('${firebaseUser.uid}.jpg');
+
+          await storageRef.putFile(_pickedImageFile!);
+          final imageUrl = await storageRef.getDownloadURL();
+          updateData['image_url'] = imageUrl; // Add image URL to update data
+        } catch (error) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Error uploading image: $error'),
+              ),
+            );
+          }
+        }
+      }
+
+      // Check if the name field is not empty and add to update data
+      if (_name.text.isNotEmpty) {
+        updateData['Name'] = _name.text;
+      }
+
+      // Check if the phone number is not empty and add to update data
+      if (_phoneNumber.text.isNotEmpty) {
+        updateData['Phone'] = _phoneNumber;
+      }
+
+      // If there's anything to update, proceed
+      if (updateData.isNotEmpty) {
+        try {
+          // Update data in Firestore
+          await FirebaseFirestore.instance
+              .collection('provider')
+              .doc(firebaseUser.uid)
+              .update(updateData);
+
+          if (mounted) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => NavBar(wantedPage: 2),
+              ),
+            );
+          }
+        } catch (error) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Error updating profile: $error'),
+              ),
+            );
+          }
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('No changes to update'),
+            ),
+          );
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +109,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         children: [
           SizedBox(
             width: double.infinity,
-            height: 400,
+            height: 420,
             child: Stack(
               children: [
                 Container(
                   width: double.infinity,
-                  height: 330,
+                  height: 340,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(30),
@@ -105,20 +191,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: EditAccountCard(
                     label: "Name",
                     value: "Enter Name",
+                    maxLength: 50,
+                    keyboardType: TextInputType.name,
+                    controller: _name,
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           EditAccountCard(
             label: "Phone Number",
             value: "Enter Phone Number",
+            maxLength: 10,
+            keyboardType: TextInputType.phone,
+            controller: _phoneNumber,
           ),
           const SizedBox(height: 50),
           const Spacer(),
           PrimaryButton(
-            onPressed: () {},
+            onPressed: _updateProfile,
             backgroundColor: Theme.of(context).colorScheme.primary,
             label: "Save",
             vertical: 13,
