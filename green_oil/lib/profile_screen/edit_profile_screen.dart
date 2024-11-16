@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:green_oil/nav_bar.dart';
+import 'package:green_oil/sign_in_screen/signin_signup.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:green_oil/primary_button.dart';
 import 'package:green_oil/profile_screen/edit_account_card.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -21,6 +21,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   File? _pickedImageFile;
   final _name = TextEditingController();
   final _phoneNumber = TextEditingController();
+  bool _isLoading = false;
 
   void _updateProfile() async {
     final firebaseUser = FirebaseAuth.instance.currentUser;
@@ -28,9 +29,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (firebaseUser != null) {
       Map<String, dynamic> updateData = {}; // Map to hold the updates
 
-      // Check if the image file was picked and upload it
-      if (_pickedImageFile != null) {
-        try {
+      // Indicate loading
+      if (mounted) {
+        setState(() {
+          _isLoading = true;
+        });
+      }
+
+      try {
+        // Check if the image file was picked and upload it
+        if (_pickedImageFile != null) {
           final storageRef = FirebaseStorage.instance
               .ref()
               .child('user_images')
@@ -39,37 +47,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           await storageRef.putFile(_pickedImageFile!);
           final imageUrl = await storageRef.getDownloadURL();
           updateData['image_url'] = imageUrl; // Add image URL to update data
-        } catch (error) {
-          if (mounted) {
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Error uploading image: $error'),
-              ),
-            );
-          }
         }
-      }
 
-      // Check if the name field is not empty and add to update data
-      if (_name.text.isNotEmpty) {
-        updateData['Name'] = _name.text;
-      }
+        // Add name and phone number to updateData if they are not empty
+        if (_name.text.isNotEmpty) {
+          updateData['Name'] = _name.text;
+        }
+        if (_phoneNumber.text.isNotEmpty) {
+          updateData['Phone'] = _phoneNumber.text;
+        }
 
-      // Check if the phone number is not empty and add to update data
-      if (_phoneNumber.text.isNotEmpty) {
-        updateData['Phone'] = _phoneNumber;
-      }
-
-      // If there's anything to update, proceed
-      if (updateData.isNotEmpty) {
-        try {
-          // Update data in Firestore
+        // If there's anything to update, proceed
+        if (updateData.isNotEmpty) {
           await FirebaseFirestore.instance
               .collection('provider')
               .doc(firebaseUser.uid)
               .update(updateData);
-
           if (mounted) {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -77,24 +70,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
             );
           }
-        } catch (error) {
+        } else {
           if (mounted) {
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Error updating profile: $error'),
+                content: Text('No changes to update'),
               ),
             );
           }
         }
-      } else {
+      } catch (error) {
         if (mounted) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('No changes to update'),
+              content: Text('Error updating profile: $error'),
             ),
           );
+        }
+      } finally {
+        // Always runs even if there is an error
+        if (mounted) {
+          setState(() {
+            _isLoading = false; // Stop loading
+          });
         }
       }
     }
@@ -209,12 +209,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           const SizedBox(height: 50),
           const Spacer(),
-          PrimaryButton(
-            onPressed: _updateProfile,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            label: "Save",
-            vertical: 13,
-            horizontal: 145,
+          SigninSignup(
+            onPressed: _isLoading ? () {} : _updateProfile,
+            vertical: _isLoading ? 15 : 13,
+            horizontal: _isLoading ? 165 : 145,
+            child: _isLoading
+                ? SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  )
+                : Text(
+                    'Save',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
           ),
           const SizedBox(height: 70),
         ],

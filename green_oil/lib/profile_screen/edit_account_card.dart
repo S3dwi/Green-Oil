@@ -20,7 +20,7 @@ class EditAccountCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 375,
-      height: 140,
+      height: 146,
       child: Card(
         elevation: 4,
         shadowColor: Theme.of(context).shadowColor,
