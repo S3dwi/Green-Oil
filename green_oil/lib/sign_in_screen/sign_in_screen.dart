@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:green_oil/nav_bar.dart';
 
 import 'package:green_oil/sign_in_screen/email_text_field.dart';
+import 'package:green_oil/sign_in_screen/forgot_password_screen.dart';
 import 'package:green_oil/sign_in_screen/password_sigin.dart';
-import 'package:green_oil/sign_in_screen/signin_signup.dart';
+import 'package:green_oil/auth_button.dart';
 import 'package:green_oil/sign_up_screen/sign_up_screen.dart';
 import 'package:green_oil/sign_up_screen/verify_email_screen.dart';
 
@@ -12,7 +13,9 @@ class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<StatefulWidget> createState() {
+    return _SignInScreenState();
+  }
 }
 
 class _SignInScreenState extends State<SignInScreen> {
@@ -35,8 +38,8 @@ class _SignInScreenState extends State<SignInScreen> {
       try {
         final userCredential =
             await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _enteredEmail,
-          password: _enteredPassword,
+          email: _enteredEmail.trim(),
+          password: _enteredPassword.trim(),
         );
 
         // Force reload to update verification status
@@ -64,7 +67,9 @@ class _SignInScreenState extends State<SignInScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(error.message ?? 'Authentication failed.')),
+            SnackBar(
+              content: Text(error.message ?? 'Authentication failed.'),
+            ),
           );
         }
       } finally {
@@ -153,6 +158,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   InkWell(
                     onTap: () {
                       // Add forgot password logic here
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPasswordScreen(),
+                        ),
+                      );
                     },
                     child: Text(
                       "Forgot Password?",
@@ -169,7 +179,7 @@ class _SignInScreenState extends State<SignInScreen> {
             Spacer(),
 
             // Sign-in button
-            SigninSignup(
+            AuthButton(
               onPressed: _isLoading ? () {} : _signIn,
               vertical: _isLoading ? 15 : 13,
               horizontal: _isLoading ? 165 : 145,

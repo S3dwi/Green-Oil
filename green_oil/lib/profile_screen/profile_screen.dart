@@ -81,6 +81,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  bool isValidUrl(String url) {
+    return Uri.tryParse(url)?.hasAbsolutePath ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,8 +121,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         top: 65,
                         child: CircleAvatar(
                           radius: 64,
-                          backgroundImage: NetworkImage(
-                              userImageUrl), // Using NetworkImage for network URLs
+                          backgroundImage: isValidUrl(userImageUrl.trim())
+                              ? NetworkImage(userImageUrl)
+                              : AssetImage('assets/images/profile_picture.png')
+                                  as ImageProvider,
                         ),
                       ),
                       Positioned(

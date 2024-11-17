@@ -1,36 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:flutter/material.dart';
 import 'package:green_oil/sign_in_screen/email_text_field.dart';
-import 'package:green_oil/sign_in_screen/sign_in_screen.dart';
 import 'package:green_oil/auth_button.dart';
-import 'package:green_oil/sign_up_screen/name_text_field.dart';
-import 'package:green_oil/sign_up_screen/password_signup.dart';
-import 'package:green_oil/sign_up_screen/phone_text_field.dart';
-import 'package:green_oil/sign_up_screen/verify_email_screen.dart';
+import 'package:green_oil/send_email_screen.dart';
+import 'package:green_oil/sign_in_screen/sign_in_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _SignUpScreenState();
+    return _ForgotPasswordState();
   }
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _ForgotPasswordState extends State<ForgotPasswordScreen> {
   // Global key to track and validate the form
   final _form = GlobalKey<FormState>();
 
-  var _enteredName = '';
-  var _enteredPhone = '';
   var _enteredEmail = '';
-  var _enteredPassword = '';
   bool _isLoading = false;
 
-  // Function to handle account creation
-  void _createAccount() async {
+  void _resetPassword() async {
     if (_form.currentState!.validate()) {
       _form.currentState!.save();
 
@@ -39,27 +30,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
 
       try {
-        final userCredential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _enteredEmail,
-          password: _enteredPassword,
+        await FirebaseAuth.instance.sendPasswordResetEmail(
+          email: _enteredEmail.trim(),
         );
-
-        await userCredential.user!.sendEmailVerification();
-
-        await FirebaseFirestore.instance
-            .collection('provider')
-            .doc(userCredential.user!.uid)
-            .set({
-          'Name': _enteredName.trim(),
-          'Phone': _enteredPhone.trim(),
-          'Email': _enteredEmail.trim(),
-        });
-
         if (mounted) {
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => VerifyEmailScreen(),
+              builder: (context) => SendEmailScreen(
+                text: 'BACK TO SIGN IN',
+                onPressed: () {
+                  //Navigate to Sign In screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignInScreen(),
+                    ),
+                  );
+                },
+              ),
             ),
           );
         }
@@ -85,13 +73,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, // Avoid bottom inset adjustments
+      resizeToAvoidBottomInset: false, // Prevents resizing on keyboard open
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 40), // Spacing at top
+            const SizedBox(height: 40), // Space at top
 
             // Logo image at top center
             Image.asset(
@@ -101,9 +89,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             const SizedBox(height: 8),
 
-            // Screen title
+            // Title text
             Text(
-              "Create Account",
+              "Forgot Password",
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
@@ -111,9 +99,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
 
-            const SizedBox(height: 3),
+            const SizedBox(height: 5),
 
-            // Subtitle
+            // Subtitle or welcoming text
             Text(
               "Be Recycled by join us today!",
               style: TextStyle(
@@ -122,55 +110,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
 
-            const SizedBox(height: 50), // Space before form
+            const SizedBox(height: 60),
 
-            // Sign-Up form with input fields
+            // Sign-In form with input fields
             Form(
               key: _form,
               child: Column(
                 children: [
-                  // Name input field
-                  NameTextField(
-                    onSaved: (newValue) {
-                      _enteredName = newValue!;
-                    },
-                  ),
-                  const SizedBox(height: 15),
-
-                  // Phone number input field
-                  PhoneTextField(
-                    onSaved: (newValue) {
-                      _enteredPhone = newValue!;
-                    },
-                  ),
-                  const SizedBox(height: 15),
-
-                  // Email input field with label
+                  // Email input field
                   EmailTextField(
-                    label: 'Email Address (Required)',
+                    label: 'Email Address',
                     onSaved: (newValue) {
                       _enteredEmail = newValue!;
-                    },
-                  ),
-                  const SizedBox(height: 15),
-
-                  // Password input field with label
-                  PasswordSignup(
-                    onSaved: (newValue) {
-                      _enteredPassword = newValue!;
                     },
                   ),
                 ],
               ),
             ),
 
-            const Spacer(), // Fills remaining space to push button to the bottom
+            Spacer(),
 
-            // Sign-Up button
+            // Sign-in button
             AuthButton(
-              onPressed: _isLoading ? () {} : _createAccount,
+              onPressed: _isLoading ? () {} : _resetPassword,
               vertical: _isLoading ? 15 : 13,
-              horizontal: _isLoading ? 165 : 141.8,
+              horizontal: _isLoading ? 165 : 96.25,
               child: _isLoading
                   ? SizedBox(
                       height: 30,
@@ -180,7 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     )
                   : Text(
-                      'Sign Up',
+                      'Resat Password',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -191,12 +155,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             const SizedBox(height: 20),
 
-            // Sign-in option with navigation
+            // "Sign Up" option if the user doesn't have an account
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Already have an account?",
+                  "Back to",
                   style: TextStyle(
                     fontSize: 17,
                     color: Theme.of(context).colorScheme.secondary,

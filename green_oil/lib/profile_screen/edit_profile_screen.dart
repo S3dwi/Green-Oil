@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:green_oil/nav_bar.dart';
-import 'package:green_oil/sign_in_screen/signin_signup.dart';
+import 'package:green_oil/auth_button.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:green_oil/profile_screen/edit_account_card.dart';
@@ -22,6 +22,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _name = TextEditingController();
   final _phoneNumber = TextEditingController();
   bool _isLoading = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _name.dispose();
+    _phoneNumber.dispose();
+  }
 
   void _updateProfile() async {
     final firebaseUser = FirebaseAuth.instance.currentUser;
@@ -51,10 +58,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
         // Add name and phone number to updateData if they are not empty
         if (_name.text.isNotEmpty) {
-          updateData['Name'] = _name.text;
+          updateData['Name'] = _name.text.trim();
         }
         if (_phoneNumber.text.isNotEmpty) {
-          updateData['Phone'] = _phoneNumber.text;
+          updateData['Phone'] = _phoneNumber.text.trim();
         }
 
         // If there's anything to update, proceed
@@ -207,9 +214,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             keyboardType: TextInputType.phone,
             controller: _phoneNumber,
           ),
-          const SizedBox(height: 50),
           const Spacer(),
-          SigninSignup(
+          AuthButton(
             onPressed: _isLoading ? () {} : _updateProfile,
             vertical: _isLoading ? 15 : 13,
             horizontal: _isLoading ? 165 : 145,

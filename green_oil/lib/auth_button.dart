@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SigninSignup extends StatelessWidget {
-  const SigninSignup({
+class AuthButton extends StatelessWidget {
+  const AuthButton({
     super.key,
     required this.onPressed,
     required this.child,
