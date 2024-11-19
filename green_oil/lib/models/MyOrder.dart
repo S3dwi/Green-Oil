@@ -6,8 +6,8 @@ enum OilType { motorOil, cookingOil, lubricating }
 
 enum OrderStatus { processing, completed, cancelled }
 
-class Order {
-  Order({
+class MyOrder {
+  MyOrder({
     required this.oilType,
     required this.oilQuantity,
     required this.arrivalDate,

@@ -131,12 +131,12 @@ class _SupportScreenState extends State<SupportScreen> {
             titel: "Contact us on WhatsApp",
             description: "Contact us via WhatsApp",
           ),
-          const SizedBox(height: 10),
-          HelpCard(
-            onTap: () {},
-            titel: "Contact Live Chat",
-            description: "Live chat support",
-          ),
+          // const SizedBox(height: 10),
+          // HelpCard(
+          //   onTap: () {},
+          //   titel: "Contact Live Chat",
+          //   description: "Live chat support",
+          // ),
           const SizedBox(height: 50),
           DeleteAccount(
             onTap: _deleteUserAccount,

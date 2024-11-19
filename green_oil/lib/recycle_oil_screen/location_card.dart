@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:green_oil/home_screen/new_location.dart';
-import 'package:green_oil/models/order.dart';
+import 'package:green_oil/models/MyOrder.dart';
 
 class LocationCard extends StatelessWidget {
   const LocationCard({super.key, required this.onLocationSelected});

@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
+
 import 'package:green_oil/primary_button.dart';
 import 'package:green_oil/recycle_oil_screen/location_card.dart';
 import 'package:green_oil/recycle_oil_screen/oil_type_dropdown.dart';
 import 'package:green_oil/recycle_oil_screen/quantity_selector.dart';
 import 'package:green_oil/recycle_oil_screen/select_pickup_date.dart';
 import 'package:green_oil/recycle_oil_screen/step_progress_indicator.dart';
-import 'package:green_oil/models/order.dart';
+import 'package:green_oil/models/MyOrder.dart';
 import 'package:green_oil/recycle_oil_screen/order_summary.dart';
 
 class RecycleOil extends StatefulWidget {
-  const RecycleOil({super.key, required this.currentStep});
+  const RecycleOil({
+    super.key,
+    required this.currentStep,
+  });
 
   final int currentStep;
-
   static var totalSteps = 3;
-
-  static var stepTitles = ["Oil Type", "Quantity & Pickup", "Order Summary"];
+  static var stepTitles = [
+    "Oil Type",
+    "Quantity & Pickup",
+    "Order Summary",
+  ];
 
   @override
-  State<RecycleOil> createState() => _RecycleOilState();
+  State<StatefulWidget> createState() {
+    return _RecycleOilState();
+  }
 }
 
 class _RecycleOilState extends State<RecycleOil> {
@@ -30,8 +38,9 @@ class _RecycleOilState extends State<RecycleOil> {
 
   String? _selectedOilType;
   DateTime? _arrivalDate;
-  Location?
-      _selectedLocation; //to be fixed when location functionality is implemented
+
+  //to be fixed when location functionality is implemented
+  Location? _selectedLocation;
 
   final List<String> stepTitles = RecycleOil.stepTitles;
 
@@ -155,7 +164,10 @@ class _RecycleOilState extends State<RecycleOil> {
           borderRadius: BorderRadius.circular(14),
         ),
         behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+        margin: EdgeInsets.symmetric(
+          horizontal: 6,
+          vertical: 10,
+        ),
       ),
     );
   }
@@ -169,19 +181,14 @@ class _RecycleOilState extends State<RecycleOil> {
         Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              stepTitles[currentStep],
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 27,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-            ),
             bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(20.0),
+              preferredSize: const Size.fromHeight(
+                40.0,
+              ), // Increase bottom size if needed
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                ),
                 child: StepProgressIndicator(
                   currentStep: currentStep,
                   totalSteps: totalSteps,
@@ -195,6 +202,25 @@ class _RecycleOilState extends State<RecycleOil> {
                 color: Theme.of(context).colorScheme.secondary,
               ),
               onPressed: () => Navigator.of(context).pop(),
+            ),
+            // Add flexibleSpace for custom positioning
+            flexibleSpace: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 0.0,
+                ), // Adjust top padding as needed
+                child: Align(
+                  alignment: Alignment.center, // Keeps title in the center
+                  child: Text(
+                    stepTitles[currentStep],
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 27,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
           body: SingleChildScrollView(
@@ -311,7 +337,7 @@ class _RecycleOilState extends State<RecycleOil> {
                               }
 
                               //Create the Order object
-                              final order = Order(
+                              final order = MyOrder(
                                 orderID: 'ToBeImplemented',
                                 oilType: oilType,
                                 oilQuantity: quantity,

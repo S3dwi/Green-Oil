@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:green_oil/models/order.dart';
+import 'package:green_oil/models/MyOrder.dart';
 import 'package:green_oil/schedule_screen/orders_list/orders_list.dart';
 
 class OrderSwitcher extends StatefulWidget {
@@ -12,8 +12,8 @@ class OrderSwitcher extends StatefulWidget {
 }
 
 class _OrderSwitcherState extends State<OrderSwitcher> {
-  final List<Order> _ongoingOrders = [
-    Order(
+  final List<MyOrder> _ongoingOrders = [
+    MyOrder(
       orderID: 'DS032402',
       oilType: OilType.cookingOil,
       oilQuantity: 10.5,
@@ -22,7 +22,7 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
       location:
           Location(city: 'Jeddah', latitude: 21.735611, longitude: 39.283458),
     ),
-    Order(
+    MyOrder(
       orderID: 'DS000032',
       oilType: OilType.motorOil,
       oilQuantity: 5.6,
@@ -32,8 +32,8 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
           Location(city: 'Makkah', latitude: 21.381705, longitude: 39.799716),
     )
   ];
-  final List<Order> _historyOrders = [
-    Order(
+  final List<MyOrder> _historyOrders = [
+    MyOrder(
       orderID: 'DS000041',
       oilType: OilType.motorOil,
       oilQuantity: 20.1,
@@ -42,7 +42,7 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
       location:
           Location(city: 'Riyadh', latitude: 24.677880, longitude: 46.718974),
     ),
-    Order(
+    MyOrder(
       orderID: 'DS000031',
       oilType: OilType.motorOil,
       oilQuantity: 5.7,
@@ -51,7 +51,7 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
       location:
           Location(city: 'Tabuk', latitude: 28.391721, longitude: 36.579294),
     ),
-    Order(
+    MyOrder(
       orderID: 'DS000049',
       oilType: OilType.motorOil,
       oilQuantity: 7.4,

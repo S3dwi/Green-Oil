@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:green_oil/models/order.dart';
+import 'package:green_oil/models/MyOrder.dart';
 import 'package:green_oil/schedule_screen/schedule_screen.dart';
 
 class OrderItem extends StatelessWidget {
   const OrderItem({super.key, required this.order});
 
-  final Order order;
+  final MyOrder order;
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +119,7 @@ Widget buildDetailItem(String label, String value, BuildContext context) {
   );
 }
 
-Widget getOrderStatus(Order order, BuildContext context) {
+Widget getOrderStatus(MyOrder order, BuildContext context) {
   if (order.orderStatus == OrderStatus.processing) {
     return Row(
       children: [
@@ -186,7 +186,7 @@ Widget getOrderStatus(Order order, BuildContext context) {
   }
 }
 
-String getOrderType(Order order) {
+String getOrderType(MyOrder order) {
   if (order.oilType == OilType.cookingOil) {
     return "Cooking Oil";
   } else if (order.oilType == OilType.motorOil) {

@@ -1,40 +1,119 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:green_oil/models/order.dart';
+
+import 'package:green_oil/models/MyOrder.dart';
 import 'package:green_oil/primary_button.dart';
 import 'package:green_oil/recycle_oil_screen/confirmation_screen.dart';
 import 'package:green_oil/recycle_oil_screen/recycle_oil.dart';
 import 'package:green_oil/recycle_oil_screen/step_progress_indicator.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class OrderSummary extends StatelessWidget {
-  const OrderSummary(
-      {super.key, required this.order, required this.currentStep});
+class OrderSummary extends StatefulWidget {
+  const OrderSummary({
+    super.key,
+    required this.order,
+    required this.currentStep,
+  });
 
   final int currentStep;
-  final Order order;
+  final MyOrder order;
+
+  @override
+  State<StatefulWidget> createState() {
+    return _OrderSummaryState();
+  }
+}
+
+class _OrderSummaryState extends State<OrderSummary> {
+  Future<Map<String, String>> fetchUserInfo(String userId) async {
+    final userDoc =
+        FirebaseFirestore.instance.collection('provider').doc(userId);
+    final snapshot = await userDoc.get();
+
+    if (snapshot.exists) {
+      final data = snapshot.data()!;
+      return {
+        'Email': data['Email'] ?? '',
+        'Name': data['Name'] ?? '',
+        'Phone': data['Phone'] ?? '',
+        'image_url': data['image_url'] ?? '',
+      };
+    } else {
+      throw Exception('User data not found for userId: $userId');
+    }
+  }
+
+  void _submitRecyclingRequest() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId != null) {
+      final databaseRef = FirebaseDatabase.instance.ref('requests/$userId');
+      final newRequestRef = databaseRef.push();
+      try {
+        // Fetch user information from Firestore
+        final userInfo = await fetchUserInfo(userId);
+
+        // Submit the request
+        await newRequestRef.set({
+          'order Status': 'processing',
+          'processing Status': 'pending',
+          'oil Type': getOrderType(widget.order),
+          'quantity': widget.order.oilQuantity.toString(),
+          'location': {
+            'city': widget.order.location.city,
+            'latitude': widget.order.location.latitude,
+            'longitude': widget.order.location.longitude,
+          },
+          // 'store Info': userInfo,
+        });
+        if (mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ConfirmationScreen(),
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to submit recycling request: $e'),
+            ),
+          );
+          print('Failed to submit recycling request: $e');
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     String formattedDate =
-        '${order.arrivalDate.day}/${order.arrivalDate.month}/${order.arrivalDate.year}';
+        '${widget.order.arrivalDate.day}/${widget.order.arrivalDate.month}/${widget.order.arrivalDate.year}';
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          RecycleOil.stepTitles[currentStep],
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 27,
-            color: Theme.of(context).colorScheme.secondary,
+        title: Padding(
+          padding: const EdgeInsets.only(
+            top: 35.0,
+          ), // Adjust the top padding to lower the title
+          child: Text(
+            RecycleOil.stepTitles[widget.currentStep],
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 27,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
         ),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(20.0),
+          preferredSize: const Size.fromHeight(40.0), // Adjust height if needed
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: StepProgressIndicator(
-              currentStep: currentStep,
+              currentStep: widget.currentStep,
               totalSteps: RecycleOil.totalSteps,
             ),
           ),
@@ -84,7 +163,7 @@ class OrderSummary extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          getOrderType(order),
+                          getOrderType(widget.order),
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -94,7 +173,6 @@ class OrderSummary extends StatelessWidget {
                       ],
                     ),
                   ),
-                  //const SizedBox(height: 10),
                   // Oil Quantity and Points
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -117,7 +195,7 @@ class OrderSummary extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${order.oilQuantity.toStringAsFixed(1)}L',
+                          '${widget.order.oilQuantity.toStringAsFixed(1)}L',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -147,45 +225,12 @@ class OrderSummary extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
-                        TextButton(
-                          onPressed: () async {
-                            // Test with a simple URL
-                            final Uri uri =
-                                Uri.parse(order.location.googleMapsLink);
-                            if (await canLaunchUrl(uri)) {
-                              await launchUrl(
-                                uri,
-                                mode: LaunchMode.inAppWebView,
-                              ); // Opens the URL inside the app
-                            } else {
-                              // Show error message to the user using SnackBar
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Could not launch url'),
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.error,
-                                ),
-                              );
-                            }
-                          },
-                          style: TextButton.styleFrom(
-                            padding:
-                                EdgeInsets.zero, // Remove the default padding
-                            minimumSize: const Size(0,
-                                0), // Set the minimum size to 0 to avoid extra space
-                            tapTargetSize: MaterialTapTargetSize
-                                .shrinkWrap, // Shrink the tap target size
-                            alignment: Alignment
-                                .centerLeft, // Align the text to the left within the button// Ensure button has no minimum size
-                          ),
-                          child: Text(
-                            order.location.city,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Theme.of(context).colorScheme.secondary,
-                              decoration: TextDecoration.underline,
-                            ),
+                        Text(
+                          widget.order.location.city,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ],
@@ -229,15 +274,7 @@ class OrderSummary extends StatelessWidget {
           Spacer(),
           // Next Button
           PrimaryButton(
-            onPressed: () {
-              //Navigate to OrderSummary and pass the order object
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ConfirmationScreen(),
-                ),
-              );
-            },
+            onPressed: _submitRecyclingRequest,
             backgroundColor: Theme.of(context).colorScheme.primary,
             label: "SUBMIT ORDER",
             vertical: 13,
@@ -249,7 +286,7 @@ class OrderSummary extends StatelessWidget {
     );
   }
 
-  String getOrderType(Order order) {
+  String getOrderType(MyOrder order) {
     if (order.oilType == OilType.cookingOil) {
       return "Cooking Oil";
     } else if (order.oilType == OilType.motorOil) {

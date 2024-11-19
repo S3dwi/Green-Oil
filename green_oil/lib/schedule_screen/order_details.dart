@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:green_oil/models/order.dart';
+import 'package:green_oil/models/MyOrder.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({
@@ -8,7 +8,7 @@ class OrderDetails extends StatelessWidget {
     required this.order,
   });
 
-  final Order order;
+  final MyOrder order;
 
   Widget buildDetailItem(String label, String value, BuildContext context) {
     return Container(
@@ -223,7 +223,7 @@ class OrderDetails extends StatelessWidget {
   }
 }
 
-String getOrderType(Order order) {
+String getOrderType(MyOrder order) {
   if (order.oilType == OilType.cookingOil) {
     return "Cooking Oil";
   } else if (order.oilType == OilType.motorOil) {
@@ -238,7 +238,7 @@ String getOrderType(Order order) {
   }
 }
 
-String getOrderStatus(Order order) {
+String getOrderStatus(MyOrder order) {
   if (order.orderStatus == OrderStatus.processing) {
     return "Processing";
   } else if (order.orderStatus == OrderStatus.completed) {
