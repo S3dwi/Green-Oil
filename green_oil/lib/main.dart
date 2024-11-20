@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 
-import 'package:green_oil/app_theme.dart';
-import 'package:green_oil/nav_bar.dart';
 import 'package:green_oil/sign_up_screen/verify_email_screen.dart';
 import 'package:green_oil/sign_in_screen/sign_in_screen.dart';
+import 'package:green_oil/app_theme.dart';
+import 'package:green_oil/nav_bar.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-import 'package:green_oil/models/MyOrder.dart';
+import 'package:green_oil/models/my_order.dart';
 import 'package:green_oil/primary_button.dart';
 import 'package:green_oil/recycle_oil_screen/confirmation_screen.dart';
 import 'package:green_oil/recycle_oil_screen/recycle_oil.dart';
@@ -64,7 +64,7 @@ class _OrderSummaryState extends State<OrderSummary> {
             'latitude': widget.order.location.latitude,
             'longitude': widget.order.location.longitude,
           },
-          // 'store Info': userInfo,
+          'store Info': userInfo,
         });
         if (mounted) {
           Navigator.of(context).push(
@@ -81,7 +81,6 @@ class _OrderSummaryState extends State<OrderSummary> {
               content: Text('Failed to submit recycling request: $e'),
             ),
           );
-          print('Failed to submit recycling request: $e');
         }
       }
     }

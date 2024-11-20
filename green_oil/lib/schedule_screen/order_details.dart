@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:green_oil/models/MyOrder.dart';
+import 'package:green_oil/models/my_order.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({

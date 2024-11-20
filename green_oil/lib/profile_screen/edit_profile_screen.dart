@@ -1,12 +1,13 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:green_oil/nav_bar.dart';
-import 'package:green_oil/auth_button.dart';
-import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:green_oil/profile_screen/edit_account_card.dart';
+import 'package:green_oil/auth_button.dart';
+import 'package:green_oil/nav_bar.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -218,7 +219,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           AuthButton(
             onPressed: _isLoading ? () {} : _updateProfile,
             vertical: _isLoading ? 15 : 13,
-            horizontal: _isLoading ? 165 : 145,
+            horizontal: _isLoading ? 165 : 155.25,
             child: _isLoading
                 ? SizedBox(
                     height: 30,

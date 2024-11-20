@@ -182,7 +182,7 @@ class _SignInScreenState extends State<SignInScreen> {
             AuthButton(
               onPressed: _isLoading ? () {} : _signIn,
               vertical: _isLoading ? 15 : 13,
-              horizontal: _isLoading ? 165 : 145,
+              horizontal: _isLoading ? 165 : 145.35,
               child: _isLoading
                   ? SizedBox(
                       height: 30,

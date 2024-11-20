@@ -6,7 +6,7 @@ import 'package:green_oil/recycle_oil_screen/oil_type_dropdown.dart';
 import 'package:green_oil/recycle_oil_screen/quantity_selector.dart';
 import 'package:green_oil/recycle_oil_screen/select_pickup_date.dart';
 import 'package:green_oil/recycle_oil_screen/step_progress_indicator.dart';
-import 'package:green_oil/models/MyOrder.dart';
+import 'package:green_oil/models/my_order.dart';
 import 'package:green_oil/recycle_oil_screen/order_summary.dart';
 
 class RecycleOil extends StatefulWidget {

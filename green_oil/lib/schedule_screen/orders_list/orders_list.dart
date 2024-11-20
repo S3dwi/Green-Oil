@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:green_oil/models/MyOrder.dart';
+import 'package:green_oil/models/my_order.dart';
 import 'package:green_oil/schedule_screen/orders_list/order_item.dart';
 
 class OrdersList extends StatelessWidget {

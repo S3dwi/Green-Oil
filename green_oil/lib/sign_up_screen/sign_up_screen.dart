@@ -170,7 +170,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             AuthButton(
               onPressed: _isLoading ? () {} : _createAccount,
               vertical: _isLoading ? 15 : 13,
-              horizontal: _isLoading ? 165 : 141.8,
+              horizontal: _isLoading ? 165 : 139.7,
               child: _isLoading
                   ? SizedBox(
                       height: 30,
