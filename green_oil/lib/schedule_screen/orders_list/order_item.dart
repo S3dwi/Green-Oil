@@ -3,7 +3,10 @@ import 'package:green_oil/models/my_order.dart';
 import 'package:green_oil/schedule_screen/schedule_screen.dart';
 
 class OrderItem extends StatelessWidget {
-  const OrderItem({super.key, required this.order});
+  const OrderItem({
+    super.key,
+    required this.order,
+  });
 
   final MyOrder order;
 
@@ -30,7 +33,7 @@ class OrderItem extends StatelessWidget {
                 // Order ID
                 buildDetailItem(
                   'Order ID',
-                  order.orderID,
+                  order.orderID.substring(order.orderID.length - 10),
                   context,
                 ),
                 // Order Type
@@ -120,23 +123,68 @@ Widget buildDetailItem(String label, String value, BuildContext context) {
 }
 
 Widget getOrderStatus(MyOrder order, BuildContext context) {
-  if (order.orderStatus == OrderStatus.processing) {
+  if (order.orderStatus == OrderStatus.pending) {
     return Row(
       children: [
         const SizedBox(width: 14),
         Icon(
-          Icons.sync_rounded,
+          Icons.update,
           color: Theme.of(context).disabledColor,
+          size: 32,
         ),
         const SizedBox(
           width: 8,
         ),
         Text(
-          "Processing",
+          "Pending",
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 24,
             fontWeight: FontWeight.w900,
             color: Theme.of(context).disabledColor,
+          ),
+        ),
+      ],
+    );
+  } else if (order.orderStatus == OrderStatus.accepted) {
+    return Row(
+      children: [
+        const SizedBox(width: 14),
+        Icon(
+          Icons.sync_rounded,
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          size: 32,
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Text(
+          "Accepted",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w900,
+            color: Theme.of(context).colorScheme.secondaryContainer,
+          ),
+        ),
+      ],
+    );
+  } else if (order.orderStatus == OrderStatus.pickupScheduled) {
+    return Row(
+      children: [
+        const SizedBox(width: 14),
+        Icon(
+          Icons.sync_rounded,
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          size: 32,
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Text(
+          "Pickup Scheduled",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w900,
+            color: Theme.of(context).colorScheme.secondaryContainer,
           ),
         ),
       ],
@@ -148,6 +196,7 @@ Widget getOrderStatus(MyOrder order, BuildContext context) {
         Icon(
           Icons.check_circle_outline_rounded,
           color: Theme.of(context).colorScheme.primary,
+          size: 32,
         ),
         const SizedBox(
           width: 8,
@@ -155,7 +204,7 @@ Widget getOrderStatus(MyOrder order, BuildContext context) {
         Text(
           "Completed",
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 24,
             fontWeight: FontWeight.w900,
             color: Theme.of(context).colorScheme.primary,
           ),
@@ -169,6 +218,7 @@ Widget getOrderStatus(MyOrder order, BuildContext context) {
         Icon(
           Icons.cancel_outlined,
           color: Theme.of(context).colorScheme.error,
+          size: 32,
         ),
         SizedBox(
           width: 8,
@@ -176,7 +226,7 @@ Widget getOrderStatus(MyOrder order, BuildContext context) {
         Text(
           "Cancelled",
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 24,
             fontWeight: FontWeight.w900,
             color: Theme.of(context).colorScheme.error,
           ),

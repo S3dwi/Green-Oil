@@ -19,6 +19,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   String userName = "";
+  String companyName = "";
   String userEmail = "";
   String userPhone = "";
   String userImageUrl = "";
@@ -44,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               snapshot.data() as Map<String, dynamic>;
           setState(() {
             userName = userData['Name'] ?? "No Name provided";
+            companyName = userData['Company Name'] ?? "No company provided";
             userEmail = userData['Email'] ?? "No email provided";
             userPhone = userData['Phone'] ?? "No phone number provided";
             userImageUrl =
@@ -91,115 +93,125 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Column(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: 350,
-            child: Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 310,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                    ),
-                    gradient: LinearGradient(
-                      colors: [
-                        Theme.of(context).colorScheme.surfaceContainer,
-                        Theme.of(context).colorScheme.surfaceContainerHigh,
-                        Theme.of(context).colorScheme.surfaceContainerHighest,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                  ),
-                  child: Stack(
-                    alignment: AlignmentDirectional.topCenter,
-                    children: [
-                      Positioned(
-                        top: 65,
-                        child: CircleAvatar(
-                          radius: 64,
-                          backgroundImage: isValidUrl(userImageUrl.trim())
-                              ? NetworkImage(userImageUrl)
-                              : AssetImage('assets/images/profile_picture.png')
-                                  as ImageProvider,
-                        ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 320,
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 290,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(30),
                       ),
-                      Positioned(
-                        right: 15,
-                        top: 35,
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => EditProfileScreen(),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.edit_outlined),
-                          iconSize: 36,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
+                      gradient: LinearGradient(
+                        colors: [
+                          Theme.of(context).colorScheme.surfaceContainer,
+                          Theme.of(context).colorScheme.surfaceContainerHigh,
+                          Theme.of(context).colorScheme.surfaceContainerHighest,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
-                      Positioned(
-                        bottom: 65,
-                        child: Text(
-                          userName.toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
+                    ),
+                    child: Stack(
+                      alignment: AlignmentDirectional.topCenter,
+                      children: [
+                        Positioned(
+                          top: 55,
+                          child: CircleAvatar(
+                            radius: 64,
+                            backgroundImage: isValidUrl(userImageUrl.trim())
+                                ? NetworkImage(userImageUrl)
+                                : AssetImage(
+                                        'assets/images/profile_picture.png')
+                                    as ImageProvider,
+                          ),
+                        ),
+                        Positioned(
+                          right: 15,
+                          top: 35,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => EditProfileScreen(),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.edit_outlined),
+                            iconSize: 36,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
-                      ),
-                    ],
+                        Positioned(
+                          bottom: 65,
+                          child: Text(
+                            userName.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 18,
-                  left: 18,
-                  child: AccountDetailCard(
-                    label: "Name",
-                    value: userName,
-                  ),
-                )
-              ],
+                  Positioned(
+                    bottom: 0,
+                    right: 18,
+                    left: 18,
+                    child: AccountDetailCard(
+                      label: "Name",
+                      value: userName,
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          AccountDetailCard(
-            label: "Email",
-            value: userEmail,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          AccountDetailCard(
-            label: "Phone Number",
-            value: userPhone,
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          HelpCenter(
-            onTap: () {
-              helpCenter(context);
-            },
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          LogOut(
-            onTap: _signOut,
-          ),
-        ],
+            const SizedBox(
+              height: 6,
+            ),
+            AccountDetailCard(
+              label: "Company Name",
+              value: companyName,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            AccountDetailCard(
+              label: "Email",
+              value: userEmail,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            AccountDetailCard(
+              label: "Phone Number",
+              value: userPhone,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            HelpCenter(
+              onTap: () {
+                helpCenter(context);
+              },
+            ),
+            const SizedBox(
+              height: 6,
+            ),
+            LogOut(
+              onTap: _signOut,
+            ),
+          ],
+        ),
       ),
     );
   }

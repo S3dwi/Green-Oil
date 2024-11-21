@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class NameTextField extends StatelessWidget {
   const NameTextField({
     super.key,
+    required this.label,
     required this.onSaved,
   });
 
+  final String label;
   final void Function(String?) onSaved;
 
   @override
@@ -18,7 +20,7 @@ class NameTextField extends StatelessWidget {
           color: Theme.of(context).colorScheme.secondary,
         ),
         decoration: InputDecoration(
-          labelText: 'Contact Person Name (Required)',
+          labelText: label,
           floatingLabelStyle: TextStyle(
             color: Theme.of(context).colorScheme.primary,
             // Color when label is floating (in focus)

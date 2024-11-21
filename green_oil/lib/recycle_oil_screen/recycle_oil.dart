@@ -341,10 +341,10 @@ class _RecycleOilState extends State<RecycleOil> {
                                 orderID: 'ToBeImplemented',
                                 oilType: oilType,
                                 oilQuantity: quantity,
+                                oilPrice: quantity * 4,
                                 arrivalDate: _arrivalDate!,
                                 orderStatus:
-                                    OrderStatus.processing, // default status
-                                processingStatus: ProcessingStatus.pending,
+                                    OrderStatus.pending, // default status
                                 location: Location(
                                   city: 'Jeddah',
                                   latitude: 21.735611,

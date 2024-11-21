@@ -15,23 +15,26 @@ final themeLight = ThemeData(
 
 // Light theme color scheme
 final colorSchemeLight = ColorScheme.fromSeed(
-    brightness: Brightness.light, // Theme brightness: light or dark
-    seedColor: Color(0xFF47AB4D),
-    primary: Color(0xFF47AB4D),
-    // Main color used for primary interactive elements
-    onPrimary: Colors.white, //  Component color
+  brightness: Brightness.light, // Theme brightness: light or dark
+  seedColor: Color(0xFF47AB4D),
+  primary: Color(0xFF47AB4D),
+  // Main color used for primary interactive elements
+  onPrimary: Colors.white, //  Component color
 
-    secondary: Color(0xFF000000), // Text/icon color
-    onSecondary: Colors.white, // Text color
+  secondary: Color(0xFF000000), // Text/icon color
+  onSecondary: Colors.white, // Text color
 
-    error: Colors.red, // Error color for showing validation issues
+  error: Colors.red, // Error color for showing validation issues
 
-    surface: Color.fromARGB(0, 255, 255, 255),
+  surface: Color.fromARGB(0, 255, 255, 255),
 
-    //gredient colors
-    surfaceContainer: Color(0xFF529C57),
-    surfaceContainerHigh: Color(0xFF6DB571),
-    surfaceContainerHighest: Color(0xFFA1D5A4));
+  //gredient colors
+  surfaceContainer: Color(0xFF529C57),
+  surfaceContainerHigh: Color(0xFF6DB571),
+  surfaceContainerHighest: Color(0xFFA1D5A4),
+
+  secondaryContainer: Color(0xFF0061BF),
+);
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -69,4 +72,6 @@ final colorSchemeDark = ColorScheme.fromSeed(
   surfaceContainer: const Color(0xFF5F885F),
   surfaceContainerHigh: Color(0xFF435A42),
   surfaceContainerHighest: Color(0xFF233123),
+
+  secondaryContainer: Color(0xFF4A90E2),
 );

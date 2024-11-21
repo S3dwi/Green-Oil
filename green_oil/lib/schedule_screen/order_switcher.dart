@@ -66,22 +66,15 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
                 orElse: () => OilType.cookingOil, // Default value
               ),
               oilQuantity: double.parse(orderData['quantity'].toString()),
+              oilPrice: double.parse(orderData['oil Price'].toString()),
               arrivalDate: DateTime.parse(orderData['arrival Date']),
               orderStatus: OrderStatus.values.firstWhere(
                 (e) =>
                     e.toString().split('.').last.toLowerCase() ==
                     orderData['order Status'].toString().toLowerCase(),
-                orElse: () => OrderStatus.processing, // Default value
+                orElse: () => OrderStatus.pending, // Default value
               ),
-              processingStatus: ProcessingStatus.values.firstWhere(
-                (e) =>
-                    e.toString().split('.').last.toLowerCase() ==
-                    orderData['processing Status']
-                        .toString()
-                        .toLowerCase(), // Match processing status
-                orElse: () => ProcessingStatus.pending, // Default value
-              ),
-              orderID: key.substring(key.length - 10),
+              orderID: key,
               location: Location(
                 city: orderData['location']['city'].toString(),
                 latitude:
@@ -92,11 +85,11 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
             );
 
             // Classify orders based on their status
-            if (order.orderStatus == OrderStatus.processing) {
-              ongoingOrders.add(order);
-            } else if (order.orderStatus == OrderStatus.completed ||
+            if (order.orderStatus == OrderStatus.completed ||
                 order.orderStatus == OrderStatus.cancelled) {
               historyOrders.add(order);
+            } else {
+              ongoingOrders.add(order);
             }
           });
 

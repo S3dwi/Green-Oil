@@ -24,6 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _form = GlobalKey<FormState>();
 
   var _enteredName = '';
+  var _enteredNameCompany = '';
   var _enteredPhone = '';
   var _enteredEmail = '';
   var _enteredPassword = '';
@@ -52,6 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             .doc(userCredential.user!.uid)
             .set({
           'Name': _enteredName.trim(),
+          'Company Name': _enteredNameCompany.trim(),
           'Phone': _enteredPhone.trim(),
           'Email': _enteredEmail.trim(),
         });
@@ -131,8 +133,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   // Name input field
                   NameTextField(
+                    label: 'Person Name (Required)',
                     onSaved: (newValue) {
                       _enteredName = newValue!;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  NameTextField(
+                    label: 'Company Name (Required)',
+                    onSaved: (newValue) {
+                      _enteredNameCompany = newValue!;
                     },
                   ),
                   const SizedBox(height: 15),

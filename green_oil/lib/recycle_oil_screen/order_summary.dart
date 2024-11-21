@@ -38,6 +38,7 @@ class _OrderSummaryState extends State<OrderSummary> {
     return {
       'Email': data['Email'] ?? '',
       'Name': data['Name'] ?? '',
+      'Company Name': data['Company Name'] ?? '',
       'Phone': data['Phone'] ?? '',
       'image_url': data['image_url'] ?? '',
     };
@@ -59,10 +60,10 @@ class _OrderSummaryState extends State<OrderSummary> {
 
         // Submit the request
         await newRequestRef.set({
-          'order Status': 'processing',
-          'processing Status': 'pending',
+          'order Status': 'pending',
           'oil Type': getOrderType(widget.order),
           'quantity': widget.order.oilQuantity.toString(),
+          'oil Price': widget.order.oilPrice.toString(),
           'arrival Date': DateFormat('yyyy-MM-dd')
               .format(widget.order.arrivalDate)
               .toString(),
@@ -71,7 +72,7 @@ class _OrderSummaryState extends State<OrderSummary> {
             'latitude': widget.order.location.latitude,
             'longitude': widget.order.location.longitude,
           },
-          'Customer Info': userInfo,
+          'Provider Info': userInfo,
         });
         if (mounted) {
           Navigator.of(context).push(
@@ -213,6 +214,38 @@ class _OrderSummaryState extends State<OrderSummary> {
                         ),
                         Text(
                           '${widget.order.oilQuantity.toStringAsFixed(1)}L',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Oil Quantity and Points
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Oil Price',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                        Text(
+                          '${widget.order.oilPrice.toStringAsFixed(1)} SR',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,

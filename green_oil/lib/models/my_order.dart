@@ -5,25 +5,20 @@ enum OilType {
 }
 
 enum OrderStatus {
-  processing,
-  completed,
-  cancelled,
-}
-
-enum ProcessingStatus {
   pending,
   accepted,
   pickupScheduled,
-  pickupConfirmed,
+  completed,
+  cancelled,
 }
 
 class MyOrder {
   MyOrder({
     required this.oilType,
     required this.oilQuantity,
+    required this.oilPrice,
     required this.arrivalDate,
     required this.orderStatus,
-    required this.processingStatus,
     required this.orderID,
     required this.location,
   });
@@ -31,9 +26,9 @@ class MyOrder {
   final String orderID;
   final OilType oilType;
   final double oilQuantity;
+  final double oilPrice;
   final DateTime arrivalDate;
   final OrderStatus orderStatus;
-  final ProcessingStatus processingStatus;
   final Location location;
 }
 

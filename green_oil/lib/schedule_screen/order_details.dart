@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oil/models/my_order.dart';
+import 'package:green_oil/schedule_screen/invoice_screen.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({
@@ -117,7 +118,7 @@ class OrderDetails extends StatelessWidget {
                     // Order ID
                     buildDetailItem(
                       'Order ID',
-                      order.orderID,
+                      order.orderID.substring(order.orderID.length - 10),
                       context,
                     ),
                     Divider(),
@@ -135,10 +136,17 @@ class OrderDetails extends StatelessWidget {
                       context,
                     ),
                     Divider(),
-                    // Oil Quantity and Points
+                    // Oil Quantity
                     buildDetailItem(
                       'Estimated Quantity',
                       '${order.oilQuantity.toStringAsFixed(1)}L',
+                      context,
+                    ),
+                    Divider(),
+                    // Oil Price
+                    buildDetailItem(
+                      'Oil Price',
+                      '${order.oilPrice.toStringAsFixed(1)} SR',
                       context,
                     ),
                     Divider(),
@@ -162,50 +170,87 @@ class OrderDetails extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        OutlinedButton(
-                          onPressed: () {
-                            // Invoice action
-                          },
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(
-                              color: Theme.of(context).colorScheme.primary,
-                            ), // Green border
+                        ElevatedButton(
+                          onPressed:
+                              order.orderStatus == OrderStatus.completed ||
+                                      order.orderStatus == OrderStatus.cancelled
+                                  ? () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              InvoiceScreen(order: order),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context)
+                                .colorScheme
+                                .primary, // Always keep the same color
+                            disabledBackgroundColor: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.5), // Same color when disabled
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
-                              // Rounded corners
                             ),
-                            minimumSize: const Size(180, 50),
+                            minimumSize: const Size(155, 50),
                           ),
-                          child: Text(
-                            'Invoice',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
+                          child: Opacity(
+                            opacity: order.orderStatus ==
+                                        OrderStatus.completed ||
+                                    order.orderStatus == OrderStatus.cancelled
+                                ? 1.0
+                                : 0.5, // Semi-transparent text if disabled
+                            child: Text(
+                              'Invoice',
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w900,
+                              ),
                             ),
                           ),
                         ),
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     // Keep Track action
-                        //   },
-                        //   style: ElevatedButton.styleFrom(
-                        //     backgroundColor: Theme.of(context)
-                        //         .primaryColor, // Green background
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius:
-                        //           BorderRadius.circular(8), // Rounded corners
-                        //     ),
-                        //     minimumSize: const Size(155, 45),
-                        //   ),
-                        //   child: const Text(
-                        //     'Re-order',
-                        //     style: TextStyle(
-                        //         color: Colors.white,
-                        //         fontSize: 18,
-                        //         fontWeight: FontWeight.w900),
-                        //   ),
-                        // ),
+                        ElevatedButton(
+                          onPressed:
+                              order.orderStatus == OrderStatus.completed ||
+                                      order.orderStatus == OrderStatus.cancelled
+                                  ? null
+                                  : () {
+                                      // Track order action
+                                    },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context)
+                                .colorScheme
+                                .primary, // Always keep the same color
+                            disabledBackgroundColor: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            minimumSize: const Size(180, 50),
+                          ),
+                          child: Opacity(
+                            opacity: order.orderStatus ==
+                                        OrderStatus.completed ||
+                                    order.orderStatus == OrderStatus.cancelled
+                                ? 0.5
+                                : 1.0, // Semi-transparent text if disabled
+                            child: Text(
+                              'Track Order',
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -239,8 +284,12 @@ String getOrderType(MyOrder order) {
 }
 
 String getOrderStatus(MyOrder order) {
-  if (order.orderStatus == OrderStatus.processing) {
-    return "Processing";
+  if (order.orderStatus == OrderStatus.pending) {
+    return "Pending";
+  } else if (order.orderStatus == OrderStatus.accepted) {
+    return "Accepted";
+  } else if (order.orderStatus == OrderStatus.pickupScheduled) {
+    return "Pickup Scheduled";
   } else if (order.orderStatus == OrderStatus.completed) {
     return "Completed";
   } else if (order.orderStatus == OrderStatus.cancelled) {
