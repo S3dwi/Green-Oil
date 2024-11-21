@@ -1,10 +1,21 @@
-// import 'package:uuid/uuid.dart';
+enum OilType {
+  motorOil,
+  cookingOil,
+  lubricating,
+}
 
-//const uuid = Uuid();
+enum OrderStatus {
+  processing,
+  completed,
+  cancelled,
+}
 
-enum OilType { motorOil, cookingOil, lubricating }
-
-enum OrderStatus { processing, completed, cancelled }
+enum ProcessingStatus {
+  pending,
+  accepted,
+  pickupScheduled,
+  pickupConfirmed,
+}
 
 class MyOrder {
   MyOrder({
@@ -12,6 +23,7 @@ class MyOrder {
     required this.oilQuantity,
     required this.arrivalDate,
     required this.orderStatus,
+    required this.processingStatus,
     required this.orderID,
     required this.location,
   });
@@ -21,6 +33,7 @@ class MyOrder {
   final double oilQuantity;
   final DateTime arrivalDate;
   final OrderStatus orderStatus;
+  final ProcessingStatus processingStatus;
   final Location location;
 }
 

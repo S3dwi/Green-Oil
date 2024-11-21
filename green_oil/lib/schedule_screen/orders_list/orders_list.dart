@@ -3,7 +3,10 @@ import 'package:green_oil/models/my_order.dart';
 import 'package:green_oil/schedule_screen/orders_list/order_item.dart';
 
 class OrdersList extends StatelessWidget {
-  const OrdersList({super.key, required this.orders});
+  const OrdersList({
+    super.key,
+    required this.orders,
+  });
 
   final List<MyOrder> orders;
 
@@ -11,7 +14,9 @@ class OrdersList extends StatelessWidget {
   Widget build(context) {
     return ListView.builder(
       itemCount: orders.length,
-      itemBuilder: (ctx, index) => OrderItem(order: orders[index]),
+      itemBuilder: (ctx, index) => OrderItem(
+        order: orders[index],
+      ),
     );
   }
 }

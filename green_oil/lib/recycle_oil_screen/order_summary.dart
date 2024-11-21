@@ -1,13 +1,14 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import 'package:green_oil/models/my_order.dart';
-import 'package:green_oil/primary_button.dart';
+import 'package:green_oil/recycle_oil_screen/step_progress_indicator.dart';
 import 'package:green_oil/recycle_oil_screen/confirmation_screen.dart';
 import 'package:green_oil/recycle_oil_screen/recycle_oil.dart';
-import 'package:green_oil/recycle_oil_screen/step_progress_indicator.dart';
+import 'package:green_oil/models/my_order.dart';
+import 'package:green_oil/auth_button.dart';
 
 class OrderSummary extends StatefulWidget {
   const OrderSummary({
@@ -26,29 +27,32 @@ class OrderSummary extends StatefulWidget {
 }
 
 class _OrderSummaryState extends State<OrderSummary> {
+  bool _isLoading = false;
+
   Future<Map<String, String>> fetchUserInfo(String userId) async {
     final userDoc =
         FirebaseFirestore.instance.collection('provider').doc(userId);
     final snapshot = await userDoc.get();
 
-    if (snapshot.exists) {
-      final data = snapshot.data()!;
-      return {
-        'Email': data['Email'] ?? '',
-        'Name': data['Name'] ?? '',
-        'Phone': data['Phone'] ?? '',
-        'image_url': data['image_url'] ?? '',
-      };
-    } else {
-      throw Exception('User data not found for userId: $userId');
-    }
+    final data = snapshot.data()!;
+    return {
+      'Email': data['Email'] ?? '',
+      'Name': data['Name'] ?? '',
+      'Phone': data['Phone'] ?? '',
+      'image_url': data['image_url'] ?? '',
+    };
   }
 
   void _submitRecyclingRequest() async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId != null) {
+      setState(() {
+        _isLoading = true;
+      });
+
       final databaseRef = FirebaseDatabase.instance.ref('requests/$userId');
       final newRequestRef = databaseRef.push();
+
       try {
         // Fetch user information from Firestore
         final userInfo = await fetchUserInfo(userId);
@@ -59,12 +63,15 @@ class _OrderSummaryState extends State<OrderSummary> {
           'processing Status': 'pending',
           'oil Type': getOrderType(widget.order),
           'quantity': widget.order.oilQuantity.toString(),
+          'arrival Date': DateFormat('yyyy-MM-dd')
+              .format(widget.order.arrivalDate)
+              .toString(),
           'location': {
             'city': widget.order.location.city,
             'latitude': widget.order.location.latitude,
             'longitude': widget.order.location.longitude,
           },
-          'store Info': userInfo,
+          'Customer Info': userInfo,
         });
         if (mounted) {
           Navigator.of(context).push(
@@ -82,6 +89,12 @@ class _OrderSummaryState extends State<OrderSummary> {
             ),
           );
         }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false; // Stop loading
+          });
+        }
       }
     }
   }
@@ -94,19 +107,6 @@ class _OrderSummaryState extends State<OrderSummary> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: Padding(
-          padding: const EdgeInsets.only(
-            top: 35.0,
-          ), // Adjust the top padding to lower the title
-          child: Text(
-            RecycleOil.stepTitles[widget.currentStep],
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 27,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(40.0), // Adjust height if needed
           child: Padding(
@@ -124,6 +124,24 @@ class _OrderSummaryState extends State<OrderSummary> {
             color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () => Navigator.of(context).pop(),
+        ),
+        flexibleSpace: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              bottom: 0,
+            ), // Adjust top padding as needed
+            child: Align(
+              alignment: Alignment.center, // Keeps title in the center
+              child: Text(
+                RecycleOil.stepTitles[widget.currentStep],
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 27,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
       body: Column(
@@ -271,13 +289,28 @@ class _OrderSummaryState extends State<OrderSummary> {
             ),
           ),
           Spacer(),
+
           // Next Button
-          PrimaryButton(
-            onPressed: _submitRecyclingRequest,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            label: "SUBMIT ORDER",
-            vertical: 13,
-            horizontal: 91,
+          AuthButton(
+            onPressed: _isLoading ? () {} : _submitRecyclingRequest,
+            vertical: _isLoading ? 15 : 13,
+            horizontal: _isLoading ? 165 : 91.38,
+            child: _isLoading
+                ? SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  )
+                : Text(
+                    'SUBMIT ORDER',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
           ),
           const SizedBox(height: 30),
         ],

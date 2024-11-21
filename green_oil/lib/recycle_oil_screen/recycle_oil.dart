@@ -207,7 +207,7 @@ class _RecycleOilState extends State<RecycleOil> {
             flexibleSpace: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(
-                  top: 0.0,
+                  bottom: 0,
                 ), // Adjust top padding as needed
                 child: Align(
                   alignment: Alignment.center, // Keeps title in the center
@@ -344,10 +344,12 @@ class _RecycleOilState extends State<RecycleOil> {
                                 arrivalDate: _arrivalDate!,
                                 orderStatus:
                                     OrderStatus.processing, // default status
+                                processingStatus: ProcessingStatus.pending,
                                 location: Location(
-                                    city: 'Jeddah',
-                                    latitude: 21.735611,
-                                    longitude: 39.283458),
+                                  city: 'Jeddah',
+                                  latitude: 21.735611,
+                                  longitude: 39.283458,
+                                ),
                               );
 
                               //Navigate to OrderSummary and pass the order object

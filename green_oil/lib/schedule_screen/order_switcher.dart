@@ -1,6 +1,10 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:green_oil/models/my_order.dart';
+import 'dart:async';
+
 import 'package:green_oil/schedule_screen/orders_list/orders_list.dart';
+import 'package:green_oil/models/my_order.dart';
 
 class OrderSwitcher extends StatefulWidget {
   const OrderSwitcher({super.key});
@@ -12,60 +16,153 @@ class OrderSwitcher extends StatefulWidget {
 }
 
 class _OrderSwitcherState extends State<OrderSwitcher> {
-  final List<MyOrder> _ongoingOrders = [
-    MyOrder(
-      orderID: 'DS032402',
-      oilType: OilType.cookingOil,
-      oilQuantity: 10.5,
-      arrivalDate: DateTime.now(),
-      orderStatus: OrderStatus.processing,
-      location:
-          Location(city: 'Jeddah', latitude: 21.735611, longitude: 39.283458),
-    ),
-    MyOrder(
-      orderID: 'DS000032',
-      oilType: OilType.motorOil,
-      oilQuantity: 5.6,
-      arrivalDate: DateTime.now(),
-      orderStatus: OrderStatus.processing,
-      location:
-          Location(city: 'Makkah', latitude: 21.381705, longitude: 39.799716),
-    )
-  ];
-  final List<MyOrder> _historyOrders = [
-    MyOrder(
-      orderID: 'DS000041',
-      oilType: OilType.motorOil,
-      oilQuantity: 20.1,
-      arrivalDate: DateTime.parse('2024-07-21 20:18'),
-      orderStatus: OrderStatus.completed,
-      location:
-          Location(city: 'Riyadh', latitude: 24.677880, longitude: 46.718974),
-    ),
-    MyOrder(
-      orderID: 'DS000031',
-      oilType: OilType.motorOil,
-      oilQuantity: 5.7,
-      arrivalDate: DateTime.parse('1969-04-10 20:18'),
-      orderStatus: OrderStatus.completed,
-      location:
-          Location(city: 'Tabuk', latitude: 28.391721, longitude: 36.579294),
-    ),
-    MyOrder(
-      orderID: 'DS000049',
-      oilType: OilType.motorOil,
-      oilQuantity: 7.4,
-      arrivalDate: DateTime.parse('1999-02-29 20:18'),
-      orderStatus: OrderStatus.cancelled,
-      location:
-          Location(city: 'Jeddah', latitude: 22.735891, longitude: 39.283451),
-    )
-  ];
-
+  List<MyOrder> _ongoingOrders = [];
+  List<MyOrder> _historyOrders = [];
   int selectedIndex = 0;
+  var _isLoading = true;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Fetch requests initially
+    getUserRequests();
+
+    // Set up a timer to call getUserRequests every 1 minute
+    _timer = Timer.periodic(const Duration(minutes: 2), (timer) {
+      getUserRequests();
+    });
+  }
+
+  @override
+  void dispose() {
+    // Cancel the timer when the widget is disposed
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void getUserRequests() async {
+    try {
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+
+      if (userId != null) {
+        final databaseRef = FirebaseDatabase.instance.ref('requests/$userId');
+        final snapshot = await databaseRef.get();
+
+        if (snapshot.exists) {
+          final List<MyOrder> ongoingOrders = [];
+          final List<MyOrder> historyOrders = [];
+
+          final data = Map<String, dynamic>.from(snapshot.value as Map);
+          data.forEach((key, value) {
+            final orderData = Map<String, dynamic>.from(value as Map);
+
+            final MyOrder order = MyOrder(
+              oilType: OilType.values.firstWhere(
+                (e) =>
+                    e.toString().split('.').last.toLowerCase() ==
+                    orderData['oil Type'].toString().toLowerCase(),
+                orElse: () => OilType.cookingOil, // Default value
+              ),
+              oilQuantity: double.parse(orderData['quantity'].toString()),
+              arrivalDate: DateTime.parse(orderData['arrival Date']),
+              orderStatus: OrderStatus.values.firstWhere(
+                (e) =>
+                    e.toString().split('.').last.toLowerCase() ==
+                    orderData['order Status'].toString().toLowerCase(),
+                orElse: () => OrderStatus.processing, // Default value
+              ),
+              processingStatus: ProcessingStatus.values.firstWhere(
+                (e) =>
+                    e.toString().split('.').last.toLowerCase() ==
+                    orderData['processing Status']
+                        .toString()
+                        .toLowerCase(), // Match processing status
+                orElse: () => ProcessingStatus.pending, // Default value
+              ),
+              orderID: key.substring(key.length - 10),
+              location: Location(
+                city: orderData['location']['city'].toString(),
+                latitude:
+                    double.parse(orderData['location']['latitude'].toString()),
+                longitude:
+                    double.parse(orderData['location']['longitude'].toString()),
+              ),
+            );
+
+            // Classify orders based on their status
+            if (order.orderStatus == OrderStatus.processing) {
+              ongoingOrders.add(order);
+            } else if (order.orderStatus == OrderStatus.completed ||
+                order.orderStatus == OrderStatus.cancelled) {
+              historyOrders.add(order);
+            }
+          });
+
+          setState(() {
+            _ongoingOrders = ongoingOrders;
+            _historyOrders = historyOrders;
+            _isLoading = false;
+          });
+        } else {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "An error occurred while fetching orders: $error",
+            ),
+          ),
+        );
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    Widget content;
+
+    if (_isLoading) {
+      content = const Center(child: CircularProgressIndicator());
+    } else if (selectedIndex == 0 && _ongoingOrders.isEmpty) {
+      // Show specific message for Ongoing tab
+      content = Center(
+        child: Text(
+          'No ongoing orders.',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        ),
+      );
+    } else if (selectedIndex == 1 && _historyOrders.isEmpty) {
+      // Show specific message for History tab
+      content = Center(
+          child: Text(
+        'No completed or cancelled orders.',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      ));
+    } else {
+      // Show the corresponding list based on the selected tab
+      content = selectedIndex == 0
+          ? OrdersList(orders: _ongoingOrders)
+          : OrdersList(orders: _historyOrders);
+    }
+
     return Column(
       children: [
         // Use a Stack to overlay buttons on the same vertical level
@@ -149,16 +246,11 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 70,
-            )
           ],
         ),
         // Wrap Expanded widget in Flexible or wrap the entire Column with Expanded
         Expanded(
-          child: selectedIndex == 0
-              ? OrdersList(orders: _ongoingOrders)
-              : OrdersList(orders: _historyOrders),
+          child: content,
         ),
       ],
     );
