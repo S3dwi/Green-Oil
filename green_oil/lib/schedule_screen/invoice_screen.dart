@@ -114,10 +114,16 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               buildDetailItem('Oil Type', getOrderType(widget.order), context),
               const Divider(),
               buildDetailItem(
-                  'Customer Name', _customerInfo.customerName, context),
+                'Customer Name',
+                _customerInfo.customerName,
+                context,
+              ),
               const Divider(),
               buildDetailItem(
-                  'Company Name', _customerInfo.companyName, context),
+                'Company Name',
+                _customerInfo.companyName,
+                context,
+              ),
               const Divider(),
               buildDetailItem(
                 'Estimated Quantity',
@@ -188,10 +194,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildDetailItem(
-                        'Invoice ID',
-                        widget.order.orderID
-                            .substring(widget.order.orderID.length - 10),
-                        context),
+                      'Invoice ID',
+                      widget.order.orderID
+                          .substring(widget.order.orderID.length - 10),
+                      context,
+                    ),
                     const Divider(),
                     buildDetailItem(
                       'Date of issue',
@@ -200,7 +207,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                     ),
                     const Divider(),
                     buildDetailItem(
-                        'Contact Details', 'greenOil@gmail.com', context),
+                      'Contact Details',
+                      'greenOil@gmail.com',
+                      context,
+                    ),
                   ],
                 ),
               ),
@@ -315,15 +325,29 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 'Date of issue',
                 DateFormat('MMMM d, y').format(DateTime.now()),
               ),
-              _buildPDFSection('Contact Details', 'greenOil@gmail.com'),
+              _buildPDFSection(
+                'Contact Details',
+                'greenOil@gmail.com',
+              ),
               pw.SizedBox(height: 20),
-              pw.Text('Order Details',
-                  style: pw.TextStyle(
-                      fontSize: 18, fontWeight: pw.FontWeight.bold)),
+              pw.Text(
+                'Order Details',
+                style:
+                    pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold),
+              ),
               pw.SizedBox(height: 8),
-              _buildPDFSection('Oil Type', getOrderType(widget.order)),
-              _buildPDFSection('Customer Name', 'Raef Shah'),
-              _buildPDFSection('Company Name', 'ALBAIK'),
+              _buildPDFSection(
+                'Oil Type',
+                getOrderType(widget.order),
+              ),
+              _buildPDFSection(
+                'Customer Name',
+                _customerInfo.customerName,
+              ),
+              _buildPDFSection(
+                'Company Name',
+                _customerInfo.companyName,
+              ),
               _buildPDFSection(
                 'Estimated Quantity',
                 '${widget.order.oilQuantity.toStringAsFixed(1)}L',
@@ -348,7 +372,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     try {
       await Printing.sharePdf(
         bytes: await pdf.save(),
-        filename: 'invoice.pdf',
+        filename: 'invoice ${widget.order.orderID.substring(
+          widget.order.orderID.length - 10,
+        )}.pdf',
       );
     } catch (e) {
       if (mounted) {
