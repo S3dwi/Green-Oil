@@ -1,17 +1,112 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 import 'package:green_oil/schedule_screen/vertical.dart';
 import 'package:green_oil/models/my_order.dart';
 import 'package:green_oil/primary_button.dart';
 import 'package:green_oil/nav_bar.dart';
 
-class TrackOrderScreen extends StatelessWidget {
+class TrackOrderScreen extends StatefulWidget {
   const TrackOrderScreen({
     super.key,
     required this.order,
   });
 
   final MyOrder order;
+
+  @override
+  State<StatefulWidget> createState() {
+    return _TrackOrderScreenState();
+  }
+}
+
+class _TrackOrderScreenState extends State<TrackOrderScreen> {
+  int _currentStep = 0; // Initial step
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentStep = mapOrderStatusToStep(widget.order.orderStatus.name);
+    fetchOrderStatus();
+    _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
+      fetchOrderStatus();
+    });
+  }
+
+  @override
+  void dispose() {
+    // Cancel the timer when the widget is disposed
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  int mapOrderStatusToStep(String status) {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return 0;
+      case 'accepted':
+        return 1;
+      case 'pickupscheduled':
+        return 2;
+      case 'completed':
+        return 3;
+      default:
+        return 0; // Default step for unknown statuses
+    }
+  }
+
+  Future<int> getOrderStatus() async {
+    try {
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+
+      if (userId != null) {
+        final databaseRef = FirebaseDatabase.instance
+            .ref('requests/$userId/${widget.order.orderID}');
+        final snapshot = await databaseRef.get();
+
+        if (snapshot.exists) {
+          final orderData = Map<String, dynamic>.from(snapshot.value as Map);
+          final String status = orderData['order Status'] ?? '';
+
+          switch (status.toLowerCase()) {
+            case 'pending':
+              return 0;
+            case 'accepted':
+              return 1;
+            case 'pickupscheduled':
+              return 2;
+            case 'completed':
+              return 3;
+            default:
+              return -1;
+          }
+        }
+      }
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "An error occurred while fetching order status: $error",
+            ),
+          ),
+        );
+      }
+    }
+    return -1; // Default for unknown status or errors
+  }
+
+  void fetchOrderStatus() async {
+    final int status = await getOrderStatus();
+    if (mounted) {
+      setState(() {
+        _currentStep = status; // Update the step based on status
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +154,7 @@ class TrackOrderScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Order ID: ${order.orderID.substring(order.orderID.length - 10)}',
+                'Order ID: ${widget.order.orderID.substring(widget.order.orderID.length - 10)}',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w900,
@@ -78,7 +173,7 @@ class TrackOrderScreen extends StatelessWidget {
               vertical: 20,
             ),
             child: Vertical(
-              currentStep: 3,
+              currentStep: _currentStep,
               stepLabels: [
                 "Order Placed",
                 "Order Accepted",
