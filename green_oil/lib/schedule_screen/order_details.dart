@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:green_oil/models/my_order.dart';
+
 import 'package:green_oil/schedule_screen/invoice_screen.dart';
+import 'package:green_oil/models/my_order.dart';
+import 'package:green_oil/schedule_screen/track_order.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({
@@ -219,7 +221,13 @@ class OrderDetails extends StatelessWidget {
                                       order.orderStatus == OrderStatus.cancelled
                                   ? null
                                   : () {
-                                      // Track order action
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => TrackOrder(
+                                            order: order,
+                                          ),
+                                        ),
+                                      );
                                     },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context)

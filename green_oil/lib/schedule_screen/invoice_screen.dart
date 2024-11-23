@@ -1,13 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
-import 'package:green_oil/auth_button.dart';
-import 'package:green_oil/models/customer_info.dart';
-import 'package:intl/intl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import 'package:green_oil/models/customer_info.dart';
 import 'package:green_oil/models/my_order.dart';
+import 'package:green_oil/auth_button.dart';
 
 class InvoiceScreen extends StatefulWidget {
   const InvoiceScreen({
@@ -52,8 +52,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
 
           // Create the Customerinfo instance
           final customerInfo = Customerinfo(
-            companyName: providerData['Name'].toString(),
-            customerName: providerData['Customer Name'].toString(),
+            customerName: providerData['Name'].toString(),
+            companyName: providerData['Company Name'].toString(),
             contactEamil: providerData['Email'].toString(),
             seekerEmail: providerData['Seeker Email'].toString(),
           );
@@ -183,7 +183,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 45),
             Card(
               elevation: 2,
               color: Theme.of(context).colorScheme.onPrimary,
@@ -215,7 +215,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: Align(
@@ -231,7 +231,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               ),
             ),
             content,
-            const SizedBox(height: 38),
+            const SizedBox(height: 28),
             AuthButton(
               onPressed: _loading
                   ? () {}
