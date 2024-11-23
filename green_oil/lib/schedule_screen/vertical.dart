@@ -92,7 +92,7 @@ class Vertical extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           color: isActiveStep || isCompletedStep
-                              ? Colors.black
+                              ? Theme.of(context).colorScheme.secondary
                               : Theme.of(context).disabledColor,
                         ),
                       ),
