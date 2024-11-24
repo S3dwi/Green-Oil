@@ -228,7 +228,7 @@ class _RecycleOilState extends State<RecycleOil> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 40),
+                SizedBox(height: 30),
                 // Dropdown to choose oil type
                 OilTypeDropdown(
                   selectedOilType: _selectedOilType,
@@ -239,7 +239,7 @@ class _RecycleOilState extends State<RecycleOil> {
                     });
                   },
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: 30),
 
                 // Editable quantity field with increment and decrement buttons
                 Opacity(
@@ -270,7 +270,7 @@ class _RecycleOilState extends State<RecycleOil> {
                           controller: _quantityController,
                           onSubmitted: _validateQuantityInput,
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: 30),
 
                         // Company Location
                         Container(
@@ -288,7 +288,7 @@ class _RecycleOilState extends State<RecycleOil> {
 
                         //LOCATION CARD
                         LocationCard(onLocationSelected: _onLocationSelected),
-                        SizedBox(height: 40),
+                        SizedBox(height: 30),
 
                         // Select Pickup Date
                         Container(
@@ -305,7 +305,6 @@ class _RecycleOilState extends State<RecycleOil> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                            vertical: 4,
                             horizontal: 20,
                           ),
                           child: SelectPickupDate(

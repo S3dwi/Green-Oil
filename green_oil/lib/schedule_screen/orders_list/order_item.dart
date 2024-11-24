@@ -25,8 +25,7 @@ class OrderItem extends StatelessWidget {
             vertical: 5,
           ), // Space around the card
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            // Padding inside the card
+            padding: const EdgeInsets.all(12.0), // Padding inside the card
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,12 +35,15 @@ class OrderItem extends StatelessWidget {
                   order.orderID.substring(order.orderID.length - 10),
                   context,
                 ),
+                Divider(thickness: 1.2, height: 10), // Add a divider here
+
                 // Order Type
                 buildDetailItem(
                   'Oil Type',
                   getOrderType(order),
                   context,
                 ),
+                Divider(thickness: 1.2, height: 10), // Add a divider here
 
                 // Oil Quantity and Points
                 buildDetailItem(
@@ -49,6 +51,7 @@ class OrderItem extends StatelessWidget {
                   '${order.oilQuantity.toStringAsFixed(1)}L',
                   context,
                 ),
+                Divider(thickness: 1.2, height: 10), // Add a divider here
 
                 // Pickup Date
                 buildDetailItem(
@@ -56,8 +59,8 @@ class OrderItem extends StatelessWidget {
                   formattedDate,
                   context,
                 ),
-
                 const SizedBox(height: 5),
+
                 // View Details Link
                 Container(
                   height: 40, // Adjust the height as needed

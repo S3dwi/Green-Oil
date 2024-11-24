@@ -158,7 +158,13 @@ class _SupportScreenState extends State<SupportScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Delete My Account'),
+              const Text(
+                'Delete Account',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () {
@@ -176,10 +182,37 @@ class _SupportScreenState extends State<SupportScreen> {
                   fontSize: 16,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
+                textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Cancel Button (Outlined)
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 1.5,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12), // Spacing between buttons
+
+                  // Delete Account Button
                   ElevatedButton(
                     onPressed: () async {
                       User? user = FirebaseAuth.instance.currentUser;
@@ -193,11 +226,13 @@ class _SupportScreenState extends State<SupportScreen> {
 
                           try {
                             await user.delete();
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => SignInScreen(),
-                              ),
-                            );
+                            if (mounted) {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const SignInScreen(),
+                                ),
+                              );
+                            }
                           } catch (authError) {
                             if (mounted) {
                               ScaffoldMessenger.of(context).clearSnackBars();
@@ -215,7 +250,7 @@ class _SupportScreenState extends State<SupportScreen> {
                             ScaffoldMessenger.of(context).clearSnackBars();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Failed to delete user data'),
+                                content: Text('Failed to delete user data.'),
                               ),
                             );
                           }
@@ -231,27 +266,8 @@ class _SupportScreenState extends State<SupportScreen> {
                     child: Text(
                       'Delete Account',
                       style: TextStyle(
+                        fontSize: 17,
                         color: Theme.of(context).colorScheme.onPrimary,
-                        fontSize: 17,
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 17,
                       ),
                     ),
                   ),

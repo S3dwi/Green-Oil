@@ -19,7 +19,7 @@ void main() async {
   ]).then(
     (fn) {
       runApp(const App());
-    },
+    }
   );
 }
 

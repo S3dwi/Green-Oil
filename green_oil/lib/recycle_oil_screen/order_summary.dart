@@ -154,20 +154,19 @@ class _OrderSummaryState extends State<OrderSummary> {
             elevation: 2,
             color: Theme.of(context).colorScheme.onPrimary,
             margin: const EdgeInsets.symmetric(
-                horizontal: 14, vertical: 5), // Space around the card
+              horizontal: 14,
+              vertical: 5,
+            ),
             child: Padding(
-              padding: const EdgeInsets.all(12.0), // Padding inside the card
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Oil Type
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 14,
-                      horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      borderRadius: BorderRadius.circular(6),
+                      vertical: 8, // Slightly increased vertical padding
+                      horizontal: 6, // Slightly increased horizontal padding
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -191,15 +190,15 @@ class _OrderSummaryState extends State<OrderSummary> {
                       ],
                     ),
                   ),
-                  // Oil Quantity and Points
+                  Divider(
+                      thickness: 1.2,
+                      height: 10), // More space and thicker line
+
+                  // Estimated Quantity
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 14,
+                      vertical: 8,
                       horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      borderRadius: BorderRadius.circular(6),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -223,15 +222,13 @@ class _OrderSummaryState extends State<OrderSummary> {
                       ],
                     ),
                   ),
-                  // Oil Quantity and Points
+                  Divider(thickness: 1.2, height: 10),
+
+                  // Oil Price
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 14,
+                      vertical: 8,
                       horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      borderRadius: BorderRadius.circular(6),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -255,14 +252,13 @@ class _OrderSummaryState extends State<OrderSummary> {
                       ],
                     ),
                   ),
+                  Divider(thickness: 1.2, height: 10),
+
+                  // Company Location
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 14,
+                      vertical: 8,
                       horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      borderRadius: BorderRadius.circular(6),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -286,14 +282,13 @@ class _OrderSummaryState extends State<OrderSummary> {
                       ],
                     ),
                   ),
+                  Divider(thickness: 1.2, height: 10),
+
+                  // Pickup Date
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 14,
+                      vertical: 8,
                       horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      borderRadius: BorderRadius.circular(6),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -307,7 +302,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                           ),
                         ),
                         Text(
-                          formattedDate,
+                          '${widget.order.arrivalDate.day}/${widget.order.arrivalDate.month}/${widget.order.arrivalDate.year}',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -321,6 +316,7 @@ class _OrderSummaryState extends State<OrderSummary> {
               ),
             ),
           ),
+
           Spacer(),
 
           // Next Button
