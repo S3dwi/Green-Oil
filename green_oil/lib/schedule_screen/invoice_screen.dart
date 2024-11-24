@@ -55,7 +55,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
             customerName: providerData['Name'].toString(),
             companyName: providerData['Company Name'].toString(),
             contactEamil: providerData['Email'].toString(),
-            seekerEmail: providerData['Seeker Email'].toString(),
+            seekerEmail: data['seeker Email'].toString(),
           );
 
           // Update state with the fetched data
