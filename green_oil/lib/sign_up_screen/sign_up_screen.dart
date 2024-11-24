@@ -93,7 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 40), // Spacing at top
+            const SizedBox(height: 10), // Spacing at top
 
             // Logo image at top center
             Image.asset(
@@ -199,7 +199,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
 
             // Sign-in option with navigation
             Row(
