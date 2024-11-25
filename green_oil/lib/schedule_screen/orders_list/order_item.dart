@@ -161,7 +161,7 @@ Widget getOrderStatus(MyOrder order, BuildContext context) {
           width: 8,
         ),
         Text(
-          "Accepted",
+          "Order Accepted",
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w900,

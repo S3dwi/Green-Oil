@@ -295,7 +295,7 @@ String getOrderStatus(MyOrder order) {
   if (order.orderStatus == OrderStatus.pending) {
     return "Pending";
   } else if (order.orderStatus == OrderStatus.accepted) {
-    return "Accepted";
+    return "Order Accepted";
   } else if (order.orderStatus == OrderStatus.pickupScheduled) {
     return "Pickup Scheduled";
   } else if (order.orderStatus == OrderStatus.completed) {
