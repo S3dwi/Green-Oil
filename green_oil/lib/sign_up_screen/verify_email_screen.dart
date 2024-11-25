@@ -47,7 +47,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                          'verification link has been sent to your email. Please check your inbox or junk emailii.'),
+                          'Verification link has been sent to your email. Please check your inbox or junk email.'),
                     ),
                   );
                 }
