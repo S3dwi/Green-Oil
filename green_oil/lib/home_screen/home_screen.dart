@@ -1,32 +1,90 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:green_oil/home_screen/clickable_cards.dart';
-import 'package:green_oil/home_screen/image_carousel.dart';
-import 'package:green_oil/home_screen/new_location.dart';
-import 'package:green_oil/home_screen/recycle_button.dart';
-import 'package:green_oil/recycle_oil_screen/recycle_oil.dart';
-import 'package:green_oil/home_screen/faqs_screen.dart';
-import 'package:green_oil/home_screen/usage_policy_screen.dart';
-import 'package:green_oil/home_screen/order_process_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+import 'package:green_oil/home_screen/Location/address_selector.dart';
+import 'package:green_oil/home_screen/order_process_screen.dart';
+import 'package:green_oil/home_screen/usage_policy_screen.dart';
+import 'package:green_oil/recycle_oil_screen/recycle_oil.dart';
+import 'package:green_oil/home_screen/clickable_cards.dart';
+import 'package:green_oil/home_screen/recycle_button.dart';
+import 'package:green_oil/home_screen/image_carousel.dart';
+import 'package:green_oil/home_screen/faqs_screen.dart';
+import 'package:green_oil/models/my_order.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _HomeScreenState();
+  }
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _loadAddress();
+  }
 
   void recycleOil(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const RecycleOil(
+        builder: (context) => RecycleOil(
           currentStep: 0,
         ),
       ),
     );
   }
 
+  String? _selectedAddress; // Start with no address selected
   // method to open the NewExpense page in Bottom sheet
-  void _openAddExpense(BuildContext context) {
-    showModalBottomSheet(
+  void _openAddressSelector() {
+    showModalBottomSheet<Map<String, dynamic>>(
       context: context,
-      builder: (ctx) => const NewLocation(),
-    );
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => AddressSelector(
+        onLocationsChanged: (hasChanged) {
+          if (hasChanged) {
+            setState(() {
+              _selectedAddress = null;
+            });
+          }
+        },
+      ),
+    ).then((result) {
+      // Assuming 'result' can be null, which it can be if the modal is dismissed with no action
+      setState(() {
+        if (result != null) {
+          Location? selectedLocation =
+              result['location']; // Declare as nullable
+          bool listChanged = result['listChanged'];
+
+          if (!listChanged && selectedLocation != null) {
+            _selectedAddress = selectedLocation.toString();
+            _saveAddress(_selectedAddress!);
+          } else {
+            _selectedAddress = null;
+          }
+        } else {
+          _selectedAddress = null;
+        }
+      });
+    });
+  }
+
+  void _loadAddress() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedAddress = prefs.getString('selectedAddress');
+    });
+  }
+
+  void _saveAddress(String address) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedAddress', address);
   }
 
   @override
@@ -104,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
-                                'Jeddah - Alrabwah 23223, Bin Khalid Alansari, Near Albaik Almarwah branch 6977',
+                                _selectedAddress ?? 'No address selected',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color:
@@ -115,9 +173,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {
-                                _openAddExpense(context);
-                              },
+                              onPressed: _openAddressSelector,
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 color: Theme.of(context).shadowColor,

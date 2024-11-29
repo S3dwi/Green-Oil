@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:green_oil/primary_button.dart';
-import 'package:green_oil/recycle_oil_screen/location_card.dart';
+import 'package:green_oil/recycle_oil_screen/step_progress_indicator.dart';
+import 'package:green_oil/home_screen/Location/address_selector.dart';
+import 'package:green_oil/recycle_oil_screen/select_pickup_date.dart';
 import 'package:green_oil/recycle_oil_screen/oil_type_dropdown.dart';
 import 'package:green_oil/recycle_oil_screen/quantity_selector.dart';
-import 'package:green_oil/recycle_oil_screen/select_pickup_date.dart';
-import 'package:green_oil/recycle_oil_screen/step_progress_indicator.dart';
-import 'package:green_oil/models/my_order.dart';
 import 'package:green_oil/recycle_oil_screen/order_summary.dart';
+import 'package:green_oil/models/my_order.dart';
+import 'package:green_oil/primary_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RecycleOil extends StatefulWidget {
   const RecycleOil({
@@ -16,6 +17,7 @@ class RecycleOil extends StatefulWidget {
   });
 
   final int currentStep;
+
   static var totalSteps = 3;
   static var stepTitles = [
     "Oil Type",
@@ -39,17 +41,7 @@ class _RecycleOilState extends State<RecycleOil> {
   String? _selectedOilType;
   DateTime? _arrivalDate;
 
-  //to be fixed when location functionality is implemented
-  Location? _selectedLocation;
-
   final List<String> stepTitles = RecycleOil.stepTitles;
-
-  // Handle location selection from LocationCard
-  void _onLocationSelected(Location location) {
-    setState(() {
-      _selectedLocation = location;
-    });
-  }
 
   // Callback to update the selected date
   void _onDateSelected(DateTime date) {
@@ -76,6 +68,7 @@ class _RecycleOilState extends State<RecycleOil> {
   void initState() {
     super.initState();
     _quantityController.text = quantity.toStringAsFixed(0);
+    _loadAddress();
   }
 
   // Method to increment the quantity
@@ -146,6 +139,18 @@ class _RecycleOilState extends State<RecycleOil> {
     }
   }
 
+  void _loadAddress() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedAddress = prefs.getString('selectedAddress');
+    });
+  }
+
+  void _saveAddress(String address) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedAddress', address);
+  }
+
   void _showSelectOilTypeSnackBar(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -170,6 +175,45 @@ class _RecycleOilState extends State<RecycleOil> {
         ),
       ),
     );
+  }
+
+  String? _selectedAddress;
+  Location? _location;
+  void _openAddressSelector() {
+    showModalBottomSheet<Map<String, dynamic>>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => AddressSelector(
+        onLocationsChanged: (hasChanged) {
+          if (hasChanged) {
+            setState(() {
+              _selectedAddress = null;
+            });
+          }
+        },
+      ),
+    ).then((result) {
+      // Assuming 'result' can be null, which it can be if the modal is dismissed with no action
+      setState(() {
+        if (result != null) {
+          Location? selectedLocation =
+              result['location']; // Declare as nullable
+          bool listChanged = result['listChanged'];
+
+          if (!listChanged && selectedLocation != null) {
+            _selectedAddress = selectedLocation.toString();
+            _location = selectedLocation;
+            _saveAddress(_selectedAddress!);
+          } else {
+            _selectedAddress = null;
+          }
+        } else {
+          _selectedAddress = null;
+        }
+      });
+    });
   }
 
   @override
@@ -287,7 +331,78 @@ class _RecycleOilState extends State<RecycleOil> {
                         ),
 
                         //LOCATION CARD
-                        LocationCard(onLocationSelected: _onLocationSelected),
+                        Center(
+                          child: Container(
+                            height: 80,
+                            margin: EdgeInsets.symmetric(
+                                vertical: 7, horizontal: 25),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context).shadowColor,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.location_on,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: 30,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        'Company Address',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w900,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                        ),
+                                      ),
+                                      Text(
+                                        _selectedAddress ??
+                                            'No address selected',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: _openAddressSelector,
+                                  child: Text(
+                                    'CHANGE',
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                         SizedBox(height: 30),
 
                         // Select Pickup Date
@@ -344,11 +459,11 @@ class _RecycleOilState extends State<RecycleOil> {
                                 arrivalDate: _arrivalDate!,
                                 orderStatus:
                                     OrderStatus.pending, // default status
-                                location: Location(
-                                  city: 'Jeddah',
-                                  latitude: 21.735611,
-                                  longitude: 39.283458,
-                                ),
+                                location: _location ??
+                                    Location(
+                                      latitude: 21.735611,
+                                      longitude: 39.283458,
+                                    ),
                               );
 
                               //Navigate to OrderSummary and pass the order object
