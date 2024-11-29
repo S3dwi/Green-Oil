@@ -142,12 +142,18 @@ class _RecycleOilState extends State<RecycleOil> {
   void _loadAddress() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
+      _location = Location(
+        latitude: prefs.getDouble('latitude') ?? 0.0,
+        longitude: prefs.getDouble('longitude') ?? 0.0,
+      );
       _selectedAddress = prefs.getString('selectedAddress');
     });
   }
 
-  void _saveAddress(String address) async {
+  void _saveAddress(double latitude, double longitude, String address) async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('latitude', latitude);
+    await prefs.setDouble('longitude', longitude);
     await prefs.setString('selectedAddress', address);
   }
 
@@ -205,7 +211,11 @@ class _RecycleOilState extends State<RecycleOil> {
           if (!listChanged && selectedLocation != null) {
             _selectedAddress = selectedLocation.toString();
             _location = selectedLocation;
-            _saveAddress(_selectedAddress!);
+            _saveAddress(
+              selectedLocation.latitude,
+              selectedLocation.longitude,
+              _selectedAddress!,
+            );
           } else {
             _selectedAddress = null;
           }
@@ -435,7 +445,7 @@ class _RecycleOilState extends State<RecycleOil> {
                             if (_selectedOilType == null) {
                               _showSelectOilTypeSnackBar(
                                   "Please Select Oil Type!");
-                            } else if ( //_selectedLocation == null ||
+                            } else if (_location == null ||
                                 _arrivalDate == null) {
                               _showSelectOilTypeSnackBar(
                                   "Please Select Location & Pickup Date!");

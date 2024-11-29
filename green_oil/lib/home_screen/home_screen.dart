@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Location? _location;
   String? _selectedAddress; // Start with no address selected
   // method to open the NewExpense page in Bottom sheet
   void _openAddressSelector() {
@@ -64,11 +65,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
           if (!listChanged && selectedLocation != null) {
             _selectedAddress = selectedLocation.toString();
-            _saveAddress(_selectedAddress!);
+            _location = selectedLocation;
+            _saveAddress(
+              selectedLocation.latitude,
+              selectedLocation.longitude,
+              _selectedAddress!,
+            );
           } else {
+            _saveAddress(
+              0.0,
+              0.0,
+              'No address selected',
+            );
             _selectedAddress = null;
           }
         } else {
+          _saveAddress(
+            0.0,
+            0.0,
+            'No address selected',
+          );
           _selectedAddress = null;
         }
       });
@@ -78,12 +94,18 @@ class _HomeScreenState extends State<HomeScreen> {
   void _loadAddress() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
+      _location = Location(
+        latitude: prefs.getDouble('latitude') ?? 0.0,
+        longitude: prefs.getDouble('longitude') ?? 0.0,
+      );
       _selectedAddress = prefs.getString('selectedAddress');
     });
   }
 
-  void _saveAddress(String address) async {
+  void _saveAddress(double latitude, double longitude, String address) async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('latitude', latitude);
+    await prefs.setDouble('longitude', longitude);
     await prefs.setString('selectedAddress', address);
   }
 
