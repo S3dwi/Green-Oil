@@ -137,76 +137,16 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 context,
               ),
               const Divider(),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Customer Email',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w900,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 60,
-                    ),
-                    Expanded(
-                      child: Text(
-                        _customerInfo.contactEamil,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
+              buildDetailItem(
+                'Customer Email',
+                _customerInfo.contactEamil,
+                context,
               ),
               const Divider(),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Seeker Email',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w900,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 80,
-                    ),
-                    Expanded(
-                      child: Text(
-                        _customerInfo.seekerEmail,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
+              buildDetailItem(
+                'Seeker Email',
+                _customerInfo.seekerEmail,
+                context,
               ),
             ],
           ),

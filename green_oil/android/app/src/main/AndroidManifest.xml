@@ -15,14 +15,6 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true">
-
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY" 
-            android:value="AIzaSyC8wdCYvzwPU_eIp5-Gml8GO0eGfC-JKcs" />
-            
-        <meta-data
-            android:name="com.google.android.libraries.maps.v2.MAP_ID"
-            android:value="3bb1024c87994968 " />
         
         <activity
             android:name=".MainActivity"

@@ -68,6 +68,7 @@ class _OrderSummaryState extends State<OrderSummary> {
               .format(widget.order.arrivalDate)
               .toString(),
           'location': {
+            'city': widget.order.location.city,
             'latitude': widget.order.location.latitude,
             'longitude': widget.order.location.longitude,
           },
@@ -270,19 +271,12 @@ class _OrderSummaryState extends State<OrderSummary> {
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
-                        const SizedBox(
-                          width: 90,
-                        ),
-                        Expanded(
-                          child: Text(
-                            widget.order.location.toString(),
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w900,
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                        Text(
+                          widget.order.location.city,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ],
@@ -308,7 +302,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                           ),
                         ),
                         Text(
-                          formattedDate,
+                          '${widget.order.arrivalDate.day}/${widget.order.arrivalDate.month}/${widget.order.arrivalDate.year}',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
