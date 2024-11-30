@@ -76,7 +76,6 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
               ),
               orderID: key,
               location: Location(
-                city: orderData['location']['city'].toString(),
                 latitude:
                     double.parse(orderData['location']['latitude'].toString()),
                 longitude:
