@@ -33,23 +33,23 @@ class MyOrder {
 }
 
 class Location {
-  final String city;
   final double latitude;
   final double longitude;
 
   Location({
-    required this.city,
     required this.latitude,
     required this.longitude,
   });
 
-  // Optional: You can add a method to generate a Google Maps link based on latitude and longitude
-  String get googleMapsLink {
-    return 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-  }
-
   @override
   String toString() {
-    return 'Location(city: $city, latitude: $latitude, longitude: $longitude)';
+    return 'Latitude: $latitude - Longitude: $longitude';
+  }
+
+  factory Location.fromMap(Map<String, dynamic> map) {
+    return Location(
+      latitude: map['latitude'].toDouble(),
+      longitude: map['longitude'].toDouble(),
+    );
   }
 }
