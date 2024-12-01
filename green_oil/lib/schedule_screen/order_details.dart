@@ -13,6 +13,8 @@ class OrderDetails extends StatelessWidget {
 
   final MyOrder order;
 
+  // Builds a styled container widget displaying a label and its corresponding value in a row.
+  // The container has custom padding, background color, and rounded corners for a clean UI design.
   Widget buildDetailItem(String label, String value, BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(

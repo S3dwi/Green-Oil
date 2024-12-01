@@ -25,6 +25,7 @@ class LacationItem extends StatefulWidget {
 }
 
 class _LacationItemState extends State<LacationItem> {
+  // delete location when clicked from the list and update cloud firebase
   void _deleteLocation(int index) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId != null) {

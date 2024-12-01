@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _loadAddress();
   }
 
+  // Navigation to RecycleOil page
   void recycleOil(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -91,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // Load address from shared preferences
   void _loadAddress() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -102,6 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // Save address to shared preferences
   void _saveAddress(double latitude, double longitude, String address) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('latitude', latitude);
@@ -222,6 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 20,
             ),
 
+            // to Recycle Oil Screen
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15), // Same padding

@@ -10,6 +10,7 @@ class AccountDetailCard extends StatelessWidget {
   final String label;
   final String value;
 
+  // account details card
   @override
   Widget build(BuildContext context) {
     return SizedBox(

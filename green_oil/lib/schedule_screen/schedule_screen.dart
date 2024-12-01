@@ -6,6 +6,8 @@ import 'package:green_oil/schedule_screen/order_switcher.dart';
 class ScheduleScreen extends StatelessWidget {
   const ScheduleScreen({super.key});
 
+  // Navigates to the OrderDetails screen, passing the selected order for detailed view.
+  // This function uses MaterialPageRoute to push the OrderDetails page onto the navigation stack.
   void viewOrderDetails(BuildContext context, MyOrder order) {
     Navigator.of(context).push(
       MaterialPageRoute(

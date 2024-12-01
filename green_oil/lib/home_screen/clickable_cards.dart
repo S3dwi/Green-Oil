@@ -12,6 +12,7 @@ class ClickableCards extends StatelessWidget {
   final String label;
   final void Function() onPressed;
 
+  // This widget builds the clickable card
   @override
   Widget build(BuildContext context) {
     return Expanded(

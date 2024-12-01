@@ -43,6 +43,10 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
     super.dispose();
   }
 
+  // Maps an order status string to a corresponding step index for a progress tracker.
+  // The function returns an integer representing the step based on the order status:
+  // 0 for 'pending', 1 for 'accepted', 2 for 'pickup scheduled', and 3 for 'completed'.
+  // Defaults to 0 for unknown statuses.
   int mapOrderStatusToStep(String status) {
     switch (status.toLowerCase()) {
       case 'pending':
@@ -57,6 +61,10 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
         return 0; // Default step for unknown statuses
     }
   }
+
+  // Fetches the order status from Firebase Realtime Database and maps it to a corresponding step index.
+  // Returns an integer representing the order's current step: 0 for 'pending', 1 for 'accepted',
+  // 2 for 'pickup scheduled', and 3 for 'completed'. Returns -1 if the status is unknown or an error occurs.
 
   Future<int> getOrderStatus() async {
     try {
@@ -99,6 +107,8 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
     return -1; // Default for unknown status or errors
   }
 
+  // Fetches the current order status using `getOrderStatus` and updates the step in the UI.
+  // The status is used to update the `_currentStep` to reflect the current progress of the order.
   void fetchOrderStatus() async {
     final int status = await getOrderStatus();
     if (mounted) {

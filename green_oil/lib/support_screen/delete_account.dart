@@ -8,6 +8,9 @@ class DeleteAccount extends StatelessWidget {
 
   final void Function() onTap;
 
+  // Builds a card UI that displays a "Delete My Account" button.
+  // The card has a shadow, custom padding, and a bold red label.
+  // When tapped, it triggers the provided [onTap] function.
   @override
   Widget build(BuildContext context) {
     return SizedBox(

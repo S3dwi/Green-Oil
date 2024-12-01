@@ -24,6 +24,7 @@ class _AddressSelectorState extends State<AddressSelector> {
   final List<Location> lacation = [];
   bool _hasChanged = false;
 
+  // Update the list of locations when the user changes their saved locations
   void _markAsChanged() {
     if (!_hasChanged) {
       setState(() {
@@ -44,6 +45,7 @@ class _AddressSelectorState extends State<AddressSelector> {
     super.dispose();
   }
 
+  // Load the user's saved locations from Firestore
   void getLocationsFromFirestore() async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
 
@@ -84,6 +86,7 @@ class _AddressSelectorState extends State<AddressSelector> {
     }
   }
 
+  // Handle the 'Add new location' button click
   void _addNewLocation() async {
     final newLocation = await Navigator.of(context).push(
       MaterialPageRoute(

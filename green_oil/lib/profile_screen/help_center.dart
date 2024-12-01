@@ -8,6 +8,7 @@ class HelpCenter extends StatelessWidget {
 
   final void Function() onTap;
 
+  // help card
   @override
   Widget build(BuildContext context) {
     return SizedBox(

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:green_oil/nav_bar.dart';
 
 class ConfirmationScreen extends StatelessWidget {
-  // Add the orderId as a final property
-
   const ConfirmationScreen({super.key});
 
+  // configuration screen
   @override
   Widget build(BuildContext context) {
     return Scaffold(

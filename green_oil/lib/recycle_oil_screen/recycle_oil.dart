@@ -139,6 +139,8 @@ class _RecycleOilState extends State<RecycleOil> {
     }
   }
 
+  // Loads the saved address (latitude, longitude, and address) from shared preferences
+  // and updates the location and selected address state.
   void _loadAddress() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -150,6 +152,7 @@ class _RecycleOilState extends State<RecycleOil> {
     });
   }
 
+  // Saves the user's selected address (latitude, longitude, and address) to shared preferences.
   void _saveAddress(double latitude, double longitude, String address) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('latitude', latitude);
@@ -157,6 +160,8 @@ class _RecycleOilState extends State<RecycleOil> {
     await prefs.setString('selectedAddress', address);
   }
 
+  // Displays a custom SnackBar with a message informing the user about the selected oil type.
+  // The SnackBar appears with custom styling and a floating behavior for 2 seconds.
   void _showSelectOilTypeSnackBar(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -185,6 +190,10 @@ class _RecycleOilState extends State<RecycleOil> {
 
   String? _selectedAddress;
   Location? _location;
+
+  // Opens a modal bottom sheet to allow the user to select an address.
+  // If a location is selected and the address list is updated, it updates
+  // the selected address and location state.
   void _openAddressSelector() {
     showModalBottomSheet<Map<String, dynamic>>(
       context: context,
@@ -488,8 +497,11 @@ class _RecycleOilState extends State<RecycleOil> {
                               );
                             }
                           },
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
+                          backgroundColor: _selectedOilType == null ||
+                                  _location == null ||
+                                  _arrivalDate == null
+                              ? Theme.of(context).disabledColor
+                              : Theme.of(context).colorScheme.primary,
                           label: "NEXT",
                           vertical: 13,
                           horizontal: 149,

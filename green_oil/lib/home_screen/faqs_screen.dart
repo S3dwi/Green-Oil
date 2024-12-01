@@ -42,6 +42,7 @@ class FAQScreen extends StatelessWidget {
           Expanded(
             child: ListView(
               children: const [
+                // FAQ item 1
                 FAQItem(
                   title: "How does GreenOil work?",
                   description:
@@ -51,6 +52,7 @@ class FAQScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Divider(),
                 ),
+                // FAQ item 2
                 FAQItem(
                   title: "What types of used oil can I sell?",
                   description:
@@ -60,6 +62,7 @@ class FAQScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Divider(),
                 ),
+                // FAQ item 3
                 FAQItem(
                   title: "How much can I earn?",
                   description:
@@ -69,6 +72,7 @@ class FAQScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Divider(),
                 ),
+                // FAQ item 4
                 FAQItem(
                   title: "Is there a minimum quantity?",
                   description:
@@ -78,6 +82,7 @@ class FAQScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Divider(),
                 ),
+                // FAQ item 5
                 FAQItem(
                   title: "Is my information safe?",
                   description:
@@ -87,6 +92,7 @@ class FAQScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Divider(),
                 ),
+                // FAQ item 6
                 FAQItem(
                   title: "How do I get paid?",
                   description:
@@ -113,6 +119,8 @@ class FAQItem extends StatelessWidget {
     required this.description,
   });
 
+  // Build the ExpansionTile widget with the provided title and description.
+  // Use ExpansionTile for collapsible content.
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(

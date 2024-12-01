@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class NewLocation extends StatelessWidget {
   const NewLocation({super.key});
 
+  // The build method is called when the widget is being displayed
   @override
   Widget build(BuildContext context) {
     return Container(

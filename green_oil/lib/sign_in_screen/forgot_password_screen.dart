@@ -21,6 +21,9 @@ class _ForgotPasswordState extends State<ForgotPasswordScreen> {
   var _enteredEmail = '';
   bool _isLoading = false;
 
+  // Initiates the password reset process by sending a reset email to the user.
+  // If successful, navigates to the 'SendEmailScreen' with a message to return to the sign-in screen.
+  // If an error occurs, displays an error message in a SnackBar.
   void _resetPassword() async {
     if (_form.currentState!.validate()) {
       _form.currentState!.save();

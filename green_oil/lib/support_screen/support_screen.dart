@@ -17,6 +17,9 @@ class SupportScreen extends StatefulWidget {
 }
 
 class _SupportScreenState extends State<SupportScreen> {
+  // Opens the default email client with a pre-filled subject ("Green Oil") and
+  // recipient ("xxazooozeexx@gmail.com"). This function uses the launchUrl
+  // method to initiate the email composition screen.
   void _sendEmail() async {
     String? encodeQueryParameters(Map<String, String> params) {
       return params.entries
@@ -36,12 +39,15 @@ class _SupportScreenState extends State<SupportScreen> {
     launchUrl(emailLaunchUri);
   }
 
+  // Opens WhatsApp with a pre-filled phone number (9660505406459) for a chat.
   void _openWhatsApp() async {
     Uri whatsappUrl = Uri.parse("https://wa.me/9660505406459");
 
     launchUrl(whatsappUrl);
   }
 
+  // Deletes the user's account from Firestore and Firebase Authentication,
+  // then navigates to the SignInScreen. Displays an error message if deletion fails.
   void _deleteAccount() async {
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -189,6 +195,8 @@ class _SupportScreenState extends State<SupportScreen> {
     );
   }
 
+  // Displays a confirmation dialog to delete the user's account.
+  // If confirmed, deletes the user from Firestore and Firebase Authentication.
   void _deleteUserAccount() async {
     showDialog(
       context: context,

@@ -29,6 +29,8 @@ class OrderSummary extends StatefulWidget {
 class _OrderSummaryState extends State<OrderSummary> {
   bool _isLoading = false;
 
+  // Fetches user information from Firestore using the provided [userId].
+  // Returns a map with the user's email, name, company, phone number, and image URL.
   Future<Map<String, String>> fetchUserInfo(String userId) async {
     final userDoc =
         FirebaseFirestore.instance.collection('provider').doc(userId);
@@ -44,6 +46,9 @@ class _OrderSummaryState extends State<OrderSummary> {
     };
   }
 
+  // Submits a recycling request by saving order details to Firebase Realtime Database.
+  // It fetches user information from Firestore, constructs the order data, and stores it
+  // under a unique request ID. The request status is set to "pending".
   void _submitRecyclingRequest() async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId != null) {

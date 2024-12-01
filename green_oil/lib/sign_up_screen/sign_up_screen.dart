@@ -30,7 +30,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var _enteredPassword = '';
   bool _isLoading = false;
 
-  // Function to handle account creation
+  // Creates a new user account with email and password, saves user data to Firestore,
+  // and sends an email verification. If successful, navigates to the 'VerifyEmailScreen'.
+  // Displays error messages if the account creation fails.
   void _createAccount() async {
     if (_form.currentState!.validate()) {
       _form.currentState!.save();

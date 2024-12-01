@@ -32,6 +32,7 @@ class App extends StatelessWidget {
       theme: themeLight,
       darkTheme: themeDark,
       themeMode: ThemeMode.system,
+      // StreamBuilder monitors auth state, navigating based on email verification=
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {

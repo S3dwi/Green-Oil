@@ -42,6 +42,8 @@ class _OrderSwitcherState extends State<OrderSwitcher> {
     super.dispose();
   }
 
+  // Fetches the user's requests from Firebase Realtime Database and categorizes them into ongoing and history orders.
+  // The orders are retrieved based on the user's ID, and the data is parsed into `MyOrder` objects.
   void getUserRequests() async {
     try {
       final userId = FirebaseAuth.instance.currentUser?.uid;

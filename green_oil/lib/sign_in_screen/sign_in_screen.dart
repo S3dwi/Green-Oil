@@ -26,7 +26,9 @@ class _SignInScreenState extends State<SignInScreen> {
   var _enteredPassword = '';
   bool _isLoading = false;
 
-  // Function to handle SignIn
+  // Handles the user sign-in process with email and password.
+  // Validates the form, signs in the user via FirebaseAuth, checks email verification status,
+  // and navigates to the appropriate screen based on the verification status.
   void _signIn() async {
     if (_form.currentState!.validate()) {
       _form.currentState!.save();

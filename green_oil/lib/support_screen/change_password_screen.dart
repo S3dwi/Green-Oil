@@ -19,6 +19,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   var _enteredEmail = '';
   bool _isLoading = false;
 
+  // Sends a password reset email to the entered email address. If successful,
+  // navigates the user to the 'SendEmailScreen' with a 'Back to Home' option.
+  // Displays an error message if the reset process fails.
   void _resetPassword() async {
     if (_form.currentState!.validate()) {
       _form.currentState!.save();

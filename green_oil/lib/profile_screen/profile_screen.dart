@@ -30,6 +30,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     fetchUserInfo();
   }
 
+  // Fetches the current user's information from Firestore and updates the UI state.
+  // The user's name, company, email, phone, and image URL are retrieved and displayed.
+  //  If an error occurs during the fetch, an error message is shown to the user
   void fetchUserInfo() async {
     final firebaseUser = FirebaseAuth.instance.currentUser;
 
@@ -65,6 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  // Navigates to the SupportScreen to provide assistance or customer support.
   void helpCenter(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -73,6 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  // Displays a confirmation dialog before signing out the user.
+  // If confirmed, the user will be logged out, and the dialog will close.
   void _signOut() async {
     showDialog(
       context: context,
@@ -167,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  
+  // Validates if a given string is a properly formatted URL with an absolute path.
   bool isValidUrl(String url) {
     return Uri.tryParse(url)?.hasAbsolutePath ?? false;
   }

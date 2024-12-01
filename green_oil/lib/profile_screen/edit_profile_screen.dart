@@ -31,6 +31,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _phoneNumber.dispose();
   }
 
+  // Updates the user's profile by uploading a new image (if available),
+  // and saving updated name and phone number to Firestore.
+  // It also handles loading state while the update is in progress.
   void _updateProfile() async {
     final firebaseUser = FirebaseAuth.instance.currentUser;
 

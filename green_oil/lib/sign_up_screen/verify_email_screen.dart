@@ -40,7 +40,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
             const SizedBox(height: 40),
             PrimaryButton(
               onPressed: () {
-                // Send verification email here
+                //Send email verification to the current user's email address
                 FirebaseAuth.instance.currentUser?.sendEmailVerification();
                 if (mounted) {
                   ScaffoldMessenger.of(context).clearSnackBars();

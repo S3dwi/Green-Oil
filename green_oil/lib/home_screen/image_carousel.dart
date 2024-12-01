@@ -13,6 +13,7 @@ class ImageCarousel extends StatefulWidget {
 class _ImageCarouselState extends State<ImageCarousel> {
   int _currentIndex = 0; // Track the current index
 
+  // List of image paths
   final List<String> imageList = [
     'assets/images/recycle-Oil.png',
     'assets/images/recycled-products.png',
@@ -23,6 +24,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Carousel items
         CarouselSlider(
           items: imageList.map(
             (imagePath) {

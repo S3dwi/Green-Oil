@@ -91,6 +91,8 @@ class OrderItem extends StatelessWidget {
   }
 }
 
+// Builds a container widget displaying a label and its corresponding value.
+// The container is styled with custom padding, colors, and a rounded border.
 Widget buildDetailItem(String label, String value, BuildContext context) {
   return Container(
     padding: const EdgeInsets.symmetric(
@@ -125,6 +127,8 @@ Widget buildDetailItem(String label, String value, BuildContext context) {
   );
 }
 
+// Returns a widget displaying the order status with an appropriate icon and label.
+// The status could be 'Pending', 'Accepted', or other custom order statuses.
 Widget getOrderStatus(MyOrder order, BuildContext context) {
   if (order.orderStatus == OrderStatus.pending) {
     return Row(
@@ -239,6 +243,8 @@ Widget getOrderStatus(MyOrder order, BuildContext context) {
   }
 }
 
+// Returns the string representation of the oil type for the given order.
+// If the oil type is not recognized, it returns "ERROR".
 String getOrderType(MyOrder order) {
   if (order.oilType == OilType.cookingOil) {
     return "Cooking Oil";

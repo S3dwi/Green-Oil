@@ -17,6 +17,8 @@ class _MapScreenState extends State<MapScreen> {
   LatLng? _selectedPosition;
   // Variable to store the selected position on the map
 
+  // Adds a location (latitude, longitude, etc.) to the authenticated user's
+  // "savedLocations" array in Firestore under the 'provider' collection.
   Future<void> _saveLocationToFirestore(
       String userId, Map<String, dynamic> location) async {
     try {
@@ -41,6 +43,7 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+  // Saves the selected location (latitude, longitude) to Firestore and navigates back.
   void _onLocationSelected(LatLng position) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
 

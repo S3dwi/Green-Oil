@@ -10,6 +10,8 @@ class OrdersList extends StatelessWidget {
 
   final List<MyOrder> orders;
 
+  // Builds a list of order items using ListView.builder.
+  // Each item in the list is an instance of the OrderItem widget, displaying an order.
   @override
   Widget build(context) {
     return ListView.builder(

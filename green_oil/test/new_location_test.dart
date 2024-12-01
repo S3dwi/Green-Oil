@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:green_oil/home_screen/new_location.dart';
 
 void main() {
-  testWidgets('NewLocation - Render and Close Button Test', (WidgetTester tester) async {
+  testWidgets('NewLocation - Render and Close Button Test',
+      (WidgetTester tester) async {
     // Build the NewLocation widget within a MaterialApp for context
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(

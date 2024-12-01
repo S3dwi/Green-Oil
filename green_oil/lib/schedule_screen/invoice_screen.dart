@@ -34,6 +34,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     _getCustomerInfo();
   }
 
+  // Fetches customer information from Firebase Realtime Database based on the current user's ID and order ID.
+  // It retrieves provider and seeker details, and updates the state with the fetched customer information.
   void _getCustomerInfo() async {
     try {
       final userId = FirebaseAuth.instance.currentUser?.uid;
@@ -323,6 +325,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     );
   }
 
+  // Builds a container widget displaying a label and its corresponding value,
+  // styled with custom padding, background color, and rounded corners.
   Widget buildDetailItem(String label, String value, BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
@@ -354,6 +358,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     );
   }
 
+  // Generates a PDF invoice with order details including Invoice ID, date of issue, and contact details.
+  // The PDF document is created using the `pdf` package and displayed during the loading process.
   Future<void> _generateInvoicePDF(BuildContext context) async {
     final pdf = pw.Document();
 
@@ -462,6 +468,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   }
 }
 
+// Returns a string representation of the oil type for the given order.
+// Possible values are "Cooking Oil", "Motor Oil", "Lubricating Oil",
+// or "ERROR" if the oil type is not recognized.
 String getOrderType(MyOrder order) {
   if (order.oilType == OilType.cookingOil) {
     return "Cooking Oil";
