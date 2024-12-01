@@ -167,6 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  
   bool isValidUrl(String url) {
     return Uri.tryParse(url)?.hasAbsolutePath ?? false;
   }
