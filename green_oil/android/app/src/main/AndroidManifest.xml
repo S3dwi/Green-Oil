@@ -11,9 +11,9 @@
 
 
     <application
-        android:label="green_oil"
+        android:label="Green Oil"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_icon"
         android:enableOnBackInvokedCallback="true">
 
         <meta-data
